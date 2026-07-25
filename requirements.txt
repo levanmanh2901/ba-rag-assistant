@@ -1,0 +1,23 @@
+# Xử lý tài liệu (API ổn định, ghim cứng version)
+python-docx==1.1.2
+openpyxl==3.1.5
+pandas==2.2.3
+python-frontmatter==1.1.0
+PyYAML==6.0.2
+
+# RAG core (hệ sinh thái thay đổi nhanh, dùng >= để lấy bản mới nhất tương thích)
+sentence-transformers>=3.3
+chromadb>=0.5.23
+rank-bm25==0.2.2
+
+# LLM API (SDK cập nhật thường xuyên, luôn nên lấy bản mới nhất)
+anthropic>=0.40
+
+# Evaluation (tùy chọn, dùng ở bước sau)
+ragas>=0.2.10
+
+# UI demo (tùy chọn, dùng ở bước sau)
+streamlit>=1.41
+
+# Tiện ích
+python-dotenv==1.0.1

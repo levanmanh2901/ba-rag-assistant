@@ -1,0 +1,254 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created_date": "2026-07-23",
+    "total_questions": 32,
+    "purpose": "Bộ câu hỏi kiểm thử dùng để đánh giá hệ thống RAG bằng framework RAGAS (Faithfulness, Answer Relevancy, Context Precision, Context Recall)",
+    "groups": {
+      "single_source": "Câu hỏi tra cứu trực tiếp, đáp án nằm gọn trong 1 tài liệu",
+      "multi_source": "Câu hỏi cần tổng hợp thông tin từ 2 tài liệu trở lên",
+      "table_numeric": "Câu hỏi về số liệu nằm trong bảng (Excel), kiểm tra khả năng xử lý dữ liệu dạng bảng",
+      "version_conflict": "Câu hỏi có tồn tại đáp án cũ và mới mâu thuẫn, kiểm tra khả năng lọc theo status/version",
+      "adversarial": "Câu hỏi 'bẫy' không có đáp án trong Knowledge Base, hệ thống phải từ chối trả lời thay vì bịa"
+    }
+  },
+  "questions": [
+    {
+      "id": "Q001",
+      "group": "single_source",
+      "question": "Hạn mức chuyển tiền P2P mỗi ngày của tài khoản Tier 2 là bao nhiêu?",
+      "ground_truth": "20.000.000 VNĐ mỗi ngày.",
+      "expected_source_docs": ["BR-002"],
+      "note": "Đáp án gốc ở BR-002, không phải BRD-002 (chỉ tham chiếu lại)"
+    },
+    {
+      "id": "Q002",
+      "group": "single_source",
+      "question": "Ngưỡng face matching tối thiểu để xác thực eKYC thành công là bao nhiêu phần trăm?",
+      "ground_truth": "85% độ tương đồng.",
+      "expected_source_docs": ["SOP-002"],
+      "note": "Nằm trong file .docx, kiểm tra khả năng parse Word"
+    },
+    {
+      "id": "Q003",
+      "group": "single_source",
+      "question": "Mã QR động của merchant có hiệu lực trong bao lâu?",
+      "ground_truth": "5 phút kể từ khi merchant tạo mã.",
+      "expected_source_docs": ["BRD-003"]
+    },
+    {
+      "id": "Q004",
+      "group": "single_source",
+      "question": "SLA xử lý khiếu nại giao dịch không nhận diện là bao nhiêu ngày?",
+      "ground_truth": "7 ngày làm việc.",
+      "expected_source_docs": ["SOP-003"]
+    },
+    {
+      "id": "Q005",
+      "group": "single_source",
+      "question": "Float Balance nghĩa là gì?",
+      "ground_truth": "Tổng số tiền khách hàng đang gửi trong ví nhưng chưa sử dụng, công ty có trách nhiệm đảm bảo an toàn 100% số tiền này theo quy định NHNN.",
+      "expected_source_docs": ["GL-001"]
+    },
+    {
+      "id": "Q006",
+      "group": "single_source",
+      "question": "Chuyển tiền P2P giữa hai người dùng ManhPay có mất phí không?",
+      "ground_truth": "Miễn phí hoàn toàn, không giới hạn số lần.",
+      "expected_source_docs": ["BRD-002", "FEE-001", "FAQ-001"]
+    },
+    {
+      "id": "Q007",
+      "group": "single_source",
+      "question": "Tài khoản phải đạt Tier tối thiểu nào mới được rút tiền về ngân hàng?",
+      "ground_truth": "Tier 2 (đã hoàn tất eKYC cơ bản).",
+      "expected_source_docs": ["BRD-004"]
+    },
+    {
+      "id": "Q008",
+      "group": "single_source",
+      "question": "Rule FR-003 trong bộ quy tắc phòng chống gian lận được kích hoạt khi nào?",
+      "ground_truth": "Khi đăng nhập từ thiết bị mới và rút tiền toàn bộ số dư trong vòng 30 phút.",
+      "expected_source_docs": ["BR-004"]
+    },
+    {
+      "id": "Q009",
+      "group": "single_source",
+      "question": "Quy trình đối soát tự động chạy vào lúc mấy giờ hàng ngày?",
+      "ground_truth": "02:00 giờ Việt Nam, cho dữ liệu của ngày liền trước.",
+      "expected_source_docs": ["SOP-005"]
+    },
+    {
+      "id": "Q010",
+      "group": "single_source",
+      "question": "Nguyên nhân gốc rễ của sự cố INC-001 là gì?",
+      "ground_truth": "Đối tác cổng thanh toán thẻ quốc tế thay đổi độ dài trường transaction_reference từ 20 lên 24 ký tự mà không thông báo, khiến hệ thống từ chối callback.",
+      "expected_source_docs": ["INC-001"]
+    },
+    {
+      "id": "Q011",
+      "group": "single_source",
+      "question": "Merchant nhận tiền về tài khoản ngân hàng sau bao lâu?",
+      "ground_truth": "Ngày làm việc kế tiếp (T+1); merchant hạng Kim Cương có thể đăng ký nhận trong ngày (T+0).",
+      "expected_source_docs": ["FAQ-002"]
+    },
+    {
+      "id": "Q012",
+      "group": "single_source",
+      "question": "User Story MANHPAY-1425 hiện đang ở trạng thái nào?",
+      "ground_truth": "Backlog, chưa lên sprint.",
+      "expected_source_docs": ["US-EPIC-021"]
+    },
+    {
+      "id": "Q013",
+      "group": "table_numeric",
+      "question": "Phí nạp tiền qua thẻ quốc tế là bao nhiêu?",
+      "ground_truth": "1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ.",
+      "expected_source_docs": ["FEE-001", "BRD-001"]
+    },
+    {
+      "id": "Q014",
+      "group": "table_numeric",
+      "question": "Merchant hạng Vàng chịu phí QR bao nhiêu phần trăm?",
+      "ground_truth": "0.8%.",
+      "expected_source_docs": ["FEE-001"]
+    },
+    {
+      "id": "Q015",
+      "group": "table_numeric",
+      "question": "Nếu tôi nạp 2.000.000 VNĐ bằng thẻ quốc tế thì bị trừ phí bao nhiêu?",
+      "ground_truth": "30.000 VNĐ (1.5% của 2.000.000, lớn hơn mức tối thiểu 5.000 VNĐ).",
+      "expected_source_docs": ["FEE-001"],
+      "note": "Kiểm tra khả năng đọc giá trị đã tính từ công thức Excel"
+    },
+    {
+      "id": "Q016",
+      "group": "table_numeric",
+      "question": "Phí rút tiền về ngân hàng được tính như thế nào?",
+      "ground_truth": "Miễn phí tối đa 5 lần/ngày, từ lần thứ 6 trở đi thu phí 0.3% giá trị giao dịch.",
+      "expected_source_docs": ["FEE-001", "BRD-004"]
+    },
+    {
+      "id": "Q017",
+      "group": "table_numeric",
+      "question": "Merchant hạng Kim Cương cần doanh thu tháng bao nhiêu?",
+      "ground_truth": "Trên 1.000.000.000 VNĐ mỗi tháng.",
+      "expected_source_docs": ["FEE-001"]
+    },
+    {
+      "id": "Q018",
+      "group": "table_numeric",
+      "question": "Tổng hạn mức giao dịch mỗi ngày của tài khoản Tier 3 tính trên tất cả loại giao dịch là bao nhiêu?",
+      "ground_truth": "400.000.000 VNĐ (100 triệu × 4 loại giao dịch: nạp tiền, P2P, QR, rút tiền).",
+      "expected_source_docs": ["LIMIT-001"],
+      "note": "Kiểm tra khả năng đọc ô có công thức SUM trong Excel"
+    },
+    {
+      "id": "Q019",
+      "group": "multi_source",
+      "question": "Một khách hàng Tier 2 muốn chuyển 15 triệu đồng cho bạn qua ManhPay thì có thực hiện được không, vì sao?",
+      "ground_truth": "Không. Hạn mức chuyển tiền P2P của Tier 2 là tối đa 10.000.000 VNĐ mỗi giao dịch. Khách hàng cần nâng lên Tier 3 hoặc chia nhỏ giao dịch (vẫn phải trong hạn mức 20 triệu/ngày).",
+      "expected_source_docs": ["BR-002", "BRD-002"]
+    },
+    {
+      "id": "Q020",
+      "group": "multi_source",
+      "question": "Sau sự cố INC-001, những tài liệu nào đã được cập nhật và cập nhật nội dung gì?",
+      "ground_truth": "SOP-005 lên v2.0 (bổ sung nguyên tắc ưu tiên cộng tiền tạm ứng cho khách hàng) và INT-001 lên v1.3 (bổ sung lưu ý về độ dài trường transaction_reference).",
+      "expected_source_docs": ["INC-001", "SOP-005", "INT-001"]
+    },
+    {
+      "id": "Q021",
+      "group": "multi_source",
+      "question": "Vì sao chính sách phí rút tiền lại thay đổi, ai đề xuất và có hiệu lực từ khi nào?",
+      "ground_truth": "Do Finance Team đề xuất qua CR-2025-034, hiệu lực từ 01/11/2025, vì một nhóm nhỏ người dùng thực hiện quá nhiều lần rút tiền giá trị nhỏ khiến chi phí xử lý qua Napas vượt doanh thu.",
+      "expected_source_docs": ["CR-LOG-001", "FEE-001"]
+    },
+    {
+      "id": "Q022",
+      "group": "multi_source",
+      "question": "Khách hàng bị trừ tiền nhưng ví chưa được cộng tiền thì quy trình xử lý ra sao và mất bao lâu?",
+      "ground_truth": "Hệ thống tự động đối soát trong vòng 24 giờ và hoàn tiền hoặc cộng tiền cho khách hàng. Trường hợp chênh lệch, ManhPay cộng tiền tạm ứng cho khách trong 24 giờ rồi làm việc tiếp với đối tác.",
+      "expected_source_docs": ["BRD-001", "SOP-005", "FAQ-001"]
+    },
+    {
+      "id": "Q023",
+      "group": "multi_source",
+      "question": "Những trường hợp nào khiến tài khoản khách hàng bị khóa?",
+      "ground_truth": "Phát hiện giao dịch bất thường theo chính sách AML (các rule FR), khách hàng tự yêu cầu khóa, chưa hoàn tất xác thực định kỳ, hoặc phát hiện giấy tờ giả mạo khi eKYC.",
+      "expected_source_docs": ["BR-004", "FAQ-001", "SOP-002"]
+    },
+    {
+      "id": "Q024",
+      "group": "multi_source",
+      "question": "Nếu khách hàng Tier 1 muốn rút tiền thì cần làm gì?",
+      "ground_truth": "Phải nâng lên Tier 2 bằng cách xác thực eKYC cơ bản (chụp CCCD và selfie, xử lý tự động dưới 5 phút), vì chỉ tài khoản từ Tier 2 trở lên mới được rút tiền.",
+      "expected_source_docs": ["BRD-004", "SOP-002", "BR-002"]
+    },
+    {
+      "id": "Q025",
+      "group": "multi_source",
+      "question": "Giao dịch thanh toán QR 6 triệu đồng của khách hàng Tier 2 có được chấp nhận không?",
+      "ground_truth": "Không. Hạn mức thanh toán QR của Tier 2 là tối đa 5.000.000 VNĐ mỗi giao dịch.",
+      "expected_source_docs": ["BR-002", "BRD-003"]
+    },
+    {
+      "id": "Q026",
+      "group": "version_conflict",
+      "question": "Hạn mức giao dịch mỗi ngày hiện tại của tài khoản Tier 3 là bao nhiêu?",
+      "ground_truth": "100.000.000 VNĐ mỗi ngày, theo BR-002 phiên bản 3.0 đang có hiệu lực.",
+      "expected_source_docs": ["BR-002"],
+      "must_not_use_docs": ["BR-002-v1"],
+      "note": "Bản Deprecated ghi 50 triệu — hệ thống phải lọc theo status=Approved"
+    },
+    {
+      "id": "Q027",
+      "group": "version_conflict",
+      "question": "Hạn mức chuyển tiền P2P mỗi giao dịch của Tier 3 là bao nhiêu?",
+      "ground_truth": "50.000.000 VNĐ mỗi giao dịch theo quy định hiện hành.",
+      "expected_source_docs": ["BR-002"],
+      "must_not_use_docs": ["BR-002-v1"],
+      "note": "Bản cũ ghi 30 triệu"
+    },
+    {
+      "id": "Q028",
+      "group": "version_conflict",
+      "question": "Trước đây hạn mức Tier 3 là bao nhiêu và vì sao được nâng lên?",
+      "ground_truth": "Trước đây là 50.000.000 VNĐ/ngày, được nâng lên 100.000.000 VNĐ từ 15/06/2025 theo CR-2025-018, vì 12% khách hàng Tier 3 thường xuyên chạm trần hạn mức và chuyển sang dùng ví đối thủ.",
+      "expected_source_docs": ["BR-002-v1", "CR-LOG-001", "BR-002"],
+      "note": "Câu hỏi lịch sử — ở đây tài liệu Deprecated LẠI là nguồn hợp lệ, kiểm tra hệ thống có phân biệt được ngữ cảnh hỏi hiện tại vs hỏi lịch sử"
+    },
+    {
+      "id": "Q029",
+      "group": "adversarial",
+      "question": "ManhPay có hỗ trợ rút tiền bằng ngoại tệ USD không?",
+      "ground_truth": "Không tìm thấy thông tin trong Knowledge Base. Hệ thống phải từ chối trả lời thay vì suy đoán.",
+      "expected_source_docs": [],
+      "note": "Câu hỏi bẫy - không có tài liệu nào đề cập"
+    },
+    {
+      "id": "Q030",
+      "group": "adversarial",
+      "question": "Lãi suất tiền gửi trong ví ManhPay là bao nhiêu phần trăm mỗi năm?",
+      "ground_truth": "Không tìm thấy thông tin trong Knowledge Base. ManhPay không có sản phẩm tiền gửi có lãi trong phạm vi tài liệu hiện có.",
+      "expected_source_docs": [],
+      "note": "Câu hỏi bẫy - dễ khiến LLM bịa ra con số"
+    },
+    {
+      "id": "Q031",
+      "group": "adversarial",
+      "question": "Hạn mức giao dịch của tài khoản Tier 4 là bao nhiêu?",
+      "ground_truth": "Không tìm thấy thông tin. Hệ thống chỉ có 3 cấp Tier (1, 2, 3), không tồn tại Tier 4.",
+      "expected_source_docs": [],
+      "note": "Câu hỏi bẫy dựa trên tiền đề sai (false premise)"
+    },
+    {
+      "id": "Q032",
+      "group": "adversarial",
+      "question": "Quy trình mở tài khoản doanh nghiệp trên ManhPay gồm những bước nào?",
+      "ground_truth": "Không tìm thấy thông tin chi tiết. SOP-002 có nhắc tài khoản doanh nghiệp thuộc phạm vi SOP-007 riêng, nhưng tài liệu đó không có trong Knowledge Base hiện tại.",
+      "expected_source_docs": [],
+      "note": "Câu hỏi bẫy nâng cao - có tài liệu nhắc tới nhưng không chứa nội dung, kiểm tra hệ thống có phân biệt được 'được nhắc tới' và 'có nội dung'"
+    }
+  ]
+}

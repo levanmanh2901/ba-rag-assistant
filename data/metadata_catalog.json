@@ -1,0 +1,222 @@
+[
+  {
+    "doc_id": "BRD-001",
+    "file_path": "BRD/BRD_NapTien_v1.2.md",
+    "doc_type": "BRD",
+    "module": "Nap_Tien",
+    "version": "1.2",
+    "status": "Approved",
+    "effective_date": "2026-03-01",
+    "owner": "Product Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "BRD-002",
+    "file_path": "BRD/BRD_ChuyenTienP2P_v2.0.md",
+    "doc_type": "BRD",
+    "module": "Chuyen_Tien_P2P",
+    "version": "2.0",
+    "status": "Approved",
+    "effective_date": "2026-01-15",
+    "owner": "Product Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "BRD-003",
+    "file_path": "BRD/BRD_ThanhToanQR_v1.0.md",
+    "doc_type": "BRD",
+    "module": "Thanh_Toan_QR",
+    "version": "1.0",
+    "status": "Approved",
+    "effective_date": "2025-08-01",
+    "owner": "Product Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "BRD-004",
+    "file_path": "BRD/BRD_RutTien_v1.1.md",
+    "doc_type": "BRD",
+    "module": "Rut_Tien",
+    "version": "1.1",
+    "status": "Approved",
+    "effective_date": "2026-03-20",
+    "owner": "Product Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "SOP-002",
+    "file_path": "SOP/SOP_KYC_v2.1.docx",
+    "doc_type": "SOP",
+    "module": "KYC",
+    "version": "2.1",
+    "status": "Approved",
+    "effective_date": "2026-02-15",
+    "owner": "Compliance Team",
+    "file_format": "docx"
+  },
+  {
+    "doc_id": "SOP-003",
+    "file_path": "SOP/SOP_XuLyKhieuNai_v1.5.md",
+    "doc_type": "SOP",
+    "module": "Khieu_Nai",
+    "version": "1.5",
+    "status": "Approved",
+    "effective_date": "2026-01-10",
+    "owner": "Customer Support & Risk Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "SOP-005",
+    "file_path": "SOP/SOP_DoiSoat_v2.0.docx",
+    "doc_type": "SOP",
+    "module": "Doi_Soat",
+    "version": "2.0",
+    "status": "Approved",
+    "effective_date": "2026-03-01",
+    "owner": "Finance & Operations Team",
+    "file_format": "docx"
+  },
+  {
+    "doc_id": "BR-002",
+    "file_path": "BusinessRules/BusinessRules_HanMucGiaoDich_v3.0.md",
+    "doc_type": "BusinessRules",
+    "module": "Han_Muc_Giao_Dich",
+    "version": "3.0",
+    "status": "Approved",
+    "effective_date": "2026-02-01",
+    "owner": "Compliance & Product Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "BR-004",
+    "file_path": "BusinessRules/BusinessRules_PhongChongGianLan_v2.0.md",
+    "doc_type": "BusinessRules",
+    "module": "Phong_Chong_Gian_Lan",
+    "version": "2.0",
+    "status": "Approved",
+    "effective_date": "2026-01-05",
+    "owner": "Risk & Compliance Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "BR-002-v1",
+    "file_path": "Deprecated/BusinessRules_HanMucGiaoDich_v1.0_DEPRECATED.md",
+    "doc_type": "BusinessRules",
+    "module": "Han_Muc_Giao_Dich",
+    "version": "1.0",
+    "status": "Deprecated",
+    "effective_date": "2024-10-01",
+    "owner": "Compliance & Product Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "US-EPIC-014",
+    "file_path": "UserStories/UserStories_Epic_QRPay.md",
+    "doc_type": "UserStory",
+    "module": "Thanh_Toan_QR",
+    "version": "1.0",
+    "status": "In Progress",
+    "effective_date": "2026-04-10",
+    "owner": "PO",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "US-EPIC-021",
+    "file_path": "UserStories/UserStories_Epic_NapTien.md",
+    "doc_type": "UserStory",
+    "module": "Nap_Tien",
+    "version": "1.0",
+    "status": "In Progress",
+    "effective_date": "2026-05-05",
+    "owner": "PO",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "FAQ-001",
+    "file_path": "FAQ/FAQ_HoTroKhachHang.md",
+    "doc_type": "FAQ",
+    "module": "General",
+    "version": "2.3",
+    "status": "Approved",
+    "effective_date": "2026-05-01",
+    "owner": "Customer Support Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "FAQ-002",
+    "file_path": "FAQ/FAQ_Merchant.md",
+    "doc_type": "FAQ",
+    "module": "Merchant",
+    "version": "1.2",
+    "status": "Approved",
+    "effective_date": "2026-04-20",
+    "owner": "Business Development Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "GL-001",
+    "file_path": "Glossary/Glossary_DataDictionary.md",
+    "doc_type": "Glossary",
+    "module": "General",
+    "version": "1.4",
+    "status": "Approved",
+    "effective_date": "2026-04-01",
+    "owner": "Product & Data Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "FEE-001",
+    "file_path": "Fees/BangPhi_ManhPay_v2.4.xlsx",
+    "doc_type": "Fee_Pricing_Table",
+    "module": "General",
+    "version": "2.4",
+    "status": "Approved",
+    "effective_date": "2026-04-01",
+    "owner": "Finance & Product Team",
+    "file_format": "xlsx"
+  },
+  {
+    "doc_id": "LIMIT-001",
+    "file_path": "Limits/MaTran_HanMuc_SLA_ManhPay_v1.2.xlsx",
+    "doc_type": "Limit_SLA_Matrix",
+    "module": "General",
+    "version": "1.2",
+    "status": "Approved",
+    "effective_date": "2026-02-01",
+    "owner": "Compliance & Product Team",
+    "file_format": "xlsx"
+  },
+  {
+    "doc_id": "INC-001",
+    "file_path": "IncidentReports/INC_001_LoiDoiSoatNapTien.md",
+    "doc_type": "IncidentReport",
+    "module": "Nap_Tien",
+    "version": "1.0",
+    "status": "Closed",
+    "effective_date": "2026-02-08",
+    "owner": "Engineering & Operations Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "CR-LOG-001",
+    "file_path": "ChangeRequests/CR_LichSuThayDoiPhi.md",
+    "doc_type": "ChangeRequest",
+    "module": "General",
+    "version": "1.0",
+    "status": "Approved",
+    "effective_date": "2026-04-15",
+    "owner": "Product & Finance Team",
+    "file_format": "md"
+  },
+  {
+    "doc_id": "INT-001",
+    "file_path": "Integration/IntegrationSpec_Napas247.md",
+    "doc_type": "IntegrationSpec",
+    "module": "Tich_Hop_Ngan_Hang",
+    "version": "1.3",
+    "status": "Approved",
+    "effective_date": "2026-02-01",
+    "owner": "Engineering & Product Team",
+    "file_format": "md"
+  }
+]
