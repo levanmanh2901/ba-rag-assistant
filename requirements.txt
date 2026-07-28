@@ -19,5 +19,8 @@ ragas>=0.2.10
 # UI demo (tùy chọn, dùng ở bước sau)
 streamlit>=1.41
 
+# Test
+pytest>=8.3
+
 # Tiện ích
 python-dotenv==1.0.1
