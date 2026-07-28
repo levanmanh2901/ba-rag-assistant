@@ -13,10 +13,12 @@ retriever happily returns the outdated number.
 from __future__ import annotations
 
 import logging
+import shutil
 from pathlib import Path
 from typing import Any
 
 import chromadb
+from chromadb.api.client import SharedSystemClient
 
 from src.chunking import chunk_documents
 from src.embedding import encode, encode_batch
@@ -32,13 +34,59 @@ COLLECTION_NAME = "manhpay_kb"
 # --------------------------------------------------------------------------- #
 # Collection
 # --------------------------------------------------------------------------- #
+def _has_open_client() -> bool:
+    """True if this process already holds a Chroma client for any path.
+
+    ``PersistentClient`` không tạo mới mỗi lần gọi — nó cache đối tượng ``System``
+    theo settings trong ``SharedSystemClient._identifier_to_system``. Cache còn
+    phần tử nghĩa là vẫn còn client sống đang giữ handle vào file HNSW.
+    """
+    return bool(getattr(SharedSystemClient, "_identifier_to_system", None))
+
+
 def get_collection(
     persist_dir: Path | str = CHROMA_DIR, reset: bool = False
 ) -> chromadb.Collection:
-    """Open (or create) the persistent collection."""
+    """Open (or create) the persistent collection.
+
+    ``reset=True`` xóa sạch thư mục store bằng ``shutil.rmtree`` TRƯỚC khi mở
+    client, thay vì dùng ``delete_collection()``. Lý do: ``delete_collection``
+    chỉ xóa các dòng trong ``chroma.sqlite3``, còn thư mục UUID chứa file HNSW
+    của segment vector thì trên Windows đang bị chính process này mmap nên không
+    xóa được — Chroma nuốt lỗi im lặng và để lại một thư mục mồ côi sau MỖI lần
+    rebuild (đã gặp: 3 lần build sinh 3 thư mục, chỉ 1 cái là thật).
+
+    CẢNH BÁO — chỉ an toàn khi process CHƯA mở client nào. Nếu rebuild nhiều lần
+    trong cùng 1 process chạy dài (vòng lặp test, notebook, Streamlit rerun) mà
+    client cũ chưa được giải phóng thì:
+
+      * client cũ vẫn giữ file handle -> ``rmtree`` ném ``PermissionError``
+        [WinError 32]: The process cannot access the file...;
+      * và client "mới" thực ra là object lấy từ cache, trỏ vào thư mục vừa xóa.
+
+    Muốn rebuild lặp lại trong 1 process thì trước khi gọi lại hàm này phải bỏ
+    mọi tham chiếu tới collection/client cũ cho gc dọn, RỒI gọi
+    ``SharedSystemClient.clear_system_cache()``. Khi phát hiện vẫn còn client mở,
+    hàm tự lùi về ``delete_collection()`` để không phá tiến trình đang chạy —
+    đổi lại lần đó vẫn sinh thư mục rác.
+    """
+    persist_dir = Path(persist_dir)
+    fallback_reset = False
+
+    if reset:
+        if _has_open_client():
+            logger.warning(
+                "Đã có client Chroma mở trong process này — bỏ qua rmtree, lùi về "
+                "delete_collection(). Lần rebuild này sẽ để lại thư mục segment mồ côi."
+            )
+            fallback_reset = True
+        elif persist_dir.exists():
+            logger.info("Xóa sạch %s trước khi build lại", persist_dir)
+            shutil.rmtree(persist_dir)
+
     client = chromadb.PersistentClient(path=str(persist_dir))
 
-    if reset and COLLECTION_NAME in {c.name for c in client.list_collections()}:
+    if fallback_reset and COLLECTION_NAME in {c.name for c in client.list_collections()}:
         client.delete_collection(COLLECTION_NAME)
 
     return client.get_or_create_collection(
@@ -63,8 +111,10 @@ def build_index(
 ) -> int:
     """Run ingestion → chunking → embedding → ChromaDB. Returns the chunk count.
 
-    ``rebuild=True`` xóa hẳn collection cũ trước khi ghi: đổi cách chunk mà chỉ
-    ghi đè thì các chunk_id của lần build trước sẽ nằm lại thành rác mồ côi.
+    ``rebuild=True`` xóa sạch store cũ trước khi ghi: đổi cách chunk mà chỉ ghi
+    đè thì các chunk_id của lần build trước sẽ nằm lại thành rác mồ côi. Đọc
+    cảnh báo trong :func:`get_collection` nếu gọi hàm này nhiều lần trong cùng
+    một process.
     """
     chunks = chunk_documents(ingest_all())
     collection = get_collection(persist_dir, reset=rebuild)
