@@ -144,16 +144,26 @@ def _build_where(filters: dict[str, Any] | None) -> dict[str, Any] | None:
 
     ``{"status": "Approved"}``            -> ``{"status": {"$eq": "Approved"}}``
     ``{"doc_type": ["BRD", "SOP"]}``      -> ``{"doc_type": {"$in": [...]}}``
+    ``{"status": {"$nin": ["Deprecated"]}}`` -> giữ nguyên, không bọc thêm.
     Từ 2 điều kiện trở lên PHẢI bọc trong ``$and`` — Chroma không tự hiểu dict
     nhiều khóa và báo lỗi rất khó lần.
+
+    Giá trị đã là dict thì coi như toán tử Chroma viết tay và cho đi thẳng qua:
+    ``$eq``/``$in`` không diễn đạt được "khác Deprecated" mà không phải liệt kê
+    tay đủ 3 status còn lại — liệt kê tay thì thêm status mới vào catalog là
+    retrieval âm thầm bỏ sót tài liệu đó.
     """
     if not filters:
         return None
 
-    clauses = [
-        {key: {"$in": list(value)} if isinstance(value, (list, tuple, set)) else {"$eq": value}}
-        for key, value in filters.items()
-    ]
+    def as_clause(value: Any) -> dict[str, Any]:
+        if isinstance(value, dict):
+            return value
+        if isinstance(value, (list, tuple, set)):
+            return {"$in": list(value)}
+        return {"$eq": value}
+
+    clauses = [{key: as_clause(value)} for key, value in filters.items()]
     return clauses[0] if len(clauses) == 1 else {"$and": clauses}
 
 
