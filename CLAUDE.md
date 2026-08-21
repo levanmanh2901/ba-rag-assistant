@@ -28,8 +28,9 @@ Data ingestion → Chunking (structure-aware) → Embedding → ChromaDB (kèm m
 
 ## Lệnh hay dùng
 - Kích hoạt venv: `source venv/bin/activate` (Mac/Linux) hoặc `venv\Scripts\activate` (Windows)
-- Chạy toàn bộ test: `pytest tests/ -v`
+- Chạy toàn bộ test: `pytest tests/ -v` (KHÔNG gọi API, không tốn tiền)
 - Chạy 1 test cụ thể: `pytest tests/test_ingestion.py -v`
+- Chạy test gọi Claude API thật (TỐN TIỀN, in bảng chi phí ở cuối): `pytest tests/test_generation.py -m llm -v`
 
 ## Compact instructions
 Khi compact hội thoại, luôn giữ lại: danh sách file đã sửa trong `src/`, lệnh test đã chạy và kết quả, và các quyết định về schema dữ liệu (tên field, cấu trúc chunk).
