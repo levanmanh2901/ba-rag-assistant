@@ -37,7 +37,27 @@
       "doc_rank":   {"baseline": 6, "+boost": 3, "+rerank": 5, "+ca hai": 5},
       "chunk_rank": {"baseline": 8, "+boost": 3, "+rerank": 6, "+ca hai": 6},
       "status": "DAT top-3 bang boost bang; reranking lam TE DI",
-      "why": "LIMIT-001#000 co vector_score 0.290 (tran chunk bang) nhung BM25 19.40 rat manh — cong 0.11 vao nhanh vector la du vuot bon chunk van xuoi chen giua. Cross-encoder cham no -0.314, duoi ca BRD-004#003 (-0.309), nen xep lai theo rerank thi mat het phan boost vua cong."
+      "why": "LIMIT-001#000 co vector_score 0.290 (tran chunk bang) nhung BM25 19.40 rat manh — cong 0.11 vao nhanh vector la du vuot bon chunk van xuoi chen giua. Cross-encoder cham no -0.314, duoi ca BRD-004#003 (-0.309), nen xep lai theo rerank thi mat het phan boost vua cong.",
+      "score_truoc_sau_boost": {"khong_boost": 0.499958, "co_boost": 0.554958, "delta": 0.055,
+        "_check": "delta = alpha * TABLE_BOOST = 0.5 * 0.11, dung nhu thiet ke"},
+      "bien_do": {
+        "_canh_bao": "Hang 3 la mot the HOA. Hang 5 (vao duoc context) moi la ket qua vung.",
+        "vuot_hang_4_BRD-004#003": 0.000008,
+        "vuot_nguong_top5_BRD-004#005": 0.034264
+      },
+      "end_to_end_generate_answer": {
+        "_lenh": "generate_answer(question) voi mac dinh: boost bat, rerank=False, top_k=5",
+        "retrieved_doc_ids": ["BR-002", "BRD-001", "LIMIT-001", "BRD-004", "BRD-002"],
+        "limit001_trong_context": true,
+        "refused": false,
+        "cited_doc_ids": ["LIMIT-001", "BR-002"],
+        "tra_dung_400_000_000": true,
+        "gate_top1_score": 0.816,
+        "tokens": {"in": 3766, "out": 236},
+        "cost_usd": 0.009892,
+        "model": "claude-sonnet-5",
+        "ket_qua": "Sua duoc loi tu choi oan cua Tuan 6. Model con ghi ro BR-002 khong co dong tong, chi LIMIT-001 co — trich dan dung nguon."
+      }
     }
   },
 

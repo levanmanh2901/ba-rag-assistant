@@ -207,7 +207,17 @@ def test_q018_lot_top3_nho_boost_bang(index, eval_questions):
     Đây là kết quả rõ ràng nhất của tuần: hạng doc 6 -> 3. Cơ chế đúng như dự
     đoán — LIMIT-001#000 có vector_score 0.290 (kẹt dưới trần của chunk bảng)
     nhưng BM25 19.40 rất mạnh; cộng 0.11 vào nhánh vector là đủ để nó vượt bốn
-    chunk văn xuôi đang chen giữa.
+    chunk văn xuôi đang chen giữa. Điểm: 0.499958 -> 0.554958, đúng bằng
+    ``alpha * TABLE_BOOST = 0.5 * 0.11 = 0.055``.
+
+    CẢNH BÁO CHO NGƯỜI ĐỌC LOG KHI TEST NÀY ĐỎ — biên độ ở đúng hạng 3 chỉ là
+    **8e-06**: LIMIT-001#000 được 0.554958, BRD-004#003 ngay dưới được 0.554950.
+    Đây gần như một thế hòa. Nâng cấp thư viện, đổi model embedding, hay chỉ cần
+    sửa một ký tự trong tài liệu cũng đủ lật thứ tự này. Nếu test đỏ và hạng đo
+    được là 4, ĐÓ KHÔNG PHẢI hồi quy thật: cái thực sự quan trọng —
+    LIMIT-001 nằm trong top-5 context để generation có căn cứ trả lời — vẫn còn
+    nguyên với biên độ thoải mái 0.034 (xem :func:`test_q018_lot_context_top5`,
+    test đó mới là cái phải giữ bằng mọi giá).
     """
     hits = hybrid_search(
         eval_questions["Q018"]["question"], top_k=RANK_DEPTH, persist_dir=index
