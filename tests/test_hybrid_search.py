@@ -224,20 +224,62 @@ def test_hit_shape_and_ordering(index):
             "score",
             "vector_score",
             "bm25_score",
+            "table_boost",
         }
         assert hit["chunk_id"] == hit["metadata"]["chunk_id"]
 
 
 @pytest.mark.slow
 def test_alpha_selects_the_branch(index):
-    """alpha=1.0 là vector thuần, alpha=0.0 là BM25 thuần."""
-    vector_only = hybrid_search(P2P_TIER2_QUESTION, top_k=5, alpha=1.0, persist_dir=index)
+    """alpha=1.0 là vector thuần, alpha=0.0 là BM25 thuần.
+
+    Đo với ``table_boost=0.0``: câu hỏi này (hạn mức Tier 2) LÀ câu tra số, nên
+    để boost bật thì "vector thuần" nghĩa là vector ĐÃ CỘNG boost và đẳng thức
+    dưới đây không còn đúng theo nghĩa đen. Tắt boost để test đúng thứ nó định
+    test — quan hệ giữa alpha và hai nhánh — chứ không lẫn sang cơ chế boost;
+    quan hệ giữa boost và score được kiểm riêng ngay dưới.
+    """
+    vector_only = hybrid_search(
+        P2P_TIER2_QUESTION, top_k=5, alpha=1.0, table_boost=0.0, persist_dir=index
+    )
     for hit in vector_only:
         assert hit["score"] == pytest.approx(hit["vector_score"])
+        assert hit["table_boost"] == 0.0
 
-    lexical_only = hybrid_search(P2P_TIER2_QUESTION, top_k=5, alpha=0.0, persist_dir=index)
+    lexical_only = hybrid_search(
+        P2P_TIER2_QUESTION, top_k=5, alpha=0.0, table_boost=0.0, persist_dir=index
+    )
     # Điểm đã min-max nên chunk BM25 cao nhất trong pool luôn được đúng 1.0.
     assert lexical_only[0]["score"] == pytest.approx(1.0)
+
+
+@pytest.mark.slow
+def test_boost_chi_cong_vao_chunk_co_bang(index):
+    """Boost cộng vào nhánh vector, và chỉ cho chunk có bảng.
+
+    P2P_TIER2_QUESTION là câu tra số, nên pool có cả chunk được cộng lẫn chunk
+    không — đủ để kiểm cả hai nhánh của điều kiện trong một lần gọi.
+    """
+    hits = hybrid_search(
+        P2P_TIER2_QUESTION, top_k=10, alpha=1.0, table_boost=0.11, persist_dir=index
+    )
+
+    for hit in hits:
+        expected_boost = 0.11 if hit["metadata"]["has_table"] else 0.0
+        assert hit["table_boost"] == pytest.approx(expected_boost)
+        # alpha=1.0 nên score đúng bằng nhánh vector đã cộng boost và kẹp trần.
+        assert hit["score"] == pytest.approx(
+            min(1.0, hit["vector_score"] + expected_boost)
+        )
+
+    assert any(hit["table_boost"] > 0 for hit in hits), "pool không có chunk bảng nào"
+
+
+@pytest.mark.slow
+def test_boost_khong_ap_cho_cau_hoi_khai_niem(index):
+    """Câu hỏi khái niệm không kích hoạt boost, dù chunk có bảng."""
+    hits = hybrid_search("Float Balance nghĩa là gì?", top_k=10, persist_dir=index)
+    assert all(hit["table_boost"] == 0.0 for hit in hits)
 
 
 @pytest.mark.slow

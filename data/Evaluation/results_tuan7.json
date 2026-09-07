@@ -1,0 +1,58 @@
+{
+  "metadata": {
+    "week": 7,
+    "date": "2026-09-07",
+    "reproduce": "pytest tests/test_reranking.py -m slow -v -s",
+    "machine": "Windows 11, CPU-only, torch 2.13.0",
+    "note": "Ghi ra file vi ba tuan lien tiep cac so do quan trong chi ton tai trong commit message (54%->89% o 724b85c) va comment trong source. Moi so trong file nay deu do bang lenh o truong 'reproduce'.",
+    "arms": {
+      "baseline": "hybrid_search(table_boost=0.0) — trang thai cuoi Tuan 6",
+      "+boost": "hybrid_search(table_boost=0.11) — bu diem chunk co bang khi cau hoi tra so",
+      "+rerank": "baseline -> cross-encoder xep lai top-20",
+      "+ca hai": "+boost -> cross-encoder xep lai top-20"
+    }
+  },
+
+  "recall_at_3_by_group": {
+    "_unit": "doc-level hit@3: bool(expected_docs & set(doc_ids(hits)[:3])), micro-average",
+    "_n_scored": 28,
+    "single_source":    {"n": 12, "baseline": 1.00, "+boost": 1.00, "+rerank": 1.00, "+ca hai": 1.00},
+    "table_numeric":    {"n": 6,  "baseline": 0.67, "+boost": 0.83, "+rerank": 0.67, "+ca hai": 0.67},
+    "multi_source":     {"n": 7,  "baseline": 0.86, "+boost": 0.86, "+rerank": 1.00, "+ca hai": 1.00},
+    "version_conflict": {"n": 3,  "baseline": 1.00, "+boost": 1.00, "+rerank": 1.00, "+ca hai": 1.00},
+    "TONG":             {"n": 28, "baseline": 0.89, "+boost": 0.93, "+rerank": 0.93, "+ca hai": 0.93}
+  },
+
+  "target_questions": {
+    "_unit_warning": "Con so 'hang 5' / 'hang 8' ghi o Tuan 5 la HANG CHUNK, khong phai hang doc. Hai don vi khac nhau khi mot tai lieu chiem nhieu chunk lien tiep. Recall@3 dung hang DOC.",
+    "Q015": {
+      "expected_doc": "FEE-001",
+      "doc_rank":   {"baseline": 5, "+boost": 5, "+rerank": 4, "+ca hai": 4},
+      "chunk_rank": {"baseline": 5, "+boost": 5, "+rerank": 4, "+ca hai": 4},
+      "status": "CHUA DAT top-3",
+      "why": "FEE-001#001 co vector_score 0.234; ba chunk tren no o 0.518-0.648. Bu du can boost ~0.34 tren nhanh vector, gap 3 lan khoang thieu hut trung binh da DO (0.109). Cross-encoder cham chunk nay -1.208, chi keo duoc 5 -> 4."
+    },
+    "Q018": {
+      "expected_doc": "LIMIT-001",
+      "doc_rank":   {"baseline": 6, "+boost": 3, "+rerank": 5, "+ca hai": 5},
+      "chunk_rank": {"baseline": 8, "+boost": 3, "+rerank": 6, "+ca hai": 6},
+      "status": "DAT top-3 bang boost bang; reranking lam TE DI",
+      "why": "LIMIT-001#000 co vector_score 0.290 (tran chunk bang) nhung BM25 19.40 rat manh — cong 0.11 vao nhanh vector la du vuot bon chunk van xuoi chen giua. Cross-encoder cham no -0.314, duoi ca BRD-004#003 (-0.309), nen xep lai theo rerank thi mat het phan boost vua cong."
+    }
+  },
+
+  "latency": {
+    "_note": "Do tren CPU, khong GPU. Thay cho cac uoc luong trong plan — uoc luong ban dau la 0.2-0.6s, thuc te cham hon 5-17 lan.",
+    "hybrid_search_20_ung_vien_seconds": 0.062,
+    "rerank_20_cap_seconds": 3.402,
+    "rerank_vs_hybrid_ratio": 55,
+    "api_cost_added_usd": 0.0
+  },
+
+  "ket_luan": [
+    "Bu diem bang MOT MINH dat 93% tong Recall@3 (tu 89%), nang table_numeric 67% -> 83%, ton them ~0 giay va $0.",
+    "Reranking cung dat 93% tong nhung do doi cho: multi_source 86% -> 100%, table_numeric 83% -> 67%. Gia: 3.4 giay moi cau hoi.",
+    "Cot '+ca hai' GIONG HET cot '+rerank' o moi nhom — vi rerank xep lai hoan toan nen no vut bo thu tu hybrid, tuc la vut luon phan boost. Hai ky thuat KHONG cong don duoc theo thiet ke hien tai.",
+    "Khuyen nghi: bat boost mac dinh (da bat), giu rerank=False mac dinh. Rerank chi dang bat neu doi sang TRON diem (w*hybrid + (1-w)*rerank) thay vi ghi de thu tu — phuong an da can nhac va tam gac dau Tuan 7, gio da co so lieu ung ho."
+  ]
+}

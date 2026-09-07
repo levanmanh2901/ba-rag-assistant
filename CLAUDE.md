@@ -30,6 +30,7 @@ Data ingestion → Chunking (structure-aware) → Embedding → ChromaDB (kèm m
 - Kích hoạt venv: `source venv/bin/activate` (Mac/Linux) hoặc `venv\Scripts\activate` (Windows)
 - Chạy toàn bộ test: `pytest tests/ -v` (KHÔNG gọi API, không tốn tiền)
 - Chạy 1 test cụ thể: `pytest tests/test_ingestion.py -v`
+- Đo lại retrieval (bảng Recall@3 4 cấu hình + thứ hạng Q015/Q018, ~4 phút, nạp 2 model, KHÔNG gọi API): `pytest tests/test_reranking.py -m slow -v -s` — kết quả mới nhất lưu ở `data/Evaluation/results_tuan7.json`
 - Chạy test gọi Claude API thật (TỐN TIỀN, in bảng chi phí ở cuối): `pytest tests/test_generation.py -m llm -v`
 
 ## Compact instructions

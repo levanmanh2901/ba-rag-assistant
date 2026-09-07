@@ -13,6 +13,8 @@ Thứ tự bắt buộc: lọc metadata TRƯỚC, chấm điểm SAU. Xem :func:
 from __future__ import annotations
 
 import logging
+import re
+import unicodedata
 from pathlib import Path
 from typing import Any
 
@@ -31,6 +33,85 @@ logger = logging.getLogger(__name__)
 DEFAULT_STATUS_FILTER = {"$nin": ["Deprecated"]}
 
 DEFAULT_ALPHA = 0.5
+
+# Đo ở Tuần 6 trên toàn bộ KB: chunk sinh từ .xlsx có vector_score trung bình
+# 0.163 (cao nhất 0.426), chunk văn xuôi trung bình 0.272 (cao nhất 0.706).
+# Chênh lệch 0.109 này là TRẦN CÓ HỆ THỐNG của bi-encoder, không phải nhiễu: một
+# bảng số dày đặc bị nén thành đúng một vector 384 chiều TRƯỚC KHI biết câu hỏi
+# là gì, mà bảng thì gần như không có cấu trúc câu để model paraphrase bấu vào.
+#
+# Boost bằng đúng khoảng thiếu hụt TRUNG BÌNH, KHÔNG phải khoảng cách đỉnh
+# (0.706 - 0.426 = 0.280): bù theo đỉnh sẽ đẩy mọi chunk bảng lên đầu ở mọi câu
+# có chữ số, tức là thay một thiên lệch bằng một thiên lệch ngược chiều.
+#
+# ĐỪNG tăng hằng số này để làm một test xanh. Nó là một phép đo, không phải một
+# núm vặn; đổi nó thì phải đo lại khoảng thiếu hụt trước.
+TABLE_BOOST = 0.11
+
+# Cụm từ báo hiệu câu hỏi đang đi tìm MỘT CON SỐ, không phải một khái niệm.
+# So khớp trên chuỗi đã NFC-normalize + lower, đúng quy tắc chuẩn hóa của
+# bm25_retriever.tokenize để hai nhánh không bao giờ hiểu khác nhau về cùng một
+# chữ (tiếng Việt có hai cách mã hóa dấu, xem docstring của hàm đó).
+_NUMERIC_QUERY_TERMS = (
+    "phí",
+    "hạn mức",
+    "bao nhiêu",
+    "tối đa",
+    "tối thiểu",
+    "phần trăm",
+    "%",
+    "tỷ lệ",
+    "số tiền",
+    "vnđ",
+    "vnd",
+    "đồng",
+    "giới hạn",
+    "ngưỡng",
+    "tổng",
+    "sla",
+    "thời gian xử lý",
+    "tier",
+)
+
+_DIGIT_RE = re.compile(r"\d")
+
+# Mã tài liệu (INC-001, FR-003, MANHPAY-1425, BR-002-v1) CHỨA chữ số nhưng câu
+# hỏi về chúng lại là câu hỏi khái niệm, không phải câu tra số. Cùng mẫu regex
+# với src/generation.py:149, thêm nhánh cho mã kiểu MANHPAY-1425.
+_DOC_CODE_RE = re.compile(r"\b[A-Z]{2,}(?:-[A-Z]+)*-\d+(?:-v\d+)?\b", re.IGNORECASE)
+
+
+def is_numeric_lookup(text: str) -> bool:
+    """True if the question is hunting for a NUMBER rather than a concept.
+
+    Hai luật, OR với nhau:
+
+    1. Còn chữ số Ả Rập SAU KHI đã gỡ mã tài liệu — bắt "Tier 3",
+       "2.000.000", "1.5%", "15 triệu".
+    2. Có một trong :data:`_NUMERIC_QUERY_TERMS`.
+
+    Vì sao phải gỡ mã tài liệu trước (đo trên bộ 32 câu, không phải phòng xa):
+    "Nguyên nhân gốc rễ của sự cố INC-001 là gì?" (Q010), "Rule FR-003 được kích
+    hoạt khi nào?" (Q008) và "User Story MANHPAY-1425 đang ở trạng thái nào?"
+    (Q012) đều CÓ chữ số, nhưng cả ba đều đi tìm một đoạn văn xuôi. Để nguyên
+    luật "có chữ số là tra số" thì cả ba ăn boost và đẩy chunk bảng lên trên
+    đúng đoạn văn chứa câu trả lời — mà cả ba đều thuộc nhóm single_source đang
+    ở 100%. Gỡ mã trước hạ số câu kích hoạt từ 24/32 xuống 20/32.
+
+    Cân bằng hai phía: bắt hụt thì chunk bảng vẫn kẹt dưới trần 0.426 như cũ
+    (hỏng đúng thứ đang đi chữa); bắt quá tay thì boost âm thầm áp lên mọi câu
+    hỏi và làm nhiễu các nhóm khác. Lưới an toàn cho vế thứ hai là
+    ``tests/test_reranking.py`` — nó chạy lại Recall@3 của cả 5 nhóm.
+
+    Câu adversarial "Tier 4 được chuyển bao nhiêu?" (Q031) vẫn ra True. Chấp
+    nhận được: boost chỉ đổi THỨ TỰ retrieval, không tạo ra nội dung; việc từ
+    chối vẫn do SYSTEM_PROMPT đảm nhiệm, và gate 0.45 vốn đã không bắt câu nào
+    trong 4 câu adversarial (xem src/generation.py:61-69).
+    """
+    normalized = unicodedata.normalize("NFC", text).lower()
+    if _DIGIT_RE.search(_DOC_CODE_RE.sub(" ", text)):
+        return True
+    return any(term in normalized for term in _NUMERIC_QUERY_TERMS)
 
 
 # --------------------------------------------------------------------------- #
@@ -116,18 +197,39 @@ def hybrid_search(
     top_k: int = 5,
     alpha: float = DEFAULT_ALPHA,
     include_deprecated: bool = False,
+    table_boost: float = TABLE_BOOST,
     persist_dir: Path | str = CHROMA_DIR,
 ) -> list[dict[str, Any]]:
     """Search with vector + BM25 fused, best first.
 
-    ``score = alpha * vector_score + (1 - alpha) * bm25_score_norm``
+    ``score = alpha * min(1, vector_score + boost) + (1 - alpha) * bm25_score_norm``
+
+    trong đó ``boost`` là :data:`table_boost` khi (và chỉ khi) câu hỏi mang tính
+    tra số (:func:`is_numeric_lookup`) VÀ chunk có bảng (``metadata["has_table"]``);
+    còn lại là 0.
+
+    Boost cộng vào NHÁNH VECTOR chứ không cộng thẳng vào ``score``, vì ba lẽ:
+
+    * Thiếu hụt được đo trên nhánh vector, nên chữa đúng chỗ bệnh — con số
+      :data:`TABLE_BOOST` tự giải thích được mà không cần quy đổi qua alpha.
+    * Nó tự co giãn theo ``alpha``: ở 0.5 ảnh hưởng thực lên điểm cuối là 0.055;
+      ở ``alpha=0.0`` (BM25 thuần) boost tự biến mất — đúng, vì BM25 không hề bị
+      cái trần này. BM25 chấm theo token hiếm, mà bảng số thì đầy token hiếm.
+    * ``min(1.0, ...)`` giữ ``score`` trong 0..1, nên gate MIN_TOP_SCORE ở bước
+      generation không bị lệch thang đo.
 
     Mỗi hit là dict gồm ``chunk_id``, ``content``, ``metadata``, ``score``, kèm
-    ``vector_score`` (cosine thô) và ``bm25_score`` (BM25 thô) để soi được vì sao
+    ``vector_score`` (cosine THÔ, chưa boost), ``bm25_score`` (BM25 thô) và
+    ``table_boost`` (phần đã cộng, 0 hoặc :data:`TABLE_BOOST`) để soi được vì sao
     một chunk lên hạng, và để bước generation còn ngưỡng tuyệt đối mà từ chối
     câu hỏi ngoài phạm vi KB.
 
+    ``vector_score`` cố ý giữ giá trị thô: ghi đè nó bằng giá trị đã boost sẽ làm
+    mọi con số đã đo ở Tuần 5-6 mất khả năng so sánh.
+
     ``alpha=1.0`` là vector thuần, ``alpha=0.0`` là BM25 thuần.
+    ``table_boost=0.0`` dựng lại chính xác hành vi trước Tuần 7 — đó là cách
+    ``tests/test_reranking.py`` lấy cột đường cơ sở mà không phải nhân bản code.
     """
     collection = get_collection(persist_dir)
     where = _build_where(_resolve_filters(filters, include_deprecated))
@@ -177,17 +279,29 @@ def hybrid_search(
     )
     bm25_norm = _normalize_scores(bm25_scores)
 
-    hits = [
-        {
-            "chunk_id": chunk_id,
-            "content": contents[chunk_id],
-            "metadata": metadatas[chunk_id],
-            "score": alpha * vector_scores[chunk_id] + (1.0 - alpha) * bm25_norm.get(chunk_id, 0.0),
-            "vector_score": vector_scores[chunk_id],
-            "bm25_score": bm25_scores.get(chunk_id, 0.0),
-        }
-        for chunk_id in ids
-    ]
+    # Chỉ tính MỘT LẦN cho cả pool: is_numeric_lookup là thuộc tính của câu hỏi,
+    # không phải của chunk.
+    numeric = table_boost > 0.0 and is_numeric_lookup(text)
+
+    hits = []
+    for chunk_id in ids:
+        boost = (
+            table_boost
+            if numeric and metadatas[chunk_id].get("has_table")
+            else 0.0
+        )
+        adjusted = min(1.0, vector_scores[chunk_id] + boost)
+        hits.append(
+            {
+                "chunk_id": chunk_id,
+                "content": contents[chunk_id],
+                "metadata": metadatas[chunk_id],
+                "score": alpha * adjusted + (1.0 - alpha) * bm25_norm.get(chunk_id, 0.0),
+                "vector_score": vector_scores[chunk_id],
+                "bm25_score": bm25_scores.get(chunk_id, 0.0),
+                "table_boost": boost,
+            }
+        )
     hits.sort(key=lambda hit: hit["score"], reverse=True)
     return hits[:top_k]
 

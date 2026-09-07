@@ -22,6 +22,7 @@ import anthropic
 from dotenv import load_dotenv
 
 from src.hybrid_search import hybrid_search
+from src.reranking import CANDIDATE_K
 from src.vectorstore import CHROMA_DIR
 
 logger = logging.getLogger(__name__)
@@ -194,6 +195,9 @@ class GenerationResult:
     output_tokens: int = 0
     refused: bool = False
     retrieved_doc_ids: list[str] = field(default_factory=list)
+    # Context đã qua cross-encoder hay chưa — cần để đối chiếu khi so kết quả
+    # giữa hai chế độ, vì answer không mang dấu vết nào của bước retrieval.
+    reranked: bool = False
 
     @property
     def cost_usd(self) -> float:
@@ -233,6 +237,8 @@ def generate_answer(
     filters: dict[str, Any] | None = None,
     include_deprecated: bool = False,
     min_score: float = MIN_TOP_SCORE,
+    rerank: bool = False,
+    candidate_k: int = CANDIDATE_K,
     persist_dir: Path | str = CHROMA_DIR,
 ) -> GenerationResult:
     """Answer ``question`` from the knowledge base, with citations, or refuse.
@@ -243,11 +249,24 @@ def generate_answer(
     Khi ``hits[0]["score"] < min_score`` thì trả :data:`REFUSAL_MESSAGE` NGAY, không gọi
     API — xem :data:`MIN_TOP_SCORE` để biết gate này làm gì và (quan trọng hơn) KHÔNG
     làm gì.
+
+    ``rerank=True`` lấy ``candidate_k`` ứng viên rồi cho cross-encoder chọn lại
+    ``top_k`` cuối cùng (xem :mod:`src.reranking`). MẶC ĐỊNH TẮT: mọi con số đã
+    đo ở Tuần 5-6 — phân bố điểm top-1, ngưỡng 0.45, 4/4 câu adversarial bị từ
+    chối — đều đo ở chế độ không rerank, nên bật mặc định sẽ làm chúng hết hiệu
+    lực cùng lúc. Bật lên sau khi ``tests/test_reranking.py`` chứng minh không
+    nhóm nào tụt hạng.
+
+    THỨ TỰ QUAN TRỌNG: gate chạy TRƯỚC rerank. Vì :func:`hybrid_search` sắp xếp
+    rồi mới cắt ``top_k``, điểm top-1 giống hệt nhau dù lấy 5 hay ``candidate_k``
+    ứng viên — nên gate hoạt động y nguyên như Tuần 6 ở cả hai chế độ. Gate sau
+    rerank thì hỏng: cross-encoder có thể đưa lên đầu một chunk có điểm hybrid
+    thấp hơn, và ngưỡng 0.45 (hiệu chỉnh trên thang hybrid) sẽ chặn oan.
     """
     hits = hybrid_search(
         question,
         filters=filters,
-        top_k=top_k,
+        top_k=candidate_k if rerank else top_k,
         include_deprecated=include_deprecated,
         persist_dir=persist_dir,
     )
@@ -258,6 +277,11 @@ def generate_answer(
             "Gate chặn trước LLM: điểm top-1 %.3f < %.2f — không gọi API.", top, min_score
         )
         return GenerationResult(answer=REFUSAL_MESSAGE, refused=True)
+
+    if rerank:
+        from src.reranking import rerank as rerank_hits
+
+        hits = rerank_hits(question, hits, top_k=top_k)
 
     retrieved = list(dict.fromkeys(hit["metadata"]["doc_id"] for hit in hits))
 
@@ -296,6 +320,7 @@ def generate_answer(
         output_tokens=response.usage.output_tokens,
         refused=REFUSAL_MESSAGE in answer,
         retrieved_doc_ids=retrieved,
+        reranked=rerank,
     )
 
 
