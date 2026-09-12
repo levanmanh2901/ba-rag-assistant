@@ -331,3 +331,27 @@ def test_single_source_reproduces_the_exact_number(answer, eval_questions, qid, 
     assert needle in result.answer, (
         f"{qid} thiếu con số {needle!r} trong câu trả lời: {result.answer!r}"
     )
+
+
+def test_cost_formula_counts_cache_tokens():
+    """Cache tokens are billed but absent from usage.input_tokens.
+
+    Prompt caching từng được bật ở generate_answer rồi gỡ đi: `input_tokens` khi đó
+    chỉ còn 2, phần thật (3.067 token) nằm ở cache_creation_input_tokens và KHÔNG
+    được tính tiền -> bảng chi phí báo thiếu gần 5 lần. Test này khóa công thức lại
+    để nếu ai bật cache trở lại mà quên, con số vẫn đúng.
+    """
+    result = GenerationResult(
+        answer="x", input_tokens=2, cache_creation_tokens=3000, output_tokens=100
+    )
+    expected = (2 * PRICE_PER_MTOK_IN + 3000 * PRICE_PER_MTOK_IN * 1.25
+                + 100 * PRICE_PER_MTOK_OUT) / 1_000_000
+    assert result.cost_usd == pytest.approx(expected)
+    # Bỏ qua cache thì chỉ ra $0.001 — nhỏ hơn giá thật một bậc độ lớn.
+    assert result.cost_usd > 0.008
+
+
+def test_cache_read_is_cheaper_than_cache_write():
+    write = GenerationResult(answer="x", cache_creation_tokens=1000)
+    read = GenerationResult(answer="x", cache_read_tokens=1000)
+    assert read.cost_usd < write.cost_usd

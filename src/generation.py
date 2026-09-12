@@ -31,7 +31,10 @@ load_dotenv()  # ANTHROPIC_API_KEY nằm trong .env (đã .gitignore, chưa từ
 
 MODEL = "claude-sonnet-5"
 
-# Giá INTRO của Sonnet 5, hết hạn 2026-08-31; sau mốc đó là $3.00 / $15.00.
+# Giá CHÍNH THỨC của Sonnet 5 (kiểm chứng 2026-09-11 tại
+# https://platform.claude.com/docs/en/about-claude/pricing).
+# $2/$10 ban đầu được công bố là giá INTRO đến 2026-08-31, nhưng Anthropic đã HỦY
+# đợt tăng lên $3/$15 dự kiến 2026-09-01 — nay đây là giá chuẩn, không còn hạn dùng.
 # Đổi hai hằng số này khi giá đổi — báo cáo chi phí trong test đọc thẳng từ đây.
 PRICE_PER_MTOK_IN = 2.0
 PRICE_PER_MTOK_OUT = 10.0
@@ -193,17 +196,36 @@ class GenerationResult:
     model_used: str | None = None
     input_tokens: int = 0
     output_tokens: int = 0
+    # Token đi qua prompt cache. Hiện LUÔN bằng 0 vì generate_answer không bật
+    # caching (xem lý do ở chỗ gọi API), nhưng vẫn ghi lại: `input_tokens` KHÔNG
+    # bao gồm hai loại này, nên nếu ai bật cache mà quên cập nhật cost_usd thì chi
+    # phí sẽ âm thầm báo thiếu — đã xảy ra một lần, báo thiếu gần 5 lần giá thật.
+    cache_creation_tokens: int = 0
+    cache_read_tokens: int = 0
     refused: bool = False
     retrieved_doc_ids: list[str] = field(default_factory=list)
     # Context đã qua cross-encoder hay chưa — cần để đối chiếu khi so kết quả
     # giữa hai chế độ, vì answer không mang dấu vết nào của bước retrieval.
     reranked: bool = False
+    # Nguyên văn các chunk đã đưa vào prompt. RAGAS chấm Faithfulness/Context
+    # Precision trên CHÍNH những đoạn này, nên phải lấy từ bên trong hàm: gate chạy
+    # GIỮA hybrid_search và rerank, dựng lại chuỗi đó từ ngoài rất dễ lệch thứ tự.
+    # Rỗng khi bị gate chặn (chưa có gì được gửi đi).
+    contexts: list[str] = field(default_factory=list)
 
     @property
     def cost_usd(self) -> float:
-        """Estimated cost of this call at the prices in this module."""
+        """Estimated cost of this call at the prices in this module.
+
+        Cache write tính 1,25x giá input, cache read tính 0,1x — theo bảng giá
+        Anthropic. Hai số hạng đó hiện luôn bằng 0, nhưng phải có mặt trong công
+        thức: `usage.input_tokens` chỉ đếm phần KHÔNG qua cache, nên thiếu chúng là
+        tự báo thiếu tiền.
+        """
         return (
             self.input_tokens * PRICE_PER_MTOK_IN
+            + self.cache_creation_tokens * PRICE_PER_MTOK_IN * 1.25
+            + self.cache_read_tokens * PRICE_PER_MTOK_IN * 0.1
             + self.output_tokens * PRICE_PER_MTOK_OUT
         ) / 1_000_000
 
@@ -300,6 +322,17 @@ def generate_answer(
         # mới là việc khó nhất ở đây; effort low vì phần còn lại chỉ là trích xuất.
         thinking={"type": "adaptive"},
         output_config={"effort": "low"},
+        # KHÔNG bật prompt caching ở đây — đã thử và đo, nó LỖ.
+        #
+        # SYSTEM_PROMPT (~750 token) nằm dưới ngưỡng cache tối thiểu 1.024 token của
+        # Sonnet 5 nên tự nó không cache được. Mà `cache_control` ở top-level KHÔNG
+        # chỉ áp cho system: nó tự đặt điểm cache vào BLOCK CUỐI CÙNG, tức là user
+        # message chứa 5 chunk context. Đo thật: cache_creation_input_tokens = 3.067,
+        # cache_read_input_tokens = 0. Context đổi theo từng câu nên lượt nào cũng là
+        # cache WRITE (giá 1,25x) và không bao giờ có lượt đọc -> đắt thêm ~25%.
+        #
+        # Muốn cache có lãi thì phải có prefix dùng lại được giữa các câu; ở pipeline
+        # này không có. Đừng thêm lại `cache_control` nếu chưa đổi được cấu trúc prompt.
     )
 
     if response.stop_reason == "max_tokens":
@@ -318,9 +351,12 @@ def generate_answer(
         model_used=response.model,
         input_tokens=response.usage.input_tokens,
         output_tokens=response.usage.output_tokens,
+        cache_creation_tokens=getattr(response.usage, "cache_creation_input_tokens", 0) or 0,
+        cache_read_tokens=getattr(response.usage, "cache_read_input_tokens", 0) or 0,
         refused=REFUSAL_MESSAGE in answer,
         retrieved_doc_ids=retrieved,
         reranked=rerank,
+        contexts=[hit["content"] for hit in hits],
     )
 
 

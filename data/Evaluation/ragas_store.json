@@ -1,0 +1,1297 @@
+{
+  "Q001|rerank=False": {
+    "id": "Q001",
+    "group": "single_source",
+    "rerank": false,
+    "question": "Hạn mức chuyển tiền P2P mỗi ngày của tài khoản Tier 2 là bao nhiêu?",
+    "ground_truth": "20.000.000 VNĐ mỗi ngày.",
+    "answer": "Hạn mức chuyển tiền P2P mỗi ngày của tài khoản Tier 2 là 20.000.000 VNĐ [BRD-002][BR-002].",
+    "contexts": [
+      "Tài liệu: Business Requirement Document - Tính năng Chuyển tiền P2P (Peer-to-Peer) (BRD-002, BRD, module Chuyen_Tien_P2P, v2.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.1 Hạn mức chuyển tiền P2P\n\n## 3.1 Hạn mức chuyển tiền P2P\n\nÁp dụng chung theo hạn mức Tier tài khoản (BusinessRules-002):\n- Tier 1: tối đa 2.000.000 VNĐ/giao dịch, 5.000.000 VNĐ/ngày\n- Tier 2: tối đa 10.000.000 VNĐ/giao dịch, 20.000.000 VNĐ/ngày\n- Tier 3: tối đa 50.000.000 VNĐ/giao dịch, 100.000.000 VNĐ/ngày",
+      "Tài liệu: Bảng quy tắc nghiệp vụ - Hạn mức giao dịch theo cấp độ tài khoản (Tier) (BR-002, BusinessRules, module Han_Muc_Giao_Dich, v3.0)\nMục: 3. Bảng hạn mức chi tiết (áp dụng từ 01/02/2026)\n\n# 3. Bảng hạn mức chi tiết (áp dụng từ 01/02/2026)\n\n| Loại giao dịch | Tier 1 (/giao dịch) | Tier 1 (/ngày) | Tier 2 (/giao dịch) | Tier 2 (/ngày) | Tier 3 (/giao dịch) | Tier 3 (/ngày) |\n|---|---|---|---|---|---|---|\n| Nạp tiền | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 | 100.000.000 |\n| Chuyển tiền P2P | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n| Thanh toán QR | 1.000.000 | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 |\n| Rút tiền về NH | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n\nLưu ý quan trọng: hạn mức \"/ngày\" là tổng cộng dồn của TẤT CẢ giao dịch cùng loại trong ngày, tính theo giờ Việt Nam (GMT+7), reset lúc 00:00.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 1/6)\n\n# Câu hỏi thường gặp\n\n**Q1: Tại sao tôi không nạp được tiền vượt quá 5 triệu/ngày?**\nA: Tài khoản của bạn đang ở Tier 1 (chưa xác thực eKYC), hạn mức nạp tiền tối đa là 5.000.000 VNĐ/ngày. Bạn có thể nâng lên Tier 2 bằng cách xác thực eKYC trong mục \"Tài khoản > Xác thực danh tính\" để nâng hạn mức lên 20.000.000 VNĐ/ngày.",
+      "Tài liệu: Business Requirement Document - Tính năng Chuyển tiền P2P (Peer-to-Peer) (BRD-002, BRD, module Chuyen_Tien_P2P, v2.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.3 Phí giao dịch\n\n## 3.3 Phí giao dịch\n\n- Chuyển tiền P2P trong hệ sinh thái ManhPay: **miễn phí hoàn toàn**, không giới hạn số lần\n- Đây là chính sách khác biệt cạnh tranh chính của sản phẩm (competitive positioning), Product team cần lưu ý khi trả lời câu hỏi liên quan đến pricing",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 2/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q2: Phí nhận thanh toán qua QR là bao nhiêu?**\nA: Phí phụ thuộc hạng merchant dựa trên doanh thu tháng: hạng Đồng 1.2%, hạng Bạc 1.0%, hạng Vàng 0.8%, hạng Kim Cương 0.6%. Hạng được xét lại định kỳ hàng quý dựa trên doanh thu thực tế."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9999999999999992,
+      "context_precision": 0.99999999995,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "BR-002"
+    ],
+    "retrieved_doc_ids": [
+      "BRD-002",
+      "BR-002",
+      "FAQ-001",
+      "FAQ-002"
+    ],
+    "cited_doc_ids": [
+      "BRD-002",
+      "BR-002"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2,
+      "out": 62
+    },
+    "cost_usd": 0.000624
+  },
+  "Q018|rerank=False": {
+    "id": "Q018",
+    "group": "table_numeric",
+    "rerank": false,
+    "question": "Tổng hạn mức giao dịch mỗi ngày của tài khoản Tier 3 tính trên tất cả loại giao dịch là bao nhiêu?",
+    "ground_truth": "400.000.000 VNĐ (100 triệu × 4 loại giao dịch: nạp tiền, P2P, QR, rút tiền).",
+    "answer": "Tổng hạn mức/ngày cho Tier 3 (tính trên mọi loại giao dịch) là 400.000.000 VNĐ [LIMIT-001].",
+    "contexts": [
+      "Tài liệu: Bảng quy tắc nghiệp vụ - Hạn mức giao dịch theo cấp độ tài khoản (Tier) (BR-002, BusinessRules, module Han_Muc_Giao_Dich, v3.0)\nMục: 3. Bảng hạn mức chi tiết (áp dụng từ 01/02/2026)\n\n# 3. Bảng hạn mức chi tiết (áp dụng từ 01/02/2026)\n\n| Loại giao dịch | Tier 1 (/giao dịch) | Tier 1 (/ngày) | Tier 2 (/giao dịch) | Tier 2 (/ngày) | Tier 3 (/giao dịch) | Tier 3 (/ngày) |\n|---|---|---|---|---|---|---|\n| Nạp tiền | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 | 100.000.000 |\n| Chuyển tiền P2P | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n| Thanh toán QR | 1.000.000 | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 |\n| Rút tiền về NH | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n\nLưu ý quan trọng: hạn mức \"/ngày\" là tổng cộng dồn của TẤT CẢ giao dịch cùng loại trong ngày, tính theo giờ Việt Nam (GMT+7), reset lúc 00:00.",
+      "Tài liệu: Business Requirement Document - Tính năng Nạp tiền vào ví ManhPay (BRD-001, BRD, module Nap_Tien, v1.2)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.1 Hạn mức nạp tiền\n\n## 3.1 Hạn mức nạp tiền\n\nHạn mức nạp tiền phụ thuộc vào cấp độ tài khoản (xem chi tiết đầy đủ tại BusinessRules-002 - Hạn mức giao dịch):\n- Tài khoản Tier 1 (chưa xác thực eKYC): tối đa 5.000.000 VNĐ/ngày\n- Tài khoản Tier 2 (đã xác thực eKYC cơ bản): tối đa 20.000.000 VNĐ/ngày\n- Tài khoản Tier 3 (đã xác thực eKYC nâng cao + định danh giấy tờ): tối đa 100.000.000 VNĐ/ngày",
+      "Tài liệu: MA TRẬN HẠN MỨC GIAO DỊCH THEO TIER - MANHPAY (LIMIT-001, Limit_SLA_Matrix, module General, v1.2)\nMục: Sheet: HanMuc_Theo_Tier\n\n## Sheet: HanMuc_Theo_Tier\n\nMA TRẬN HẠN MỨC GIAO DỊCH THEO TIER - MANHPAY\n**Mã tài liệu:** LIMIT-001\n**Loại tài liệu:** Limit_SLA_Matrix\n**Phiên bản:** v1.2\n**Trạng thái:** Approved\n**Ngày hiệu lực:** 2026-02-01\n**Nguồn gốc số liệu:** BR-002 v3.0 (bản trích xuất để tra cứu nhanh)\n**Chủ sở hữu:** Compliance & Product Team\nLưu ý: đây là bản trích xuất từ BR-002. Khi có mâu thuẫn, lấy BR-002 làm chuẩn.\n\n| Loại giao dịch | Tier 1 (/giao dịch) | Tier 1 (/ngày) | Tier 2 (/giao dịch) | Tier 2 (/ngày) | Tier 3 (/giao dịch) | Tier 3 (/ngày) |\n|---|---|---|---|---|---|---|\n| Nạp tiền | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 | 100.000.000 |\n| Chuyển tiền P2P | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n| Thanh toán QR | 1.000.000 | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 |\n| Rút tiền về ngân hàng | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n| TỔNG hạn mức/ngày (mọi loại GD) |  | 20.000.000 |  | 80.000.000 |  | 400.000.000 |",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.1 Hạn mức rút tiền\n\n## 3.1 Hạn mức rút tiền\n\nÁp dụng theo hạn mức Tier tài khoản (nguồn tham chiếu: BR-002):\n- Tier 1: tối đa 2.000.000 VNĐ/giao dịch, 5.000.000 VNĐ/ngày\n- Tier 2: tối đa 10.000.000 VNĐ/giao dịch, 20.000.000 VNĐ/ngày\n- Tier 3: tối đa 50.000.000 VNĐ/giao dịch, 100.000.000 VNĐ/ngày",
+      "Tài liệu: Business Requirement Document - Tính năng Chuyển tiền P2P (Peer-to-Peer) (BRD-002, BRD, module Chuyen_Tien_P2P, v2.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.1 Hạn mức chuyển tiền P2P\n\n## 3.1 Hạn mức chuyển tiền P2P\n\nÁp dụng chung theo hạn mức Tier tài khoản (BusinessRules-002):\n- Tier 1: tối đa 2.000.000 VNĐ/giao dịch, 5.000.000 VNĐ/ngày\n- Tier 2: tối đa 10.000.000 VNĐ/giao dịch, 20.000.000 VNĐ/ngày\n- Tier 3: tối đa 50.000.000 VNĐ/giao dịch, 100.000.000 VNĐ/ngày"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9153872253784536,
+      "context_precision": 0.3333333333,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "LIMIT-001"
+    ],
+    "retrieved_doc_ids": [
+      "BR-002",
+      "BRD-001",
+      "LIMIT-001",
+      "BRD-004",
+      "BRD-002"
+    ],
+    "cited_doc_ids": [
+      "LIMIT-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2,
+      "out": 61
+    },
+    "cost_usd": 0.000614
+  },
+  "Q020|rerank=False": {
+    "id": "Q020",
+    "group": "multi_source",
+    "rerank": false,
+    "question": "Sau sự cố INC-001, những tài liệu nào đã được cập nhật và cập nhật nội dung gì?",
+    "ground_truth": "SOP-005 lên v2.0 (bổ sung nguyên tắc ưu tiên cộng tiền tạm ứng cho khách hàng) và INT-001 lên v1.3 (bổ sung lưu ý về độ dài trường transaction_reference).",
+    "answer": "Theo CONTEXT, có 2 tài liệu được cập nhật sau sự cố INC-001:\n\n- INT-001 (v1.3, 2026-02-01): bổ sung lưu ý về độ dài transaction_reference sau sự cố INC-001 [INT-001].\n- SOP-005 (v2.0, 2026-03-01): bổ sung nguyên tắc ưu tiên cộng tiền tạm ứng cho khách hàng sau sự cố INC-001 [SOP-005].\n\nKhông tìm thấy thông tin phù hợp trong Knowledge Base về nội dung chi tiết của bản thân sự cố INC-001 (báo cáo sự cố), vì tài liệu này chỉ được nhắc đến như mốc tham chiếu, không có nội dung nào của chính INC-001 xuất hiện trong CONTEXT.",
+    "contexts": [
+      "Tài liệu: Đặc tả tích hợp nghiệp vụ - Kết nối Napas 247 (INT-001, IntegrationSpec, module Tich_Hop_Ngan_Hang, v1.3)\nMục: 6. Lịch sử thay đổi\n\n# 6. Lịch sử thay đổi\n\n| Phiên bản | Ngày | Nội dung thay đổi |\n|---|---|---|\n| 1.0 | 2025-01-15 | Khởi tạo |\n| 1.2 | 2025-09-01 | Bổ sung nguyên tắc xử lý timeout |\n| 1.3 | 2026-02-01 | Bổ sung lưu ý về độ dài transaction_reference sau sự cố INC-001 |",
+      "Tài liệu: Business Requirement Document - Tính năng Nạp tiền vào ví ManhPay (BRD-001, BRD, module Nap_Tien, v1.2)\nMục: 5. Lịch sử thay đổi\n\n# 5. Lịch sử thay đổi\n\n| Phiên bản | Ngày | Nội dung thay đổi |\n|---|---|---|\n| 1.0 | 2025-06-01 | Khởi tạo tài liệu |\n| 1.1 | 2025-11-15 | Cập nhật hạn mức Tier 3 từ 50 triệu lên 100 triệu |\n| 1.2 | 2026-03-01 | Bổ sung yêu cầu OTP cho giao dịch từ 500.000 VNĐ |",
+      "Tài liệu: Nhật ký yêu cầu thay đổi - Chính sách phí và hạn mức (CR-LOG-001, ChangeRequest, module General, v1.0)\nMục: Nhật ký yêu cầu thay đổi (Change Request Log) > CR-2026-005: Bổ sung OTP cho giao dịch nạp tiền từ 500.000 VNĐ\n\n## CR-2026-005: Bổ sung OTP cho giao dịch nạp tiền từ 500.000 VNĐ\n\n- **Ngày đề xuất:** 15/01/2026 | **Ngày hiệu lực:** 01/03/2026\n- **Người đề xuất:** Risk & Compliance Team\n- **Nội dung:** Yêu cầu xác thực OTP bắt buộc với giao dịch nạp tiền từ 500.000 VNĐ trở lên\n- **Lý do:** Sau sự cố gian lận thẻ quốc tế quý 4/2025, cần siết chặt xác thực để giảm tỷ lệ chargeback\n- **Tài liệu bị ảnh hưởng:** BRD-001 (từ v1.1 lên v1.2)\n- **Trạng thái:** Đã triển khai",
+      "Tài liệu: Nhật ký yêu cầu thay đổi - Chính sách phí và hạn mức (CR-LOG-001, ChangeRequest, module General, v1.0)\nMục: Nhật ký yêu cầu thay đổi (Change Request Log)\n\n# Nhật ký yêu cầu thay đổi (Change Request Log)\n\nTài liệu này ghi nhận các yêu cầu thay đổi đã được phê duyệt liên quan đến chính sách phí và hạn mức, giúp BA/PO truy vết lý do phía sau mỗi con số hiện tại.",
+      "Tài liệu: SOP - Quy trình đối soát và bù trừ giao dịch (Reconciliation & Settlement) (SOP-005, SOP, module Doi_Soat, v2.0)\nMục: 8. Lịch sử thay đổi\n\n# 8. Lịch sử thay đổi\n\n- v1.0 (2025-04-01): Khởi tạo quy trình đối soát thủ công.\n- v1.5 (2025-10-15): Triển khai đối soát tự động hàng ngày.\n- v2.0 (2026-03-01): Bổ sung nguyên tắc ưu tiên cộng tiền tạm ứng cho khách hàng sau sự cố INC-001."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9763159021709383,
+      "context_precision": 0.19999999998,
+      "context_recall": 1.0
+    },
+    "refused": true,
+    "expected_source_docs": [
+      "INC-001",
+      "SOP-005",
+      "INT-001"
+    ],
+    "retrieved_doc_ids": [
+      "INT-001",
+      "BRD-001",
+      "CR-LOG-001",
+      "SOP-005"
+    ],
+    "cited_doc_ids": [
+      "INT-001",
+      "SOP-005"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2,
+      "out": 297
+    },
+    "cost_usd": 0.002974
+  },
+  "Q028|rerank=False": {
+    "id": "Q028",
+    "group": "version_conflict",
+    "rerank": false,
+    "question": "Trước đây hạn mức Tier 3 là bao nhiêu và vì sao được nâng lên?",
+    "ground_truth": "Trước đây là 50.000.000 VNĐ/ngày, được nâng lên 100.000.000 VNĐ từ 15/06/2025 theo CR-2025-018, vì 12% khách hàng Tier 3 thường xuyên chạm trần hạn mức và chuyển sang dùng ví đối thủ.",
+    "answer": "Trước đây hạn mức Tier 3 là 50.000.000 VNĐ/ngày, được nâng lên 100.000.000 VNĐ/ngày, hiệu lực từ 15/06/2025 [CR-LOG-001]. Lý do: khảo sát cho thấy 12% khách hàng Tier 3 chạm trần hạn mức ít nhất 1 lần/tháng, dẫn tới việc họ chuyển sang dùng ví đối thủ cho các giao dịch lớn [CR-LOG-001]. Nội dung này cũng được nhắc đến trong tài liệu đã lỗi thời BR-002-v1 (không còn hiệu lực) như lý do cạnh tranh thị trường [BR-002-v1].",
+    "contexts": [
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 1/6)\n\n# Câu hỏi thường gặp\n\n**Q1: Tại sao tôi không nạp được tiền vượt quá 5 triệu/ngày?**\nA: Tài khoản của bạn đang ở Tier 1 (chưa xác thực eKYC), hạn mức nạp tiền tối đa là 5.000.000 VNĐ/ngày. Bạn có thể nâng lên Tier 2 bằng cách xác thực eKYC trong mục \"Tài khoản > Xác thực danh tính\" để nâng hạn mức lên 20.000.000 VNĐ/ngày.",
+      "Tài liệu: [BẢN CŨ - KHÔNG CÒN HIỆU LỰC] Hạn mức giao dịch theo cấp độ tài khoản (Tier) (BR-002-v1, BusinessRules, module Han_Muc_Giao_Dich, v1.0)\nMục: 2. Lý do thay thế\n\n# 2. Lý do thay thế\n\nTừ 15/06/2025, hạn mức Tier 3 được nâng lên 100.000.000 VNĐ/ngày để cạnh tranh với các ví điện tử khác trên thị trường. Xem chi tiết tại BR-002 v3.0.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 4/6)\n\n# Câu hỏi thường gặp\n\n**Q5: Làm sao để biết mình đang ở Tier nào?**\nA: Vào mục \"Tài khoản > Thông tin xác thực\" để xem Tier hiện tại và hạn mức tương ứng.\n\n**Q6: Thanh toán bằng thẻ quốc tế có mất phí không?**\nA: Có, phí nạp tiền qua thẻ quốc tế (Visa/Mastercard) là 1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ. Đây là phí thu hộ đối tác xử lý thẻ quốc tế, không phải phí của ManhPay.",
+      "Tài liệu: Nhật ký yêu cầu thay đổi - Chính sách phí và hạn mức (CR-LOG-001, ChangeRequest, module General, v1.0)\nMục: Nhật ký yêu cầu thay đổi (Change Request Log) > CR-2025-018: Nâng hạn mức Tier 3\n\n## CR-2025-018: Nâng hạn mức Tier 3\n\n- **Ngày đề xuất:** 20/05/2025 | **Ngày hiệu lực:** 15/06/2025\n- **Người đề xuất:** Product Team\n- **Nội dung:** Nâng hạn mức giao dịch/ngày của Tier 3 từ 50.000.000 lên 100.000.000 VNĐ\n- **Lý do:** Khảo sát cho thấy 12% khách hàng Tier 3 chạm trần hạn mức ít nhất 1 lần/tháng, dẫn tới việc họ chuyển sang dùng ví đối thủ cho các giao dịch lớn\n- **Tài liệu bị ảnh hưởng:** BR-002 (từ v1.0 lên v2.0), BRD-001, BRD-002\n- **Trạng thái:** Đã triển khai",
+      "Tài liệu: SOP - Quy trình xác thực định danh khách hàng (eKYC) (SOP-002, SOP, module KYC, v2.1)\nMục: 4. Quy trình xác thực Tier 2 lên Tier 3 (eKYC nâng cao)\n\n# 4. Quy trình xác thực Tier 2 lên Tier 3 (eKYC nâng cao)\n\n- Khách hàng yêu cầu nâng Tier 3 từ mục Tài khoản > Nâng cấp hạn mức.\n- Hệ thống gửi yêu cầu đối chiếu thông tin với Cơ sở dữ liệu quốc gia về dân cư qua kênh VNeID hoặc đối tác định danh được NHNN cấp phép.\n- Khách hàng xác nhận đồng ý chia sẻ thông tin qua ứng dụng VNeID (nếu dùng kênh này).\n- Kết quả đối chiếu trả về trong vòng tối đa 24 giờ làm việc.\n- Nếu khớp thông tin, tài khoản được nâng lên Tier 3; nếu không khớp, hệ thống thông báo lý do cụ thể (VD: thông tin CCCD đã thay đổi, cần cập nhật lại)."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7212091656847104,
+      "context_precision": 0.249999999975,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "BR-002-v1",
+      "CR-LOG-001",
+      "BR-002"
+    ],
+    "retrieved_doc_ids": [
+      "FAQ-001",
+      "BR-002-v1",
+      "CR-LOG-001",
+      "SOP-002"
+    ],
+    "cited_doc_ids": [
+      "CR-LOG-001",
+      "BR-002-v1"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2,
+      "out": 262
+    },
+    "cost_usd": 0.002624
+  },
+  "Q031|rerank=False": {
+    "id": "Q031",
+    "group": "adversarial",
+    "rerank": false,
+    "question": "Hạn mức giao dịch của tài khoản Tier 4 là bao nhiêu?",
+    "ground_truth": "Không tìm thấy thông tin. Hệ thống chỉ có 3 cấp Tier (1, 2, 3), không tồn tại Tier 4.",
+    "answer": "Không tìm thấy thông tin phù hợp trong Knowledge Base. Tài liệu BR-002 chỉ định nghĩa hạn mức cho Tier 1, Tier 2 và Tier 3 [BR-002]; không có \"Tier 4\" xuất hiện trong bất kỳ tài liệu nào của CONTEXT.",
+    "contexts": [
+      "Tài liệu: Bảng quy tắc nghiệp vụ - Hạn mức giao dịch theo cấp độ tài khoản (Tier) (BR-002, BusinessRules, module Han_Muc_Giao_Dich, v3.0)\nMục: 3. Bảng hạn mức chi tiết (áp dụng từ 01/02/2026)\n\n# 3. Bảng hạn mức chi tiết (áp dụng từ 01/02/2026)\n\n| Loại giao dịch | Tier 1 (/giao dịch) | Tier 1 (/ngày) | Tier 2 (/giao dịch) | Tier 2 (/ngày) | Tier 3 (/giao dịch) | Tier 3 (/ngày) |\n|---|---|---|---|---|---|---|\n| Nạp tiền | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 | 100.000.000 |\n| Chuyển tiền P2P | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n| Thanh toán QR | 1.000.000 | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 |\n| Rút tiền về NH | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n\nLưu ý quan trọng: hạn mức \"/ngày\" là tổng cộng dồn của TẤT CẢ giao dịch cùng loại trong ngày, tính theo giờ Việt Nam (GMT+7), reset lúc 00:00.",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 2/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q2: Phí nhận thanh toán qua QR là bao nhiêu?**\nA: Phí phụ thuộc hạng merchant dựa trên doanh thu tháng: hạng Đồng 1.2%, hạng Bạc 1.0%, hạng Vàng 0.8%, hạng Kim Cương 0.6%. Hạng được xét lại định kỳ hàng quý dựa trên doanh thu thực tế.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 4/6)\n\n# Câu hỏi thường gặp\n\n**Q5: Làm sao để biết mình đang ở Tier nào?**\nA: Vào mục \"Tài khoản > Thông tin xác thực\" để xem Tier hiện tại và hạn mức tương ứng.\n\n**Q6: Thanh toán bằng thẻ quốc tế có mất phí không?**\nA: Có, phí nạp tiền qua thẻ quốc tế (Visa/Mastercard) là 1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ. Đây là phí thu hộ đối tác xử lý thẻ quốc tế, không phải phí của ManhPay.",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.1 Hạn mức rút tiền\n\n## 3.1 Hạn mức rút tiền\n\nÁp dụng theo hạn mức Tier tài khoản (nguồn tham chiếu: BR-002):\n- Tier 1: tối đa 2.000.000 VNĐ/giao dịch, 5.000.000 VNĐ/ngày\n- Tier 2: tối đa 10.000.000 VNĐ/giao dịch, 20.000.000 VNĐ/ngày\n- Tier 3: tối đa 50.000.000 VNĐ/giao dịch, 100.000.000 VNĐ/ngày",
+      "Tài liệu: Bảng quy tắc nghiệp vụ - Hạn mức giao dịch theo cấp độ tài khoản (Tier) (BR-002, BusinessRules, module Han_Muc_Giao_Dich, v3.0)\nMục: 1. Mục đích\n\n# 1. Mục đích\n\nTài liệu này là nguồn tham chiếu duy nhất (single source of truth) cho toàn bộ hạn mức giao dịch áp dụng trên sản phẩm ManhPay. Mọi BRD/SOP khác khi đề cập đến hạn mức phải tham chiếu về tài liệu này, không tự định nghĩa lại."
+    ],
+    "scores": {
+      "faithfulness": 0.75,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    "refused": true,
+    "expected_source_docs": [],
+    "retrieved_doc_ids": [
+      "BR-002",
+      "FAQ-002",
+      "FAQ-001",
+      "BRD-004"
+    ],
+    "cited_doc_ids": [
+      "BR-002"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2,
+      "out": 121
+    },
+    "cost_usd": 0.001214
+  },
+  "Q002|rerank=False": {
+    "id": "Q002",
+    "group": "single_source",
+    "rerank": false,
+    "question": "Ngưỡng face matching tối thiểu để xác thực eKYC thành công là bao nhiêu phần trăm?",
+    "ground_truth": "85% độ tương đồng.",
+    "answer": "Ngưỡng chấp nhận tối thiểu để xác thực eKYC thành công (face matching giữa selfie và ảnh giấy tờ) là 85% độ tương đồng [SOP-002].",
+    "contexts": [
+      "Tài liệu: SOP - Quy trình xác thực định danh khách hàng (eKYC) (SOP-002, SOP, module KYC, v2.1)\nMục: 3. Quy trình xác thực Tier 1 lên Tier 2 (eKYC cơ bản)\n\n# 3. Quy trình xác thực Tier 1 lên Tier 2 (eKYC cơ bản)\n\n- Khách hàng vào mục Tài khoản > Xác thực danh tính.\n- Chụp ảnh mặt trước và mặt sau CCCD/CMND.\n- Hệ thống OCR tự động trích xuất thông tin (họ tên, số CCCD, ngày sinh, địa chỉ).\n- Khách hàng thực hiện selfie kèm chuyển động khuôn mặt (liveness detection) để chống giả mạo.\n- Hệ thống đối chiếu khuôn mặt selfie với ảnh trên giấy tờ (face matching), ngưỡng chấp nhận tối thiểu 85% độ tương đồng.\n- Nếu đạt yêu cầu, tài khoản tự động được nâng lên Tier 2 trong vòng 5 phút.\n- Nếu không đạt (độ tương đồng dưới 85% hoặc giấy tờ không rõ nét), hệ thống yêu cầu chụp lại tối đa 3 lần, sau đó chuyển sang xét duyệt thủ công bởi nhân viên Compliance trong vòng 4 giờ làm việc.",
+      "Tài liệu: SOP - Quy trình xác thực định danh khách hàng (eKYC) (SOP-002, SOP, module KYC, v2.1)\nMục: 7. Lịch sử thay đổi\n\n# 7. Lịch sử thay đổi\n\n- v1.0 (2025-05-01): Khởi tạo quy trình.\n- v2.0 (2025-10-01): Bổ sung kênh xác thực qua VNeID cho Tier 3.\n- v2.1 (2026-02-15): Điều chỉnh ngưỡng face matching từ 80% lên 85% theo khuyến nghị audit bảo mật.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 1/6)\n\n# Câu hỏi thường gặp\n\n**Q1: Tại sao tôi không nạp được tiền vượt quá 5 triệu/ngày?**\nA: Tài khoản của bạn đang ở Tier 1 (chưa xác thực eKYC), hạn mức nạp tiền tối đa là 5.000.000 VNĐ/ngày. Bạn có thể nâng lên Tier 2 bằng cách xác thực eKYC trong mục \"Tài khoản > Xác thực danh tính\" để nâng hạn mức lên 20.000.000 VNĐ/ngày.",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 2/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q2: Phí nhận thanh toán qua QR là bao nhiêu?**\nA: Phí phụ thuộc hạng merchant dựa trên doanh thu tháng: hạng Đồng 1.2%, hạng Bạc 1.0%, hạng Vàng 0.8%, hạng Kim Cương 0.6%. Hạng được xét lại định kỳ hàng quý dựa trên doanh thu thực tế.",
+      "Tài liệu: Epic: Tối ưu tỷ lệ thành công luồng Nạp tiền (US-EPIC-021, UserStory, module Nap_Tien, v1.0)\nMục: Epic: MANHPAY-EPIC-021 - Tối ưu tỷ lệ thành công luồng Nạp tiền > User Story 2: MANHPAY-1418\n\n## User Story 2: MANHPAY-1418\n\n**Là** một khách hàng nạp tiền lần đầu bằng thẻ quốc tế\n**Tôi muốn** biết trước mức phí sẽ bị trừ trước khi xác nhận\n**Để** tôi không bị bất ngờ khi thấy số tiền thực nhận ít hơn số tiền nạp\n\n**Acceptance Criteria:**\n- Given khách hàng chọn phương thức nạp tiền là thẻ quốc tế\n- When khách hàng nhập số tiền muốn nạp\n- Then hiển thị ngay bảng chi tiết: số tiền nạp, phí (1.5%, tối thiểu 5.000 VNĐ), tổng số tiền bị trừ từ thẻ\n- Thông tin phí phải đồng bộ với bảng phí FEE-001, không hardcode trong app\n\n**Story Points:** 3 | **Priority:** High | **Status:** In Progress (dự kiến Sprint 47)\n\n---"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8261137146632983,
+      "context_precision": 0.99999999995,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "SOP-002"
+    ],
+    "retrieved_doc_ids": [
+      "SOP-002",
+      "FAQ-001",
+      "FAQ-002",
+      "US-EPIC-021"
+    ],
+    "cited_doc_ids": [
+      "SOP-002"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3165,
+      "out": 73
+    },
+    "cost_usd": 0.00706
+  },
+  "Q003|rerank=False": {
+    "id": "Q003",
+    "group": "single_source",
+    "rerank": false,
+    "question": "Mã QR động của merchant có hiệu lực trong bao lâu?",
+    "ground_truth": "5 phút kể từ khi merchant tạo mã.",
+    "answer": "Mã QR động (dynamic QR) của merchant có thời hạn hiệu lực 5 phút kể từ khi merchant tạo mã [BRD-003][FAQ-002][FAQ-001].",
+    "contexts": [
+      "Tài liệu: Business Requirement Document - Tính năng Thanh toán qua mã QR (BRD-003, BRD, module Thanh_Toan_QR, v1.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.3 Điều kiện kỹ thuật\n\n## 3.3 Điều kiện kỹ thuật\n\n- Mã QR động (dynamic QR) có thời hạn hiệu lực 5 phút kể từ khi merchant tạo mã\n- Mã QR tĩnh (static QR) của merchant không giới hạn thời gian nhưng khách hàng phải tự nhập số tiền",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 5/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q5: Mã QR của tôi có bị hết hạn không?**\nA: Mã QR tĩnh (in ra dán tại quầy) không hết hạn. Mã QR động sinh từ máy POS hoặc app chỉ có hiệu lực 5 phút, sau đó cần tạo lại.\n\n**Q6: Khách hàng khiếu nại đã thanh toán nhưng tôi chưa nhận được thông báo, xử lý thế nào?**\nA: Vui lòng kiểm tra mục \"Lịch sử giao dịch\" trong app Merchant trước. Nếu giao dịch đã ghi nhận thành công, tiền sẽ về theo lịch T+1. Nếu không thấy giao dịch, đề nghị khách hàng cung cấp mã giao dịch để đội hỗ trợ tra soát.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 2/6)\n\n# Câu hỏi thường gặp\n\n**Q2: Chuyển tiền cho bạn bè trên ManhPay có mất phí không?**\nA: Hoàn toàn miễn phí. Chuyển tiền P2P (cho người dùng ManhPay khác) không giới hạn số lần và không thu phí.\n\n**Q3: Tôi quét mã QR nhưng báo \"Mã QR đã hết hạn\", phải làm sao?**\nA: Mã QR động của merchant chỉ có hiệu lực trong 5 phút. Vui lòng nhờ nhân viên cửa hàng tạo lại mã QR mới rồi quét lại.",
+      "Tài liệu: Business Requirement Document - Tính năng Thanh toán qua mã QR (BRD-003, BRD, module Thanh_Toan_QR, v1.0)\nMục: 1. Mục tiêu nghiệp vụ\n\n# 1. Mục tiêu nghiệp vụ\n\nCho phép khách hàng thanh toán tại điểm bán hàng (merchant) bằng cách quét mã QR động (VietQR) hoặc mã QR tĩnh của cửa hàng, hỗ trợ cả 2 chiều: khách quét QR merchant, hoặc merchant quét QR khách hàng.",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 2/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q2: Phí nhận thanh toán qua QR là bao nhiêu?**\nA: Phí phụ thuộc hạng merchant dựa trên doanh thu tháng: hạng Đồng 1.2%, hạng Bạc 1.0%, hạng Vàng 0.8%, hạng Kim Cương 0.6%. Hạng được xét lại định kỳ hàng quý dựa trên doanh thu thực tế."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9525737267681782,
+      "context_precision": 0.9999999999666667,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "BRD-003"
+    ],
+    "retrieved_doc_ids": [
+      "BRD-003",
+      "FAQ-002",
+      "FAQ-001"
+    ],
+    "cited_doc_ids": [
+      "BRD-003",
+      "FAQ-002",
+      "FAQ-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2791,
+      "out": 72
+    },
+    "cost_usd": 0.006302
+  },
+  "Q004|rerank=False": {
+    "id": "Q004",
+    "group": "single_source",
+    "rerank": false,
+    "question": "SLA xử lý khiếu nại giao dịch không nhận diện là bao nhiêu ngày?",
+    "ground_truth": "7 ngày làm việc.",
+    "answer": "SLA xử lý khiếu nại giao dịch không nhận diện (Unrecognized transaction) là 7 ngày làm việc [SOP-003][LIMIT-001], có thể cần điều tra Risk & Fraud [LIMIT-001].",
+    "contexts": [
+      "Tài liệu: SOP - Quy trình xử lý khiếu nại giao dịch (Dispute Handling) (SOP-003, SOP, module Khieu_Nai, v1.5)\nMục: 2. Phân loại khiếu nại\n\n# 2. Phân loại khiếu nại\n\n| Loại khiếu nại | Mô tả | SLA xử lý |\n|---|---|---|\n| Giao dịch trùng lặp (Duplicate charge) | Khách hàng bị trừ tiền 2 lần cho 1 giao dịch | 3 ngày làm việc |\n| Giao dịch không nhận diện (Unrecognized transaction) | Khách hàng không thực hiện nhưng bị trừ tiền, nghi ngờ gian lận | 7 ngày làm việc |\n| Không nhận được tiền (Failed credit) | Trừ tiền người gửi nhưng người nhận không nhận được | 3 ngày làm việc |\n| Tranh chấp merchant (Merchant dispute) | Khách hàng không hài lòng với hàng hóa/dịch vụ đã thanh toán qua ManhPay | 10 ngày làm việc |",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 5/6)\n\n# Câu hỏi thường gặp\n\n**Q7: Tôi có thể khiếu nại giao dịch sai/gian lận ở đâu?**\nA: Vào mục \"Lịch sử giao dịch\", chọn giao dịch cần khiếu nại, nhấn \"Báo cáo vấn đề\". Đội ngũ xử lý khiếu nại sẽ phản hồi trong vòng 3 ngày làm việc theo quy trình SOP xử lý khiếu nại.",
+      "Tài liệu: MA TRẬN HẠN MỨC GIAO DỊCH THEO TIER - MANHPAY (LIMIT-001, Limit_SLA_Matrix, module General, v1.2)\nMục: Sheet: SLA_Xu_Ly (phần 2/2)\n\n## Sheet: SLA_Xu_Ly\n\n| Nghiệp vụ | Loại xử lý | SLA cam kết | Tài liệu nguồn | Ghi chú |\n|---|---|---|---|---|\n| Xác thực eKYC Tier 1 → Tier 2 | Tự động | Dưới 5 phút | SOP-002 | Tỷ lệ tự động thành công mục tiêu > 80% |\n| Xác thực eKYC Tier 2 → Tier 3 | Bán tự động | Dưới 24 giờ làm việc | SOP-002 | Phụ thuộc đối tác định danh |\n| Xét duyệt eKYC thủ công | Thủ công | Dưới 4 giờ làm việc | SOP-002 | Khi face matching dưới 85% |\n| Khiếu nại giao dịch trùng lặp | Thủ công | 3 ngày làm việc | SOP-003 |  |\n| Khiếu nại giao dịch không nhận diện | Thủ công | 7 ngày làm việc | SOP-003 | Có thể cần điều tra Risk & Fraud |\n| Khiếu nại không nhận được tiền | Thủ công | 3 ngày làm việc | SOP-003 |  |\n| Tranh chấp với merchant | Thủ công | 10 ngày làm việc | SOP-003 |  |\n| Đối soát giao dịch nạp/rút tiền | Tự động | Trong 24 giờ | SOP-005 / BRD-001 | Chạy tự động lúc 02:00 hàng ngày |\n| Xử lý chênh lệch đối soát | Thủ công | Trước 17:00 ngày kế tiếp | SOP-005 |  |\n| Xét duyệt hồ sơ merchant mới | Thủ công | 3-5 ngày làm việc | FAQ-002 |  |",
+      "Tài liệu: SOP - Quy trình xử lý khiếu nại giao dịch (Dispute Handling) (SOP-003, SOP, module Khieu_Nai, v1.5)\nMục: 3. Quy trình xử lý chi tiết > Bước 1: Tiếp nhận\n\n## Bước 1: Tiếp nhận\n\nKhách hàng gửi khiếu nại qua app (Lịch sử giao dịch > Báo cáo vấn đề) hoặc qua Hotline. Hệ thống tự động tạo mã ticket (case ID) và gửi email/SMS xác nhận đã tiếp nhận trong vòng 15 phút.",
+      "Tài liệu: SOP - Quy trình xử lý khiếu nại giao dịch (Dispute Handling) (SOP-003, SOP, module Khieu_Nai, v1.5)\nMục: 1. Mục đích\n\n# 1. Mục đích\n\nChuẩn hóa quy trình tiếp nhận, điều tra và xử lý khiếu nại của khách hàng liên quan đến giao dịch trên ManhPay, đảm bảo thời gian phản hồi nhất quán và tuân thủ quy định bảo vệ người tiêu dùng tài chính."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8896167419503094,
+      "context_precision": 0.8333333332916666,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "SOP-003"
+    ],
+    "retrieved_doc_ids": [
+      "SOP-003",
+      "FAQ-001",
+      "LIMIT-001"
+    ],
+    "cited_doc_ids": [
+      "SOP-003",
+      "LIMIT-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3216,
+      "out": 89
+    },
+    "cost_usd": 0.007322
+  },
+  "Q005|rerank=False": {
+    "id": "Q005",
+    "group": "single_source",
+    "rerank": false,
+    "question": "Float Balance nghĩa là gì?",
+    "ground_truth": "Tổng số tiền khách hàng đang gửi trong ví nhưng chưa sử dụng, công ty có trách nhiệm đảm bảo an toàn 100% số tiền này theo quy định NHNN.",
+    "answer": "Float Balance là tổng số tiền khách hàng đang gửi trong ví ManhPay nhưng chưa sử dụng, ManhPay có trách nhiệm đảm bảo an toàn 100% số tiền này theo quy định NHNN [GL-001].",
+    "contexts": [
+      "Tài liệu: Bảng thuật ngữ nghiệp vụ - ManhPay Data Dictionary (GL-001, Glossary, module General, v1.4)\nMục: Bảng thuật ngữ nghiệp vụ (phần 2/3)\n\n# Bảng thuật ngữ nghiệp vụ\n\n| Thuật ngữ | Định nghĩa |\n|---|---|\n| Float Balance | Tổng số tiền khách hàng đang gửi trong ví ManhPay nhưng chưa sử dụng, ManhPay có trách nhiệm đảm bảo an toàn 100% số tiền này theo quy định NHNN |\n| Idempotency Key | Mã định danh duy nhất gắn với một yêu cầu giao dịch, dùng để đảm bảo hệ thống không xử lý trùng lặp một giao dịch khi có lỗi retry |\n| AML (Anti-Money Laundering) | Chính sách và quy trình phòng chống rửa tiền, yêu cầu bắt buộc với mọi tổ chức trung gian thanh toán |\n| Merchant | Đối tác cửa hàng/doanh nghiệp chấp nhận thanh toán qua ManhPay |\n| VietQR | Chuẩn mã QR thanh toán thống nhất do Napas và NHNN quy định, áp dụng chung cho các ngân hàng và ví điện tử tại Việt Nam |\n| Napas 247 | Hệ thống chuyển mạch tài chính quốc gia, cho phép chuyển tiền nhanh liên ngân hàng 24/7 |\n| MAU (Monthly Active Users) | Số người dùng thực hiện ít nhất 1 hành động trong app trong vòng 1 tháng, chỉ số đo mức độ sử dụng sản phẩm |",
+      "Tài liệu: Bảng quy tắc nghiệp vụ - Hạn mức giao dịch theo cấp độ tài khoản (Tier) (BR-002, BusinessRules, module Han_Muc_Giao_Dich, v3.0)\nMục: 1. Mục đích\n\n# 1. Mục đích\n\nTài liệu này là nguồn tham chiếu duy nhất (single source of truth) cho toàn bộ hạn mức giao dịch áp dụng trên sản phẩm ManhPay. Mọi BRD/SOP khác khi đề cập đến hạn mức phải tham chiếu về tài liệu này, không tự định nghĩa lại.",
+      "Tài liệu: Bảng thuật ngữ nghiệp vụ - ManhPay Data Dictionary (GL-001, Glossary, module General, v1.4)\nMục: Bảng thuật ngữ nghiệp vụ (phần 1/3)\n\n# Bảng thuật ngữ nghiệp vụ\n\n| Thuật ngữ | Định nghĩa |\n|---|---|\n| Số dư khả dụng (Available Balance) | Số tiền khách hàng có thể sử dụng ngay để giao dịch, đã trừ đi các khoản đang bị treo (hold) |\n| Số dư treo (Pending Balance / Hold) | Số tiền tạm thời bị giữ do giao dịch đang xử lý hoặc đang tranh chấp (dispute), chưa cộng/trừ chính thức |\n| Tier | Cấp độ tài khoản dựa trên mức độ xác thực danh tính (eKYC), quyết định hạn mức giao dịch |\n| eKYC (electronic Know Your Customer) | Quy trình xác thực danh tính khách hàng điện tử, thường qua chụp giấy tờ tùy thân + nhận diện khuôn mặt |\n| Reconciliation (Đối soát) | Quy trình so khớp dữ liệu giao dịch giữa hệ thống ManhPay và đối tác (ngân hàng, Napas) để phát hiện chênh lệch |\n| Settlement (Thanh toán bù trừ) | Quy trình chuyển tiền thực tế giữa ManhPay và đối tác/merchant sau khi các giao dịch đã được đối soát |\n| Dispute (Tranh chấp/Khiếu nại) | Trường hợp khách hàng không đồng ý với một giao dịch đã thực hiện, yêu cầu điều tra và có thể hoàn tiền |",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 1/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q1: Tôi cần chuẩn bị gì để trở thành merchant của ManhPay?**\nA: Bạn cần có giấy phép kinh doanh hợp lệ (hộ kinh doanh cá thể hoặc doanh nghiệp), tài khoản ngân hàng doanh nghiệp chính chủ, và hoàn tất quy trình xác thực merchant (KYC merchant). Thời gian xét duyệt thông thường 3-5 ngày làm việc.",
+      "Tài liệu: Bảng thuật ngữ nghiệp vụ - ManhPay Data Dictionary (GL-001, Glossary, module General, v1.4)\nMục: Bảng thuật ngữ nghiệp vụ (phần 3/3)\n\n# Bảng thuật ngữ nghiệp vụ\n\n| Thuật ngữ | Định nghĩa |\n|---|---|\n| Success Rate | Tỷ lệ giao dịch xử lý thành công trên tổng số giao dịch được khởi tạo |\n| Chargeback | Trường hợp ngân hàng phát hành thẻ quốc tế yêu cầu hoàn tiền cho chủ thẻ do giao dịch bị tranh chấp/gian lận |"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.5598302045391002,
+      "context_precision": 0.9999999999,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "GL-001"
+    ],
+    "retrieved_doc_ids": [
+      "GL-001",
+      "BR-002",
+      "FAQ-002"
+    ],
+    "cited_doc_ids": [
+      "GL-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3398,
+      "out": 93
+    },
+    "cost_usd": 0.007726
+  },
+  "Q006|rerank=False": {
+    "id": "Q006",
+    "group": "single_source",
+    "rerank": false,
+    "question": "Chuyển tiền P2P giữa hai người dùng ManhPay có mất phí không?",
+    "ground_truth": "Miễn phí hoàn toàn, không giới hạn số lần.",
+    "answer": "Không mất phí: chuyển tiền P2P giữa các người dùng ManhPay không giới hạn số lần và không thu phí [FAQ-001].",
+    "contexts": [
+      "Tài liệu: Business Requirement Document - Tính năng Chuyển tiền P2P (Peer-to-Peer) (BRD-002, BRD, module Chuyen_Tien_P2P, v2.0)\nMục: 1. Mục tiêu nghiệp vụ\n\n# 1. Mục tiêu nghiệp vụ\n\nCho phép người dùng ManhPay chuyển tiền tức thời cho người dùng ManhPay khác thông qua số điện thoại, mã QR cá nhân, hoặc username ManhPay, nhằm thay thế nhu cầu chuyển khoản ngân hàng truyền thống trong các giao dịch giá trị nhỏ giữa cá nhân.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 2/6)\n\n# Câu hỏi thường gặp\n\n**Q2: Chuyển tiền cho bạn bè trên ManhPay có mất phí không?**\nA: Hoàn toàn miễn phí. Chuyển tiền P2P (cho người dùng ManhPay khác) không giới hạn số lần và không thu phí.\n\n**Q3: Tôi quét mã QR nhưng báo \"Mã QR đã hết hạn\", phải làm sao?**\nA: Mã QR động của merchant chỉ có hiệu lực trong 5 phút. Vui lòng nhờ nhân viên cửa hàng tạo lại mã QR mới rồi quét lại.",
+      "Tài liệu: Business Requirement Document - Tính năng Chuyển tiền P2P (Peer-to-Peer) (BRD-002, BRD, module Chuyen_Tien_P2P, v2.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.5 Xử lý ngoại lệ\n\n## 3.5 Xử lý ngoại lệ\n\n- Người nhận không tồn tại: hiển thị lỗi \"Số điện thoại chưa đăng ký ManhPay\", gợi ý mời bạn bè (referral flow)\n- Giao dịch bị timeout giữa bước trừ tiền và cộng tiền: hệ thống dùng cơ chế idempotency key để đảm bảo không trừ tiền 2 lần, và tự động retry cộng tiền cho người nhận",
+      "Tài liệu: Business Requirement Document - Tính năng Chuyển tiền P2P (Peer-to-Peer) (BRD-002, BRD, module Chuyen_Tien_P2P, v2.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.2 Điều kiện thực hiện\n\n## 3.2 Điều kiện thực hiện\n\n- Cả người gửi và người nhận đều phải có tài khoản ManhPay ở trạng thái Active\n- Số dư khả dụng (Available Balance) của người gửi phải lớn hơn hoặc bằng số tiền chuyển cộng phí (nếu có)\n- Nếu người nhận chưa từng nhận tiền từ người gửi, giao dịch đầu tiên trên 1.000.000 VNĐ yêu cầu xác thực OTP bắt buộc (chính sách chống gian lận)",
+      "Tài liệu: Business Requirement Document - Tính năng Chuyển tiền P2P (Peer-to-Peer) (BRD-002, BRD, module Chuyen_Tien_P2P, v2.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.4 Luồng xử lý chính (Happy path)\n\n## 3.4 Luồng xử lý chính (Happy path)\n\n1. Người dùng A chọn \"Chuyển tiền\" → nhập số điện thoại hoặc quét QR của người dùng B\n2. Hệ thống kiểm tra người dùng B tồn tại và active\n3. Người dùng A nhập số tiền, có thể đính kèm lời nhắn\n4. Hệ thống kiểm tra số dư khả dụng và hạn mức\n5. Nếu cần OTP: gửi OTP, người dùng A xác nhận\n6. Hệ thống trừ tiền người A, cộng tiền người B, ghi nhận giao dịch (transaction log)\n7. Cả hai bên nhận thông báo đẩy (push notification) xác nhận giao dịch thành công"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9926912477584665,
+      "context_precision": 0.49999999995,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "BRD-002",
+      "FEE-001",
+      "FAQ-001"
+    ],
+    "retrieved_doc_ids": [
+      "BRD-002",
+      "FAQ-001"
+    ],
+    "cited_doc_ids": [
+      "FAQ-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2930,
+      "out": 55
+    },
+    "cost_usd": 0.00641
+  },
+  "Q007|rerank=False": {
+    "id": "Q007",
+    "group": "single_source",
+    "rerank": false,
+    "question": "Tài khoản phải đạt Tier tối thiểu nào mới được rút tiền về ngân hàng?",
+    "ground_truth": "Tier 2 (đã hoàn tất eKYC cơ bản).",
+    "answer": "Tài khoản phải đạt tối thiểu Tier 2 (đã hoàn tất eKYC cơ bản) mới được sử dụng tính năng rút tiền [BRD-004]. Điều kiện này được bổ sung theo yêu cầu thay đổi CR-2026-019, có hiệu lực từ 20/03/2026 [CR-LOG-001].",
+    "contexts": [
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.2 Điều kiện thực hiện\n\n## 3.2 Điều kiện thực hiện\n\n- Tài khoản ngân hàng đích phải trùng khớp thông tin chủ tài khoản với thông tin eKYC của khách hàng (kiểm tra tự động theo họ tên và số CCCD)\n- Tài khoản khách hàng phải đạt tối thiểu Tier 2 (đã hoàn tất eKYC cơ bản) mới được sử dụng tính năng rút tiền\n- Bắt buộc xác thực OTP hoặc sinh trắc học cho mọi giao dịch rút tiền, không phân biệt giá trị\n- Số dư khả dụng phải lớn hơn hoặc bằng số tiền rút cộng phí (nếu có)",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.1 Hạn mức rút tiền\n\n## 3.1 Hạn mức rút tiền\n\nÁp dụng theo hạn mức Tier tài khoản (nguồn tham chiếu: BR-002):\n- Tier 1: tối đa 2.000.000 VNĐ/giao dịch, 5.000.000 VNĐ/ngày\n- Tier 2: tối đa 10.000.000 VNĐ/giao dịch, 20.000.000 VNĐ/ngày\n- Tier 3: tối đa 50.000.000 VNĐ/giao dịch, 100.000.000 VNĐ/ngày",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 5. Lịch sử thay đổi\n\n# 5. Lịch sử thay đổi\n\n| Phiên bản | Ngày | Nội dung thay đổi |\n|---|---|---|\n| 1.0 | 2025-07-01 | Khởi tạo tài liệu |\n| 1.1 | 2026-03-20 | Bổ sung điều kiện bắt buộc Tier 2 trở lên mới được rút tiền |",
+      "Tài liệu: Nhật ký yêu cầu thay đổi - Chính sách phí và hạn mức (CR-LOG-001, ChangeRequest, module General, v1.0)\nMục: Nhật ký yêu cầu thay đổi (Change Request Log) > CR-2026-019: Yêu cầu Tier 2 mới được rút tiền\n\n## CR-2026-019: Yêu cầu Tier 2 mới được rút tiền\n\n- **Ngày đề xuất:** 25/02/2026 | **Ngày hiệu lực:** 20/03/2026\n- **Người đề xuất:** Risk & Compliance Team\n- **Nội dung:** Chỉ tài khoản từ Tier 2 trở lên mới được sử dụng chức năng rút tiền về ngân hàng\n- **Lý do:** Tài khoản Tier 1 chưa xác thực danh tính, rủi ro cao bị lợi dụng làm trung gian rửa tiền\n- **Tài liệu bị ảnh hưởng:** BRD-004 (từ v1.0 lên v1.1), BR-004\n- **Trạng thái:** Đã triển khai",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 2. Phạm vi > Trong phạm vi\n\n## Trong phạm vi\n\n- Rút tiền về tài khoản ngân hàng đã liên kết và xác thực\n- Rút tiền về thẻ ATM nội địa đã liên kết\n- Hiển thị lịch sử rút tiền và trạng thái xử lý từng giao dịch"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8326262808770899,
+      "context_precision": 0.8055555555287036,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "BRD-004"
+    ],
+    "retrieved_doc_ids": [
+      "BRD-004",
+      "CR-LOG-001"
+    ],
+    "cited_doc_ids": [
+      "BRD-004",
+      "CR-LOG-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2874,
+      "out": 130
+    },
+    "cost_usd": 0.007048
+  },
+  "Q008|rerank=False": {
+    "id": "Q008",
+    "group": "single_source",
+    "rerank": false,
+    "question": "Rule FR-003 trong bộ quy tắc phòng chống gian lận được kích hoạt khi nào?",
+    "ground_truth": "Khi đăng nhập từ thiết bị mới và rút tiền toàn bộ số dư trong vòng 30 phút.",
+    "answer": "FR-003 được kích hoạt khi: \"Đăng nhập từ thiết bị mới + rút tiền toàn bộ số dư trong 30 phút\", hành động hệ thống là \"Chặn giao dịch rút tiền, gọi xác minh khách hàng\", mức độ \"Rất cao\" [BR-004].",
+    "contexts": [
+      "Tài liệu: Quy tắc nghiệp vụ - Phòng chống gian lận và rửa tiền (AML/Fraud Rules) (BR-004, BusinessRules, module Phong_Chong_Gian_Lan, v2.0)\nMục: 5. Lịch sử thay đổi\n\n# 5. Lịch sử thay đổi\n\n| Phiên bản | Ngày | Nội dung thay đổi |\n|---|---|---|\n| 1.0 | 2025-02-01 | Khởi tạo bộ rule FR-001 đến FR-004 |\n| 2.0 | 2026-01-05 | Bổ sung FR-005, FR-006; làm rõ quy trình khóa tài khoản |",
+      "Tài liệu: Quy tắc nghiệp vụ - Phòng chống gian lận và rửa tiền (AML/Fraud Rules) (BR-004, BusinessRules, module Phong_Chong_Gian_Lan, v2.0)\nMục: 3. Quy tắc khóa tài khoản > 3.1 Khóa tạm thời (Temporary Suspension)\n\n## 3.1 Khóa tạm thời (Temporary Suspension)\n\nÁp dụng khi kích hoạt rule mức Cao trở lên. Tài khoản bị hạn chế các chức năng giao dịch (chuyển tiền, rút tiền, thanh toán) nhưng vẫn xem được số dư và lịch sử. Thời hạn tối đa 72 giờ để đội Risk hoàn tất điều tra.",
+      "Tài liệu: Quy tắc nghiệp vụ - Phòng chống gian lận và rửa tiền (AML/Fraud Rules) (BR-004, BusinessRules, module Phong_Chong_Gian_Lan, v2.0)\nMục: 2. Các quy tắc cảnh báo tự động\n\n# 2. Các quy tắc cảnh báo tự động\n\n| Mã rule | Điều kiện kích hoạt | Hành động hệ thống | Mức độ |\n|---|---|---|---|\n| FR-001 | Trên 10 giao dịch P2P trong 5 phút từ cùng một tài khoản | Tạm dừng giao dịch, yêu cầu xác thực lại OTP | Trung bình |\n| FR-002 | Nhận tiền từ trên 20 tài khoản khác nhau trong 24 giờ | Gắn cờ theo dõi, chuyển đội Risk review | Cao |\n| FR-003 | Đăng nhập từ thiết bị mới + rút tiền toàn bộ số dư trong 30 phút | Chặn giao dịch rút tiền, gọi xác minh khách hàng | Rất cao |\n| FR-004 | Tổng giao dịch trong ngày vượt 400.000.000 VNĐ | Báo cáo giao dịch giá trị lớn theo quy định NHNN | Cao |\n| FR-005 | Tài khoản mới tạo dưới 24 giờ thực hiện giao dịch trên 20.000.000 VNĐ | Tạm giữ giao dịch 2 giờ để review thủ công | Cao |\n| FR-006 | Địa chỉ IP giao dịch thay đổi trên 3 quốc gia trong 24 giờ | Khóa tạm thời tài khoản, yêu cầu xác thực lại eKYC | Rất cao |",
+      "Tài liệu: Quy tắc nghiệp vụ - Phòng chống gian lận và rửa tiền (AML/Fraud Rules) (BR-004, BusinessRules, module Phong_Chong_Gian_Lan, v2.0)\nMục: 3. Quy tắc khóa tài khoản > 3.2 Khóa vĩnh viễn (Permanent Closure)\n\n## 3.2 Khóa vĩnh viễn (Permanent Closure)\n\nÁp dụng khi xác định chắc chắn có hành vi gian lận, giả mạo giấy tờ, hoặc theo yêu cầu của cơ quan chức năng. Số dư còn lại được xử lý theo quy trình hoàn trả riêng, có sự phê duyệt của Compliance Manager.",
+      "Tài liệu: Quy tắc nghiệp vụ - Phòng chống gian lận và rửa tiền (AML/Fraud Rules) (BR-004, BusinessRules, module Phong_Chong_Gian_Lan, v2.0)\nMục: 1. Mục đích\n\n# 1. Mục đích\n\nQuy định các quy tắc tự động phát hiện và xử lý giao dịch có dấu hiệu bất thường, tuân thủ quy định phòng chống rửa tiền (AML) của Ngân hàng Nhà nước."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.6147591698984192,
+      "context_precision": 0.3333333333,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "BR-004"
+    ],
+    "retrieved_doc_ids": [
+      "BR-004"
+    ],
+    "cited_doc_ids": [
+      "BR-004"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3011,
+      "out": 112
+    },
+    "cost_usd": 0.007142
+  },
+  "Q009|rerank=False": {
+    "id": "Q009",
+    "group": "single_source",
+    "rerank": false,
+    "question": "Quy trình đối soát tự động chạy vào lúc mấy giờ hàng ngày?",
+    "ground_truth": "02:00 giờ Việt Nam, cho dữ liệu của ngày liền trước.",
+    "answer": "Đối soát tự động chạy hàng ngày lúc 02:00 giờ Việt Nam cho dữ liệu của ngày liền trước [SOP-005], khớp với ghi chú \"Chạy tự động lúc 02:00 hàng ngày\" trong ma trận SLA [LIMIT-001].",
+    "contexts": [
+      "Tài liệu: SOP - Quy trình đối soát và bù trừ giao dịch (Reconciliation & Settlement) (SOP-005, SOP, module Doi_Soat, v2.0)\nMục: 3. Chu kỳ đối soát\n\n# 3. Chu kỳ đối soát\n\n- Đối soát tự động: chạy hàng ngày lúc 02:00 giờ Việt Nam cho dữ liệu của ngày liền trước.\n- Đối soát thủ công: thực hiện khi phát hiện sự cố hoặc khi đối soát tự động báo chênh lệch vượt ngưỡng cho phép.\n- Đối soát định kỳ tháng: chốt số liệu tài chính, phục vụ báo cáo cho Ban lãnh đạo và cơ quan quản lý.",
+      "Tài liệu: SOP - Quy trình xác thực định danh khách hàng (eKYC) (SOP-002, SOP, module KYC, v2.1)\nMục: 6. Chỉ số vận hành (SLA)\n\n# 6. Chỉ số vận hành (SLA)\n\n- Xử lý tự động (automated): dưới 5 phút, tỷ lệ xử lý tự động thành công mục tiêu > 80%.\n- Xử lý thủ công (manual review): dưới 4 giờ làm việc trong ngày, dưới 24 giờ nếu phát sinh ngoài giờ hành chính.",
+      "Tài liệu: Báo cáo sự cố - Lỗi đối soát giao dịch nạp tiền qua thẻ quốc tế (INC-001, IncidentReport, module Nap_Tien, v1.0)\nMục: 7. Bài học rút ra\n\n# 7. Bài học rút ra\n\nViệc phụ thuộc vào định dạng dữ liệu của đối tác bên ngoài mà không có cơ chế giám sát tự động là rủi ro vận hành nghiêm trọng. Quy trình đối soát tự động trong 24 giờ (theo BRD-001 mục 3.4) đã hoạt động đúng thiết kế nhưng không đủ nhanh với sự cố quy mô lớn — cần bổ sung cảnh báo thời gian thực.",
+      "Tài liệu: SOP - Quy trình đối soát và bù trừ giao dịch (Reconciliation & Settlement) (SOP-005, SOP, module Doi_Soat, v2.0)\nMục: 4. Quy trình đối soát tự động\n\n# 4. Quy trình đối soát tự động\n\n- Hệ thống tải file đối soát từ đối tác (định dạng CSV/Excel theo chuẩn từng đối tác).\n- Chuẩn hóa dữ liệu về cùng định dạng nội bộ (mã giao dịch, số tiền, thời gian, trạng thái).\n- So khớp từng giao dịch theo transaction_reference và idempotency_key.\n- Phân loại kết quả: khớp hoàn toàn, chênh lệch, hoặc chỉ tồn tại một phía.\n- Sinh báo cáo đối soát, gửi tự động cho đội Operations và Finance trước 08:00.\n- Các giao dịch chênh lệch được đưa vào hàng đợi xử lý thủ công.",
+      "Tài liệu: MA TRẬN HẠN MỨC GIAO DỊCH THEO TIER - MANHPAY (LIMIT-001, Limit_SLA_Matrix, module General, v1.2)\nMục: Sheet: SLA_Xu_Ly (phần 2/2)\n\n## Sheet: SLA_Xu_Ly\n\n| Nghiệp vụ | Loại xử lý | SLA cam kết | Tài liệu nguồn | Ghi chú |\n|---|---|---|---|---|\n| Xác thực eKYC Tier 1 → Tier 2 | Tự động | Dưới 5 phút | SOP-002 | Tỷ lệ tự động thành công mục tiêu > 80% |\n| Xác thực eKYC Tier 2 → Tier 3 | Bán tự động | Dưới 24 giờ làm việc | SOP-002 | Phụ thuộc đối tác định danh |\n| Xét duyệt eKYC thủ công | Thủ công | Dưới 4 giờ làm việc | SOP-002 | Khi face matching dưới 85% |\n| Khiếu nại giao dịch trùng lặp | Thủ công | 3 ngày làm việc | SOP-003 |  |\n| Khiếu nại giao dịch không nhận diện | Thủ công | 7 ngày làm việc | SOP-003 | Có thể cần điều tra Risk & Fraud |\n| Khiếu nại không nhận được tiền | Thủ công | 3 ngày làm việc | SOP-003 |  |\n| Tranh chấp với merchant | Thủ công | 10 ngày làm việc | SOP-003 |  |\n| Đối soát giao dịch nạp/rút tiền | Tự động | Trong 24 giờ | SOP-005 / BRD-001 | Chạy tự động lúc 02:00 hàng ngày |\n| Xử lý chênh lệch đối soát | Thủ công | Trước 17:00 ngày kế tiếp | SOP-005 |  |\n| Xét duyệt hồ sơ merchant mới | Thủ công | 3-5 ngày làm việc | FAQ-002 |  |"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.849634339196553,
+      "context_precision": 0.699999999965,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "SOP-005"
+    ],
+    "retrieved_doc_ids": [
+      "SOP-005",
+      "SOP-002",
+      "INC-001",
+      "LIMIT-001"
+    ],
+    "cited_doc_ids": [
+      "SOP-005",
+      "LIMIT-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3251,
+      "out": 109
+    },
+    "cost_usd": 0.007592
+  },
+  "Q010|rerank=False": {
+    "id": "Q010",
+    "group": "single_source",
+    "rerank": false,
+    "question": "Nguyên nhân gốc rễ của sự cố INC-001 là gì?",
+    "ground_truth": "Đối tác cổng thanh toán thẻ quốc tế thay đổi độ dài trường transaction_reference từ 20 lên 24 ký tự mà không thông báo, khiến hệ thống từ chối callback.",
+    "answer": "Nguyên nhân gốc rễ: đối tác cổng thanh toán thẻ quốc tế thay đổi định dạng trường `transaction_reference` trong callback (từ 20 ký tự lên 24 ký tự) mà không thông báo trước, khiến hệ thống ManhPay validate và từ chối các callback không hợp lệ — giao dịch thành công phía đối tác nhưng thất bại phía ManhPay [INC-001].\n\nNguyên nhân sâu xa: hệ thống không có cơ chế cảnh báo khi tỷ lệ callback bị từ chối tăng đột biến, khiến sự cố kéo dài hơn 4 giờ trước khi được phát hiện thủ công qua báo cáo của Customer Support [INC-001].",
+    "contexts": [
+      "Tài liệu: Báo cáo sự cố - Lỗi đối soát giao dịch nạp tiền qua thẻ quốc tế (INC-001, IncidentReport, module Nap_Tien, v1.0)\nMục: 3. Nguyên nhân gốc rễ (Root Cause)\n\n# 3. Nguyên nhân gốc rễ (Root Cause)\n\nĐối tác cổng thanh toán thẻ quốc tế thay đổi định dạng trường `transaction_reference` trong callback trả về (từ 20 ký tự lên 24 ký tự) mà không thông báo trước. Hệ thống ManhPay validate độ dài trường này và từ chối các callback không hợp lệ, dẫn đến giao dịch được ghi nhận thành công ở phía đối tác nhưng thất bại ở phía ManhPay.\n\nNguyên nhân sâu xa: hệ thống không có cơ chế cảnh báo khi tỷ lệ callback bị từ chối tăng đột biến, nên sự cố kéo dài hơn 4 giờ trước khi được phát hiện thủ công qua báo cáo của Customer Support.",
+      "Tài liệu: SOP - Quy trình đối soát và bù trừ giao dịch (Reconciliation & Settlement) (SOP-005, SOP, module Doi_Soat, v2.0)\nMục: 8. Lịch sử thay đổi\n\n# 8. Lịch sử thay đổi\n\n- v1.0 (2025-04-01): Khởi tạo quy trình đối soát thủ công.\n- v1.5 (2025-10-15): Triển khai đối soát tự động hàng ngày.\n- v2.0 (2026-03-01): Bổ sung nguyên tắc ưu tiên cộng tiền tạm ứng cho khách hàng sau sự cố INC-001.",
+      "Tài liệu: Báo cáo sự cố - Lỗi đối soát giao dịch nạp tiền qua thẻ quốc tế (INC-001, IncidentReport, module Nap_Tien, v1.0)\nMục: 7. Bài học rút ra\n\n# 7. Bài học rút ra\n\nViệc phụ thuộc vào định dạng dữ liệu của đối tác bên ngoài mà không có cơ chế giám sát tự động là rủi ro vận hành nghiêm trọng. Quy trình đối soát tự động trong 24 giờ (theo BRD-001 mục 3.4) đã hoạt động đúng thiết kế nhưng không đủ nhanh với sự cố quy mô lớn — cần bổ sung cảnh báo thời gian thực.",
+      "Tài liệu: Đặc tả tích hợp nghiệp vụ - Kết nối Napas 247 (INT-001, IntegrationSpec, module Tich_Hop_Ngan_Hang, v1.3)\nMục: 6. Lịch sử thay đổi\n\n# 6. Lịch sử thay đổi\n\n| Phiên bản | Ngày | Nội dung thay đổi |\n|---|---|---|\n| 1.0 | 2025-01-15 | Khởi tạo |\n| 1.2 | 2025-09-01 | Bổ sung nguyên tắc xử lý timeout |\n| 1.3 | 2026-02-01 | Bổ sung lưu ý về độ dài transaction_reference sau sự cố INC-001 |",
+      "Tài liệu: Báo cáo sự cố - Lỗi đối soát giao dịch nạp tiền qua thẻ quốc tế (INC-001, IncidentReport, module Nap_Tien, v1.0)\nMục: 1. Tóm tắt sự cố\n\n# 1. Tóm tắt sự cố\n\nNgày 08/02/2026, trong khoảng 09:15 - 13:40 (giờ Việt Nam), khoảng 1.240 giao dịch nạp tiền qua thẻ quốc tế bị trừ tiền ở phía ngân hàng phát hành thẻ nhưng không được cộng vào số dư ví ManhPay. Tổng giá trị bị ảnh hưởng ước tính 890.000.000 VNĐ."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9810134417369367,
+      "context_precision": 0.9999999999,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "INC-001"
+    ],
+    "retrieved_doc_ids": [
+      "INC-001",
+      "SOP-005",
+      "INT-001"
+    ],
+    "cited_doc_ids": [
+      "INC-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2797,
+      "out": 269
+    },
+    "cost_usd": 0.008284
+  },
+  "Q011|rerank=False": {
+    "id": "Q011",
+    "group": "single_source",
+    "rerank": false,
+    "question": "Merchant nhận tiền về tài khoản ngân hàng sau bao lâu?",
+    "ground_truth": "Ngày làm việc kế tiếp (T+1); merchant hạng Kim Cương có thể đăng ký nhận trong ngày (T+0).",
+    "answer": "Tiền được đối soát và chuyển về tài khoản ngân hàng của merchant vào ngày làm việc kế tiếp (T+1) [FAQ-002]. Riêng merchant hạng Kim Cương có thể đăng ký nhận tiền trong ngày (T+0) theo thỏa thuận riêng [FAQ-002].",
+    "contexts": [
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 3/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q3: Khi nào tiền về tài khoản ngân hàng của tôi?**\nA: Tiền được đối soát và chuyển về tài khoản ngân hàng của merchant vào ngày làm việc kế tiếp (T+1). Với merchant hạng Kim Cương, có thể đăng ký nhận tiền trong ngày (T+0) theo thỏa thuận riêng.",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 2/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q2: Phí nhận thanh toán qua QR là bao nhiêu?**\nA: Phí phụ thuộc hạng merchant dựa trên doanh thu tháng: hạng Đồng 1.2%, hạng Bạc 1.0%, hạng Vàng 0.8%, hạng Kim Cương 0.6%. Hạng được xét lại định kỳ hàng quý dựa trên doanh thu thực tế.",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 2. Phạm vi > Trong phạm vi\n\n## Trong phạm vi\n\n- Rút tiền về tài khoản ngân hàng đã liên kết và xác thực\n- Rút tiền về thẻ ATM nội địa đã liên kết\n- Hiển thị lịch sử rút tiền và trạng thái xử lý từng giao dịch",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 2. Phạm vi > Ngoài phạm vi\n\n## Ngoài phạm vi\n\n- Rút tiền mặt tại điểm giao dịch đối tác (chưa triển khai)\n- Rút tiền về tài khoản ngân hàng của người khác (không cho phép, theo quy định phòng chống rửa tiền)",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 1. Mục tiêu nghiệp vụ\n\n# 1. Mục tiêu nghiệp vụ\n\nCho phép khách hàng rút tiền từ số dư ví ManhPay về tài khoản ngân hàng đã liên kết, đảm bảo khách hàng luôn có toàn quyền kiểm soát tiền của mình trong ví — đây là yêu cầu bắt buộc theo quy định của Ngân hàng Nhà nước đối với tổ chức cung ứng dịch vụ trung gian thanh toán."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8763355478392191,
+      "context_precision": 0.9999999999,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "FAQ-002"
+    ],
+    "retrieved_doc_ids": [
+      "FAQ-002",
+      "BRD-004"
+    ],
+    "cited_doc_ids": [
+      "FAQ-002"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2527,
+      "out": 121
+    },
+    "cost_usd": 0.006264
+  },
+  "Q012|rerank=False": {
+    "id": "Q012",
+    "group": "single_source",
+    "rerank": false,
+    "question": "User Story MANHPAY-1425 hiện đang ở trạng thái nào?",
+    "ground_truth": "Backlog, chưa lên sprint.",
+    "answer": "Theo AC ghi trong tài liệu, MANHPAY-1425 có **Status: Backlog** [US-EPIC-021].\n\nLưu ý: đây là user story nói về tra cứu trạng thái đối soát giao dịch nạp tiền, và có rủi ro ghi nhận là cần đội Backend expose thêm API vì dữ liệu này hiện chỉ có nội bộ, chưa có endpoint cho app [US-EPIC-021].",
+    "contexts": [
+      "Tài liệu: Epic: Tối ưu tỷ lệ thành công luồng Nạp tiền (US-EPIC-021, UserStory, module Nap_Tien, v1.0)\nMục: Epic: MANHPAY-EPIC-021 - Tối ưu tỷ lệ thành công luồng Nạp tiền > User Story 3: MANHPAY-1425\n\n## User Story 3: MANHPAY-1425\n\n**Là** một khách hàng có giao dịch nạp tiền bị treo\n**Tôi muốn** tự tra cứu được trạng thái đối soát của giao dịch đó\n**Để** tôi biết khi nào tiền sẽ về mà không cần gọi tổng đài\n\n**Acceptance Criteria:**\n- Given giao dịch nạp tiền ở trạng thái \"Đang đối soát\"\n- When khách hàng mở chi tiết giao dịch trong lịch sử\n- Then hiển thị trạng thái đối soát, thời gian dự kiến hoàn tất (theo SLA 24 giờ trong BRD-001), và nút liên hệ hỗ trợ\n\n**Story Points:** 8 | **Priority:** Medium | **Status:** Backlog\n\n**Rủi ro đã ghi nhận:** Cần đội Backend expose thêm API trạng thái đối soát — hiện dữ liệu này chỉ có trong hệ thống nội bộ, chưa có endpoint cho app.",
+      "Tài liệu: Epic: Tối ưu tỷ lệ thành công luồng Nạp tiền (US-EPIC-021, UserStory, module Nap_Tien, v1.0)\nMục: Epic: MANHPAY-EPIC-021 - Tối ưu tỷ lệ thành công luồng Nạp tiền > User Story 1: MANHPAY-1402\n\n## User Story 1: MANHPAY-1402\n\n**Là** một khách hàng đang nạp tiền vào ví\n**Tôi muốn** thấy rõ trạng thái giao dịch theo thời gian thực (đang xử lý / thành công / thất bại)\n**Để** tôi không phải lo lắng và thoát app giữa chừng khi giao dịch chậm\n\n**Acceptance Criteria:**\n- Given khách hàng đã xác nhận giao dịch nạp tiền\n- When hệ thống đang chờ phản hồi từ ngân hàng/cổng thanh toán\n- Then hiển thị màn hình trạng thái với thanh tiến trình và thông báo \"Đang xử lý, vui lòng không tắt ứng dụng\"\n- Nếu quá 30 giây chưa có kết quả, hiển thị thông báo \"Giao dịch đang được xử lý, kết quả sẽ được thông báo qua notification\"\n\n**Story Points:** 5 | **Priority:** High | **Status:** Done (release 2026-04-10)\n\n---",
+      "Tài liệu: Epic: Nâng cấp trải nghiệm Thanh toán QR (US-EPIC-014, UserStory, module Thanh_Toan_QR, v1.0)\nMục: Epic: MANHPAY-EPIC-014 - Nâng cấp trải nghiệm Thanh toán QR > User Story 1: MANHPAY-1201\n\n## User Story 1: MANHPAY-1201\n\n**Là** một khách hàng đang xếp hàng thanh toán tại cửa hàng tiện lợi\n**Tôi muốn** mở nhanh màn hình quét QR chỉ bằng 1 thao tác từ màn hình khóa (lock screen widget)\n**Để** tôi không mất thời gian mở app, đăng nhập, tìm tính năng\n\n**Acceptance Criteria:**\n- Given khách hàng đã bật widget ManhPay trên màn hình khóa\n- When khách hàng nhấn vào widget\n- Then app mở thẳng vào màn hình camera quét QR, không qua màn hình chủ\n- Yêu cầu xác thực sinh trắc học (vân tay/FaceID) trước khi mở camera nếu số dư > 0\n\n**Story Points:** 5\n**Priority:** High\n**Status:** Done (release 2026-03-15)\n\n---",
+      "Tài liệu: Epic: Nâng cấp trải nghiệm Thanh toán QR (US-EPIC-014, UserStory, module Thanh_Toan_QR, v1.0)\nMục: Epic: MANHPAY-EPIC-014 - Nâng cấp trải nghiệm Thanh toán QR > User Story 2: MANHPAY-1215\n\n## User Story 2: MANHPAY-1215\n\n**Là** một khách hàng thanh toán tại quán cà phê đông khách\n**Tôi muốn** thấy xác nhận thanh toán thành công ngay lập tức kèm âm thanh\n**Để** cả tôi và nhân viên thu ngân đều biết giao dịch đã hoàn tất, tránh nhầm lẫn thanh toán 2 lần\n\n**Acceptance Criteria:**\n- Given giao dịch QR đã xử lý thành công ở backend\n- When kết quả trả về app\n- Then hiển thị màn hình xác nhận trong vòng 1 giây kèm âm thanh \"ting\" đặc trưng\n- Màn hình xác nhận hiển thị: số tiền, tên merchant, thời gian, mã giao dịch\n\n**Story Points:** 3\n**Priority:** High\n**Status:** In Progress (dự kiến release Sprint 44)\n\n**Ghi chú từ PO:** Đây là tính năng học hỏi từ phản hồi khách hàng qua khảo sát NPS Q1/2026 - khách hàng phàn nàn không chắc giao dịch đã thành công hay chưa khi ở nơi ồn ào.\n\n---",
+      "Tài liệu: Epic: Nâng cấp trải nghiệm Thanh toán QR (US-EPIC-014, UserStory, module Thanh_Toan_QR, v1.0)\nMục: Epic: MANHPAY-EPIC-014 - Nâng cấp trải nghiệm Thanh toán QR > User Story 3: MANHPAY-1230\n\n## User Story 3: MANHPAY-1230\n\n**Là** một merchant nhỏ (quán ăn, tạp hóa)\n**Tôi muốn** nhận thông báo biến động số dư ngay khi có khách thanh toán QR\n**Để** tôi yên tâm giao hàng/phục vụ mà không cần hỏi khách \"chuyển chưa\"\n\n**Acceptance Criteria:**\n- Given merchant đã cài app ManhPay Merchant\n- When có giao dịch QR thành công vào tài khoản merchant\n- Then merchant nhận push notification trong vòng 2 giây kèm âm thanh riêng biệt cho merchant\n\n**Story Points:** 8\n**Priority:** Medium\n**Status:** Backlog (chưa lên sprint, phụ thuộc vào việc hoàn thiện app Merchant riêng)\n\n**Rủi ro đã ghi nhận:** Cần phối hợp với đội Infra vì notification service hiện tại chưa tách riêng luồng cho merchant, có thể ảnh hưởng đến độ trễ chung."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.5617914913490981,
+      "context_precision": 0.9999999999,
+      "context_recall": 0.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "US-EPIC-021"
+    ],
+    "retrieved_doc_ids": [
+      "US-EPIC-021",
+      "US-EPIC-014"
+    ],
+    "cited_doc_ids": [
+      "US-EPIC-021"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3889,
+      "out": 161
+    },
+    "cost_usd": 0.009388
+  },
+  "Q013|rerank=False": {
+    "id": "Q013",
+    "group": "table_numeric",
+    "rerank": false,
+    "question": "Phí nạp tiền qua thẻ quốc tế là bao nhiêu?",
+    "ground_truth": "1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ.",
+    "answer": "Phí nạp tiền qua thẻ quốc tế (Visa/Mastercard) là 1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ, đây là phí thu hộ đối tác xử lý thẻ quốc tế, không phải phí của ManhPay [FAQ-001][BRD-001].",
+    "contexts": [
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 4/6)\n\n# Câu hỏi thường gặp\n\n**Q5: Làm sao để biết mình đang ở Tier nào?**\nA: Vào mục \"Tài khoản > Thông tin xác thực\" để xem Tier hiện tại và hạn mức tương ứng.\n\n**Q6: Thanh toán bằng thẻ quốc tế có mất phí không?**\nA: Có, phí nạp tiền qua thẻ quốc tế (Visa/Mastercard) là 1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ. Đây là phí thu hộ đối tác xử lý thẻ quốc tế, không phải phí của ManhPay.",
+      "Tài liệu: Báo cáo sự cố - Lỗi đối soát giao dịch nạp tiền qua thẻ quốc tế (INC-001, IncidentReport, module Nap_Tien, v1.0)\nMục: 1. Tóm tắt sự cố\n\n# 1. Tóm tắt sự cố\n\nNgày 08/02/2026, trong khoảng 09:15 - 13:40 (giờ Việt Nam), khoảng 1.240 giao dịch nạp tiền qua thẻ quốc tế bị trừ tiền ở phía ngân hàng phát hành thẻ nhưng không được cộng vào số dư ví ManhPay. Tổng giá trị bị ảnh hưởng ước tính 890.000.000 VNĐ.",
+      "Tài liệu: Business Requirement Document - Tính năng Nạp tiền vào ví ManhPay (BRD-001, BRD, module Nap_Tien, v1.2)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.3 Phí giao dịch\n\n## 3.3 Phí giao dịch\n\n- Nạp tiền qua liên kết ngân hàng: miễn phí\n- Nạp tiền qua thẻ ATM nội địa: miễn phí\n- Nạp tiền qua thẻ quốc tế: phí 1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ (xem chi tiết đầy đủ tại bảng phí Fee-Pricing-Table)",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 2/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q2: Phí nhận thanh toán qua QR là bao nhiêu?**\nA: Phí phụ thuộc hạng merchant dựa trên doanh thu tháng: hạng Đồng 1.2%, hạng Bạc 1.0%, hạng Vàng 0.8%, hạng Kim Cương 0.6%. Hạng được xét lại định kỳ hàng quý dựa trên doanh thu thực tế.",
+      "Tài liệu: Epic: Tối ưu tỷ lệ thành công luồng Nạp tiền (US-EPIC-021, UserStory, module Nap_Tien, v1.0)\nMục: Epic: MANHPAY-EPIC-021 - Tối ưu tỷ lệ thành công luồng Nạp tiền > User Story 2: MANHPAY-1418\n\n## User Story 2: MANHPAY-1418\n\n**Là** một khách hàng nạp tiền lần đầu bằng thẻ quốc tế\n**Tôi muốn** biết trước mức phí sẽ bị trừ trước khi xác nhận\n**Để** tôi không bị bất ngờ khi thấy số tiền thực nhận ít hơn số tiền nạp\n\n**Acceptance Criteria:**\n- Given khách hàng chọn phương thức nạp tiền là thẻ quốc tế\n- When khách hàng nhập số tiền muốn nạp\n- Then hiển thị ngay bảng chi tiết: số tiền nạp, phí (1.5%, tối thiểu 5.000 VNĐ), tổng số tiền bị trừ từ thẻ\n- Thông tin phí phải đồng bộ với bảng phí FEE-001, không hardcode trong app\n\n**Story Points:** 3 | **Priority:** High | **Status:** In Progress (dự kiến Sprint 47)\n\n---"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8716056720325351,
+      "context_precision": 0.7555555555303703,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "FEE-001",
+      "BRD-001"
+    ],
+    "retrieved_doc_ids": [
+      "FAQ-001",
+      "INC-001",
+      "BRD-001",
+      "FAQ-002",
+      "US-EPIC-021"
+    ],
+    "cited_doc_ids": [
+      "FAQ-001",
+      "BRD-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2965,
+      "out": 119
+    },
+    "cost_usd": 0.00712
+  },
+  "Q014|rerank=False": {
+    "id": "Q014",
+    "group": "table_numeric",
+    "rerank": false,
+    "question": "Merchant hạng Vàng chịu phí QR bao nhiêu phần trăm?",
+    "ground_truth": "0.8%.",
+    "answer": "Merchant hạng Vàng chịu phí QR 0.8% [FAQ-002][FEE-001].",
+    "contexts": [
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 2/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q2: Phí nhận thanh toán qua QR là bao nhiêu?**\nA: Phí phụ thuộc hạng merchant dựa trên doanh thu tháng: hạng Đồng 1.2%, hạng Bạc 1.0%, hạng Vàng 0.8%, hạng Kim Cương 0.6%. Hạng được xét lại định kỳ hàng quý dựa trên doanh thu thực tế.",
+      "Tài liệu: BẢNG PHÍ GIAO DỊCH KHÁCH HÀNG CÁ NHÂN - MANHPAY (FEE-001, Fee_Pricing_Table, module General, v2.4)\nMục: Sheet: BangPhi_Merchant\n\n## Sheet: BangPhi_Merchant\n\nBẢNG PHÍ MERCHANT - MANHPAY\n**Mã tài liệu:** FEE-001\n**Loại tài liệu:** Fee_Pricing_Table\n**Phiên bản:** v2.4\n**Trạng thái:** Approved\n**Ngày hiệu lực:** 2026-04-01\n**Chủ sở hữu:** Finance & Product Team\n\n| Hạng Merchant | Doanh thu tháng (VNĐ) | Phí QR (%) | Phí thẻ (%) | Ghi chú |\n|---|---|---|---|---|\n| Hạng Đồng | Dưới 50.000.000 | 1.2% | 2.2% | Merchant mới, chưa đủ 3 tháng hoạt động |\n| Hạng Bạc | 50.000.000 - 200.000.000 | 1.0% | 2.0% | Merchant hoạt động ổn định |\n| Hạng Vàng | 200.000.000 - 1.000.000.000 | 0.8% | 1.8% | Merchant doanh thu cao |\n| Hạng Kim Cương | Trên 1.000.000.000 | 0.6% | 1.5% | Merchant chiến lược, có hợp đồng riêng theo thỏa thuận |",
+      "Tài liệu: Business Requirement Document - Tính năng Thanh toán qua mã QR (BRD-003, BRD, module Thanh_Toan_QR, v1.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.2 Phí giao dịch\n\n## 3.2 Phí giao dịch\n\n- Khách hàng thanh toán QR: miễn phí\n- Merchant nhận tiền qua QR: phí 0.8% - 1.2% tùy hạng merchant (xem Fee-Pricing-Table, sheet Merchant Fee)",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 6/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q7: Tôi có thể hoàn tiền cho khách hàng qua ManhPay không?**\nA: Có. Trong app Merchant, chọn giao dịch cần hoàn, nhấn \"Hoàn tiền\". Giao dịch hoàn tiền toàn phần trong cùng ngày không mất phí; hoàn tiền một phần hoặc sau ngày giao dịch sẽ không được hoàn lại phí đã thu.",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 4/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q4: Vì sao khách hàng quét QR của tôi nhưng báo lỗi \"Merchant chưa đủ điều kiện nhận thanh toán\"?**\nA: Tài khoản merchant của bạn chưa hoàn tất xác thực KYC merchant, hoặc đang trong trạng thái tạm khóa. Vui lòng kiểm tra mục \"Trạng thái tài khoản\" trong app ManhPay Merchant hoặc liên hệ đội hỗ trợ đối tác."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9999999999997423,
+      "context_precision": 0.99999999995,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "FEE-001"
+    ],
+    "retrieved_doc_ids": [
+      "FAQ-002",
+      "FEE-001",
+      "BRD-003"
+    ],
+    "cited_doc_ids": [
+      "FAQ-002",
+      "FEE-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2956,
+      "out": 39
+    },
+    "cost_usd": 0.006302
+  },
+  "Q015|rerank=False": {
+    "id": "Q015",
+    "group": "table_numeric",
+    "rerank": false,
+    "question": "Nếu tôi nạp 2.000.000 VNĐ bằng thẻ quốc tế thì bị trừ phí bao nhiêu?",
+    "ground_truth": "30.000 VNĐ (1.5% của 2.000.000, lớn hơn mức tối thiểu 5.000 VNĐ).",
+    "answer": "Phí là 30.000 VNĐ (mức phí 1.5%, tối thiểu 5.000 VNĐ) [FEE-001][FAQ-001][BRD-001].",
+    "contexts": [
+      "Tài liệu: Báo cáo sự cố - Lỗi đối soát giao dịch nạp tiền qua thẻ quốc tế (INC-001, IncidentReport, module Nap_Tien, v1.0)\nMục: 1. Tóm tắt sự cố\n\n# 1. Tóm tắt sự cố\n\nNgày 08/02/2026, trong khoảng 09:15 - 13:40 (giờ Việt Nam), khoảng 1.240 giao dịch nạp tiền qua thẻ quốc tế bị trừ tiền ở phía ngân hàng phát hành thẻ nhưng không được cộng vào số dư ví ManhPay. Tổng giá trị bị ảnh hưởng ước tính 890.000.000 VNĐ.",
+      "Tài liệu: Epic: Tối ưu tỷ lệ thành công luồng Nạp tiền (US-EPIC-021, UserStory, module Nap_Tien, v1.0)\nMục: Epic: MANHPAY-EPIC-021 - Tối ưu tỷ lệ thành công luồng Nạp tiền > User Story 2: MANHPAY-1418\n\n## User Story 2: MANHPAY-1418\n\n**Là** một khách hàng nạp tiền lần đầu bằng thẻ quốc tế\n**Tôi muốn** biết trước mức phí sẽ bị trừ trước khi xác nhận\n**Để** tôi không bị bất ngờ khi thấy số tiền thực nhận ít hơn số tiền nạp\n\n**Acceptance Criteria:**\n- Given khách hàng chọn phương thức nạp tiền là thẻ quốc tế\n- When khách hàng nhập số tiền muốn nạp\n- Then hiển thị ngay bảng chi tiết: số tiền nạp, phí (1.5%, tối thiểu 5.000 VNĐ), tổng số tiền bị trừ từ thẻ\n- Thông tin phí phải đồng bộ với bảng phí FEE-001, không hardcode trong app\n\n**Story Points:** 3 | **Priority:** High | **Status:** In Progress (dự kiến Sprint 47)\n\n---",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 4/6)\n\n# Câu hỏi thường gặp\n\n**Q5: Làm sao để biết mình đang ở Tier nào?**\nA: Vào mục \"Tài khoản > Thông tin xác thực\" để xem Tier hiện tại và hạn mức tương ứng.\n\n**Q6: Thanh toán bằng thẻ quốc tế có mất phí không?**\nA: Có, phí nạp tiền qua thẻ quốc tế (Visa/Mastercard) là 1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ. Đây là phí thu hộ đối tác xử lý thẻ quốc tế, không phải phí của ManhPay.",
+      "Tài liệu: Business Requirement Document - Tính năng Nạp tiền vào ví ManhPay (BRD-001, BRD, module Nap_Tien, v1.2)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.3 Phí giao dịch\n\n## 3.3 Phí giao dịch\n\n- Nạp tiền qua liên kết ngân hàng: miễn phí\n- Nạp tiền qua thẻ ATM nội địa: miễn phí\n- Nạp tiền qua thẻ quốc tế: phí 1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ (xem chi tiết đầy đủ tại bảng phí Fee-Pricing-Table)",
+      "Tài liệu: BẢNG PHÍ GIAO DỊCH KHÁCH HÀNG CÁ NHÂN - MANHPAY (FEE-001, Fee_Pricing_Table, module General, v2.4)\nMục: Sheet: BangPhi_KhachHang (phần 2/2)\n\n## Sheet: BangPhi_KhachHang\n\n| Loại giao dịch | Phương thức | Mức phí | Phí tối thiểu (VNĐ) | Ví dụ: GD 2.000.000 VNĐ | Ghi chú |\n|---|---|---|---|---|---|\n| Nạp tiền | Liên kết ngân hàng (Napas 247) | 0.0% | 0 | 0 | Miễn phí |\n| Nạp tiền | Thẻ ATM nội địa | 0.0% | 0 | 0 | Miễn phí |\n| Nạp tiền | Thẻ quốc tế Visa/Mastercard | 1.5% | 5.000 | 30.000 | Phí thu hộ đối tác xử lý thẻ quốc tế |\n| Chuyển tiền P2P | Trong hệ sinh thái ManhPay | 0.0% | 0 | 0 | Miễn phí, không giới hạn số lần |\n| Chuyển tiền | Ra tài khoản ngân hàng khác (Napas 247) | 0.0% | 0 | 0 | Miễn phí cho giao dịch dưới 10 triệu/lần |\n| Chuyển tiền | Ra tài khoản ngân hàng khác - trên 10 triệu/lần | 0.1% | 3.000 | 3.000 | Áp dụng phần vượt 10 triệu |\n| Thanh toán QR | Quét QR merchant (khách hàng trả) | 0.0% | 0 | 0 | Miễn phí |\n| Rút tiền | Về tài khoản ngân hàng liên kết | 0.0% | 0 | 0 | Miễn phí, tối đa 5 lần/ngày, từ lần thứ 6 phí 0.3% |"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.5069617581197221,
+      "context_precision": 0.6791666666496875,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "FEE-001"
+    ],
+    "retrieved_doc_ids": [
+      "INC-001",
+      "US-EPIC-021",
+      "FAQ-001",
+      "BRD-001",
+      "FEE-001"
+    ],
+    "cited_doc_ids": [
+      "FEE-001",
+      "FAQ-001",
+      "BRD-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3443,
+      "out": 64
+    },
+    "cost_usd": 0.007526
+  },
+  "Q016|rerank=False": {
+    "id": "Q016",
+    "group": "table_numeric",
+    "rerank": false,
+    "question": "Phí rút tiền về ngân hàng được tính như thế nào?",
+    "ground_truth": "Miễn phí tối đa 5 lần/ngày, từ lần thứ 6 trở đi thu phí 0.3% giá trị giao dịch.",
+    "answer": "Miễn phí tối đa 5 lần rút tiền mỗi ngày; từ lần rút thứ 6 trở đi trong cùng ngày, phí là 0.3% giá trị giao dịch [BRD-004]. Chi tiết cụ thể hơn được dẫn chiếu tới tài liệu FEE-001, nhưng nội dung của FEE-001 không có trong Knowledge Base hiện tại nên không thể cung cấp thêm.",
+    "contexts": [
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.3 Phí giao dịch\n\n## 3.3 Phí giao dịch\n\n- Miễn phí tối đa 5 lần rút tiền mỗi ngày\n- Từ lần rút thứ 6 trở đi trong cùng ngày: phí 0.3% giá trị giao dịch (xem chi tiết tại FEE-001)",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.2 Điều kiện thực hiện\n\n## 3.2 Điều kiện thực hiện\n\n- Tài khoản ngân hàng đích phải trùng khớp thông tin chủ tài khoản với thông tin eKYC của khách hàng (kiểm tra tự động theo họ tên và số CCCD)\n- Tài khoản khách hàng phải đạt tối thiểu Tier 2 (đã hoàn tất eKYC cơ bản) mới được sử dụng tính năng rút tiền\n- Bắt buộc xác thực OTP hoặc sinh trắc học cho mọi giao dịch rút tiền, không phân biệt giá trị\n- Số dư khả dụng phải lớn hơn hoặc bằng số tiền rút cộng phí (nếu có)",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 2. Phạm vi > Trong phạm vi\n\n## Trong phạm vi\n\n- Rút tiền về tài khoản ngân hàng đã liên kết và xác thực\n- Rút tiền về thẻ ATM nội địa đã liên kết\n- Hiển thị lịch sử rút tiền và trạng thái xử lý từng giao dịch",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 2. Phạm vi > Ngoài phạm vi\n\n## Ngoài phạm vi\n\n- Rút tiền mặt tại điểm giao dịch đối tác (chưa triển khai)\n- Rút tiền về tài khoản ngân hàng của người khác (không cho phép, theo quy định phòng chống rửa tiền)",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 5. Lịch sử thay đổi\n\n# 5. Lịch sử thay đổi\n\n| Phiên bản | Ngày | Nội dung thay đổi |\n|---|---|---|\n| 1.0 | 2025-07-01 | Khởi tạo tài liệu |\n| 1.1 | 2026-03-20 | Bổ sung điều kiện bắt buộc Tier 2 trở lên mới được rút tiền |"
+    ],
+    "scores": {
+      "faithfulness": 0.6666666666666666,
+      "answer_relevancy": 0.7120759422827415,
+      "context_precision": 0.9999999999,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "FEE-001",
+      "BRD-004"
+    ],
+    "retrieved_doc_ids": [
+      "BRD-004"
+    ],
+    "cited_doc_ids": [
+      "BRD-004"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2547,
+      "out": 161
+    },
+    "cost_usd": 0.006704
+  },
+  "Q017|rerank=False": {
+    "id": "Q017",
+    "group": "table_numeric",
+    "rerank": false,
+    "question": "Merchant hạng Kim Cương cần doanh thu tháng bao nhiêu?",
+    "ground_truth": "Trên 1.000.000.000 VNĐ mỗi tháng.",
+    "answer": "Merchant hạng Kim Cương cần doanh thu tháng \"Trên 1.000.000.000\" VNĐ [FEE-001].",
+    "contexts": [
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 2/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q2: Phí nhận thanh toán qua QR là bao nhiêu?**\nA: Phí phụ thuộc hạng merchant dựa trên doanh thu tháng: hạng Đồng 1.2%, hạng Bạc 1.0%, hạng Vàng 0.8%, hạng Kim Cương 0.6%. Hạng được xét lại định kỳ hàng quý dựa trên doanh thu thực tế.",
+      "Tài liệu: BẢNG PHÍ GIAO DỊCH KHÁCH HÀNG CÁ NHÂN - MANHPAY (FEE-001, Fee_Pricing_Table, module General, v2.4)\nMục: Sheet: BangPhi_Merchant\n\n## Sheet: BangPhi_Merchant\n\nBẢNG PHÍ MERCHANT - MANHPAY\n**Mã tài liệu:** FEE-001\n**Loại tài liệu:** Fee_Pricing_Table\n**Phiên bản:** v2.4\n**Trạng thái:** Approved\n**Ngày hiệu lực:** 2026-04-01\n**Chủ sở hữu:** Finance & Product Team\n\n| Hạng Merchant | Doanh thu tháng (VNĐ) | Phí QR (%) | Phí thẻ (%) | Ghi chú |\n|---|---|---|---|---|\n| Hạng Đồng | Dưới 50.000.000 | 1.2% | 2.2% | Merchant mới, chưa đủ 3 tháng hoạt động |\n| Hạng Bạc | 50.000.000 - 200.000.000 | 1.0% | 2.0% | Merchant hoạt động ổn định |\n| Hạng Vàng | 200.000.000 - 1.000.000.000 | 0.8% | 1.8% | Merchant doanh thu cao |\n| Hạng Kim Cương | Trên 1.000.000.000 | 0.6% | 1.5% | Merchant chiến lược, có hợp đồng riêng theo thỏa thuận |",
+      "Tài liệu: Nhật ký yêu cầu thay đổi - Chính sách phí và hạn mức (CR-LOG-001, ChangeRequest, module General, v1.0)\nMục: Nhật ký yêu cầu thay đổi (Change Request Log) > CR-2026-011: Giảm phí merchant hạng Kim Cương\n\n## CR-2026-011: Giảm phí merchant hạng Kim Cương\n\n- **Ngày đề xuất:** 01/03/2026 | **Ngày hiệu lực:** 01/04/2026\n- **Người đề xuất:** Business Development Team\n- **Nội dung:** Giảm phí QR merchant hạng Kim Cương từ 0.8% xuống 0.6%\n- **Lý do:** Giữ chân 3 chuỗi bán lẻ lớn đang đàm phán chuyển sang đối thủ\n- **Tài liệu bị ảnh hưởng:** FEE-001 (từ v2.3 lên v2.4), BRD-003\n- **Trạng thái:** Đã triển khai",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 3/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q3: Khi nào tiền về tài khoản ngân hàng của tôi?**\nA: Tiền được đối soát và chuyển về tài khoản ngân hàng của merchant vào ngày làm việc kế tiếp (T+1). Với merchant hạng Kim Cương, có thể đăng ký nhận tiền trong ngày (T+0) theo thỏa thuận riêng.",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 1/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q1: Tôi cần chuẩn bị gì để trở thành merchant của ManhPay?**\nA: Bạn cần có giấy phép kinh doanh hợp lệ (hộ kinh doanh cá thể hoặc doanh nghiệp), tài khoản ngân hàng doanh nghiệp chính chủ, và hoàn tất quy trình xác thực merchant (KYC merchant). Thời gian xét duyệt thông thường 3-5 ngày làm việc."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9984742645550174,
+      "context_precision": 0.49999999995,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "FEE-001"
+    ],
+    "retrieved_doc_ids": [
+      "FAQ-002",
+      "FEE-001",
+      "CR-LOG-001"
+    ],
+    "cited_doc_ids": [
+      "FEE-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3096,
+      "out": 50
+    },
+    "cost_usd": 0.006692
+  },
+  "Q019|rerank=False": {
+    "id": "Q019",
+    "group": "multi_source",
+    "rerank": false,
+    "question": "Một khách hàng Tier 2 muốn chuyển 15 triệu đồng cho bạn qua ManhPay thì có thực hiện được không, vì sao?",
+    "ground_truth": "Không. Hạn mức chuyển tiền P2P của Tier 2 là tối đa 10.000.000 VNĐ mỗi giao dịch. Khách hàng cần nâng lên Tier 3 hoặc chia nhỏ giao dịch (vẫn phải trong hạn mức 20 triệu/ngày).",
+    "answer": "Không tìm thấy thông tin phù hợp trong Knowledge Base. CONTEXT chỉ cho biết chuyển tiền P2P (cho người dùng ManhPay khác) là miễn phí và không giới hạn số lần [FAQ-001], nhưng không nêu hạn mức số tiền tối đa cho mỗi giao dịch/ngày theo Tier đối với chuyển tiền P2P, nên không thể xác định khách hàng Tier 2 có chuyển được 15 triệu đồng hay không.",
+    "contexts": [
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 1/6)\n\n# Câu hỏi thường gặp\n\n**Q1: Tại sao tôi không nạp được tiền vượt quá 5 triệu/ngày?**\nA: Tài khoản của bạn đang ở Tier 1 (chưa xác thực eKYC), hạn mức nạp tiền tối đa là 5.000.000 VNĐ/ngày. Bạn có thể nâng lên Tier 2 bằng cách xác thực eKYC trong mục \"Tài khoản > Xác thực danh tính\" để nâng hạn mức lên 20.000.000 VNĐ/ngày.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 6/6)\n\n# Câu hỏi thường gặp\n\n**Q8: Tài khoản của tôi bị khóa, vì sao?**\nA: Tài khoản có thể bị tạm khóa vì: (1) phát hiện dấu hiệu giao dịch bất thường theo chính sách AML, (2) khách hàng tự yêu cầu khóa để bảo mật, (3) chưa hoàn tất xác thực định kỳ theo quy định NHNN. Vui lòng liên hệ Hotline để được hỗ trợ mở khóa.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 2/6)\n\n# Câu hỏi thường gặp\n\n**Q2: Chuyển tiền cho bạn bè trên ManhPay có mất phí không?**\nA: Hoàn toàn miễn phí. Chuyển tiền P2P (cho người dùng ManhPay khác) không giới hạn số lần và không thu phí.\n\n**Q3: Tôi quét mã QR nhưng báo \"Mã QR đã hết hạn\", phải làm sao?**\nA: Mã QR động của merchant chỉ có hiệu lực trong 5 phút. Vui lòng nhờ nhân viên cửa hàng tạo lại mã QR mới rồi quét lại.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 4/6)\n\n# Câu hỏi thường gặp\n\n**Q5: Làm sao để biết mình đang ở Tier nào?**\nA: Vào mục \"Tài khoản > Thông tin xác thực\" để xem Tier hiện tại và hạn mức tương ứng.\n\n**Q6: Thanh toán bằng thẻ quốc tế có mất phí không?**\nA: Có, phí nạp tiền qua thẻ quốc tế (Visa/Mastercard) là 1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ. Đây là phí thu hộ đối tác xử lý thẻ quốc tế, không phải phí của ManhPay.",
+      "Tài liệu: Business Requirement Document - Tính năng Nạp tiền vào ví ManhPay (BRD-001, BRD, module Nap_Tien, v1.2)\nMục: 5. Lịch sử thay đổi\n\n# 5. Lịch sử thay đổi\n\n| Phiên bản | Ngày | Nội dung thay đổi |\n|---|---|---|\n| 1.0 | 2025-06-01 | Khởi tạo tài liệu |\n| 1.1 | 2025-11-15 | Cập nhật hạn mức Tier 3 từ 50 triệu lên 100 triệu |\n| 1.2 | 2026-03-01 | Bổ sung yêu cầu OTP cho giao dịch từ 500.000 VNĐ |"
+    ],
+    "scores": {
+      "faithfulness": 0.8333333333333334,
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    "refused": true,
+    "expected_source_docs": [
+      "BR-002",
+      "BRD-002"
+    ],
+    "retrieved_doc_ids": [
+      "FAQ-001",
+      "BRD-001"
+    ],
+    "cited_doc_ids": [
+      "FAQ-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2848,
+      "out": 185
+    },
+    "cost_usd": 0.007546
+  },
+  "Q021|rerank=False": {
+    "id": "Q021",
+    "group": "multi_source",
+    "rerank": false,
+    "question": "Vì sao chính sách phí rút tiền lại thay đổi, ai đề xuất và có hiệu lực từ khi nào?",
+    "ground_truth": "Do Finance Team đề xuất qua CR-2025-034, hiệu lực từ 01/11/2025, vì một nhóm nhỏ người dùng thực hiện quá nhiều lần rút tiền giá trị nhỏ khiến chi phí xử lý qua Napas vượt doanh thu.",
+    "answer": "Theo CR-2025-034: Chính sách phí rút tiền thay đổi (miễn phí 5 lần rút/ngày, từ lần thứ 6 thu phí 0.3%) do phát hiện một nhóm nhỏ người dùng (dưới 0.5%) thực hiện hàng chục lần rút tiền giá trị nhỏ mỗi ngày, gây chi phí xử lý qua Napas vượt doanh thu [CR-LOG-001]. Người đề xuất là Finance Team [CR-LOG-001], ngày đề xuất 10/09/2025 và có hiệu lực từ 01/11/2025 [CR-LOG-001].",
+    "contexts": [
+      "Tài liệu: Nhật ký yêu cầu thay đổi - Chính sách phí và hạn mức (CR-LOG-001, ChangeRequest, module General, v1.0)\nMục: Nhật ký yêu cầu thay đổi (Change Request Log) > CR-2025-034: Áp dụng phí rút tiền từ lần thứ 6\n\n## CR-2025-034: Áp dụng phí rút tiền từ lần thứ 6\n\n- **Ngày đề xuất:** 10/09/2025 | **Ngày hiệu lực:** 01/11/2025\n- **Người đề xuất:** Finance Team\n- **Nội dung:** Miễn phí 5 lần rút tiền/ngày, từ lần thứ 6 thu phí 0.3%\n- **Lý do:** Phát hiện nhóm nhỏ người dùng (dưới 0.5%) thực hiện hàng chục lần rút tiền giá trị nhỏ mỗi ngày, gây chi phí xử lý qua Napas vượt doanh thu\n- **Tài liệu bị ảnh hưởng:** FEE-001, BRD-004\n- **Trạng thái:** Đã triển khai",
+      "Tài liệu: Nhật ký yêu cầu thay đổi - Chính sách phí và hạn mức (CR-LOG-001, ChangeRequest, module General, v1.0)\nMục: Nhật ký yêu cầu thay đổi (Change Request Log) > CR-2026-019: Yêu cầu Tier 2 mới được rút tiền\n\n## CR-2026-019: Yêu cầu Tier 2 mới được rút tiền\n\n- **Ngày đề xuất:** 25/02/2026 | **Ngày hiệu lực:** 20/03/2026\n- **Người đề xuất:** Risk & Compliance Team\n- **Nội dung:** Chỉ tài khoản từ Tier 2 trở lên mới được sử dụng chức năng rút tiền về ngân hàng\n- **Lý do:** Tài khoản Tier 1 chưa xác thực danh tính, rủi ro cao bị lợi dụng làm trung gian rửa tiền\n- **Tài liệu bị ảnh hưởng:** BRD-004 (từ v1.0 lên v1.1), BR-004\n- **Trạng thái:** Đã triển khai",
+      "Tài liệu: Nhật ký yêu cầu thay đổi - Chính sách phí và hạn mức (CR-LOG-001, ChangeRequest, module General, v1.0)\nMục: Nhật ký yêu cầu thay đổi (Change Request Log) > CR-2026-011: Giảm phí merchant hạng Kim Cương\n\n## CR-2026-011: Giảm phí merchant hạng Kim Cương\n\n- **Ngày đề xuất:** 01/03/2026 | **Ngày hiệu lực:** 01/04/2026\n- **Người đề xuất:** Business Development Team\n- **Nội dung:** Giảm phí QR merchant hạng Kim Cương từ 0.8% xuống 0.6%\n- **Lý do:** Giữ chân 3 chuỗi bán lẻ lớn đang đàm phán chuyển sang đối thủ\n- **Tài liệu bị ảnh hưởng:** FEE-001 (từ v2.3 lên v2.4), BRD-003\n- **Trạng thái:** Đã triển khai",
+      "Tài liệu: Nhật ký yêu cầu thay đổi - Chính sách phí và hạn mức (CR-LOG-001, ChangeRequest, module General, v1.0)\nMục: Nhật ký yêu cầu thay đổi (Change Request Log) > CR-2026-005: Bổ sung OTP cho giao dịch nạp tiền từ 500.000 VNĐ\n\n## CR-2026-005: Bổ sung OTP cho giao dịch nạp tiền từ 500.000 VNĐ\n\n- **Ngày đề xuất:** 15/01/2026 | **Ngày hiệu lực:** 01/03/2026\n- **Người đề xuất:** Risk & Compliance Team\n- **Nội dung:** Yêu cầu xác thực OTP bắt buộc với giao dịch nạp tiền từ 500.000 VNĐ trở lên\n- **Lý do:** Sau sự cố gian lận thẻ quốc tế quý 4/2025, cần siết chặt xác thực để giảm tỷ lệ chargeback\n- **Tài liệu bị ảnh hưởng:** BRD-001 (từ v1.1 lên v1.2)\n- **Trạng thái:** Đã triển khai",
+      "Tài liệu: Nhật ký yêu cầu thay đổi - Chính sách phí và hạn mức (CR-LOG-001, ChangeRequest, module General, v1.0)\nMục: Nhật ký yêu cầu thay đổi (Change Request Log) > CR-2025-018: Nâng hạn mức Tier 3\n\n## CR-2025-018: Nâng hạn mức Tier 3\n\n- **Ngày đề xuất:** 20/05/2025 | **Ngày hiệu lực:** 15/06/2025\n- **Người đề xuất:** Product Team\n- **Nội dung:** Nâng hạn mức giao dịch/ngày của Tier 3 từ 50.000.000 lên 100.000.000 VNĐ\n- **Lý do:** Khảo sát cho thấy 12% khách hàng Tier 3 chạm trần hạn mức ít nhất 1 lần/tháng, dẫn tới việc họ chuyển sang dùng ví đối thủ cho các giao dịch lớn\n- **Tài liệu bị ảnh hưởng:** BR-002 (từ v1.0 lên v2.0), BRD-001, BRD-002\n- **Trạng thái:** Đã triển khai"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8586733538911737,
+      "context_precision": 0.9999999999,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "CR-LOG-001",
+      "FEE-001"
+    ],
+    "retrieved_doc_ids": [
+      "CR-LOG-001"
+    ],
+    "cited_doc_ids": [
+      "CR-LOG-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3437,
+      "out": 233
+    },
+    "cost_usd": 0.009204
+  },
+  "Q022|rerank=False": {
+    "id": "Q022",
+    "group": "multi_source",
+    "rerank": false,
+    "question": "Khách hàng bị trừ tiền nhưng ví chưa được cộng tiền thì quy trình xử lý ra sao và mất bao lâu?",
+    "ground_truth": "Hệ thống tự động đối soát trong vòng 24 giờ và hoàn tiền hoặc cộng tiền cho khách hàng. Trường hợp chênh lệch, ManhPay cộng tiền tạm ứng cho khách trong 24 giờ rồi làm việc tiếp với đối tác.",
+    "answer": "Hệ thống sẽ tự động đối soát và hoàn tất trong vòng 24 giờ nếu giao dịch bị trừ tiền ở ngân hàng nhưng chưa cộng vào ví do lỗi kết nối [FAQ-001][BRD-001]. Cụ thể, ManhPay thực hiện cộng tiền tạm ứng cho khách hàng trong vòng 24 giờ, sau đó tiếp tục làm việc với đối tác để thu hồi [SOP-005]. Nếu sau 24 giờ vẫn chưa nhận được, khách hàng cần liên hệ Hotline kèm mã giao dịch để được xử lý ưu tiên [FAQ-001].",
+    "contexts": [
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 3/6)\n\n# Câu hỏi thường gặp\n\n**Q4: Giao dịch bị trừ tiền nhưng chưa thấy cộng vào ví, tôi có mất tiền không?**\nA: Không, bạn sẽ không mất tiền. Nếu hệ thống ghi nhận trừ tiền thành công từ ngân hàng nhưng chưa cộng vào ví (do lỗi kết nối), hệ thống sẽ tự động đối soát và hoàn tất trong vòng 24 giờ. Nếu sau 24 giờ vẫn chưa nhận được, vui lòng liên hệ Hotline kèm mã giao dịch để được xử lý ưu tiên.",
+      "Tài liệu: SOP - Quy trình đối soát và bù trừ giao dịch (Reconciliation & Settlement) (SOP-005, SOP, module Doi_Soat, v2.0)\nMục: 6. Nguyên tắc xử lý ưu tiên khách hàng\n\n# 6. Nguyên tắc xử lý ưu tiên khách hàng\n\nTrong mọi trường hợp chênh lệch mà khách hàng đã bị trừ tiền nhưng chưa nhận được giá trị tương ứng, ManhPay thực hiện cộng tiền tạm ứng cho khách hàng trong vòng 24 giờ, sau đó tiếp tục làm việc với đối tác để thu hồi. Nguyên tắc này nhằm bảo vệ trải nghiệm và niềm tin của khách hàng, phù hợp cam kết nêu tại FAQ-001 câu 4.",
+      "Tài liệu: Business Requirement Document - Tính năng Nạp tiền vào ví ManhPay (BRD-001, BRD, module Nap_Tien, v1.2)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.4 Xử lý lỗi và ngoại lệ\n\n## 3.4 Xử lý lỗi và ngoại lệ\n\n- Nếu giao dịch trừ tiền thành công ở ngân hàng nhưng không cộng tiền vào ví (do lỗi timeout/network): hệ thống phải tự động đối soát (reconciliation) trong vòng 24 giờ, hoàn tiền hoặc cộng tiền cho khách hàng\n- Nếu khách hàng nạp tiền vượt hạn mức: hệ thống từ chối giao dịch và hiển thị thông báo rõ ràng, gợi ý nâng cấp Tier tài khoản",
+      "Tài liệu: Báo cáo sự cố - Lỗi đối soát giao dịch nạp tiền qua thẻ quốc tế (INC-001, IncidentReport, module Nap_Tien, v1.0)\nMục: 1. Tóm tắt sự cố\n\n# 1. Tóm tắt sự cố\n\nNgày 08/02/2026, trong khoảng 09:15 - 13:40 (giờ Việt Nam), khoảng 1.240 giao dịch nạp tiền qua thẻ quốc tế bị trừ tiền ở phía ngân hàng phát hành thẻ nhưng không được cộng vào số dư ví ManhPay. Tổng giá trị bị ảnh hưởng ước tính 890.000.000 VNĐ.",
+      "Tài liệu: SOP - Quy trình xử lý khiếu nại giao dịch (Dispute Handling) (SOP-003, SOP, module Khieu_Nai, v1.5)\nMục: 2. Phân loại khiếu nại\n\n# 2. Phân loại khiếu nại\n\n| Loại khiếu nại | Mô tả | SLA xử lý |\n|---|---|---|\n| Giao dịch trùng lặp (Duplicate charge) | Khách hàng bị trừ tiền 2 lần cho 1 giao dịch | 3 ngày làm việc |\n| Giao dịch không nhận diện (Unrecognized transaction) | Khách hàng không thực hiện nhưng bị trừ tiền, nghi ngờ gian lận | 7 ngày làm việc |\n| Không nhận được tiền (Failed credit) | Trừ tiền người gửi nhưng người nhận không nhận được | 3 ngày làm việc |\n| Tranh chấp merchant (Merchant dispute) | Khách hàng không hài lòng với hàng hóa/dịch vụ đã thanh toán qua ManhPay | 10 ngày làm việc |"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7101875591854374,
+      "context_precision": 0.9999999999666667,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "BRD-001",
+      "SOP-005",
+      "FAQ-001"
+    ],
+    "retrieved_doc_ids": [
+      "FAQ-001",
+      "SOP-005",
+      "BRD-001",
+      "INC-001",
+      "SOP-003"
+    ],
+    "cited_doc_ids": [
+      "FAQ-001",
+      "BRD-001",
+      "SOP-005"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3027,
+      "out": 250
+    },
+    "cost_usd": 0.008554
+  },
+  "Q023|rerank=False": {
+    "id": "Q023",
+    "group": "multi_source",
+    "rerank": false,
+    "question": "Những trường hợp nào khiến tài khoản khách hàng bị khóa?",
+    "ground_truth": "Phát hiện giao dịch bất thường theo chính sách AML (các rule FR), khách hàng tự yêu cầu khóa, chưa hoàn tất xác thực định kỳ, hoặc phát hiện giấy tờ giả mạo khi eKYC.",
+    "answer": "Theo CONTEXT, tài khoản khách hàng có thể bị khóa trong các trường hợp:\n\n- Phát hiện dấu hiệu giao dịch bất thường theo chính sách AML, khách hàng tự yêu cầu khóa để bảo mật, hoặc chưa hoàn tất xác thực định kỳ theo quy định NHNN [FAQ-001].\n- Trong quá trình eKYC: nếu nghi ngờ giấy tờ giả mạo, tài khoản bị đánh dấu review và tạm khóa chức năng nâng Tier trong thời gian chờ Compliance điều tra [SOP-002].\n- Trong nghiệp vụ rút tiền: tài khoản đang trong diện điều tra gian lận (AML flag) thì bị tạm khóa chức năng rút tiền [BRD-004].\n\nLưu ý: đây là các trường hợp khóa toàn bộ tài khoản (FAQ-001) hoặc khóa một số chức năng cụ thể (SOP-002, BRD-004), không hoàn toàn đồng nhất về phạm vi khóa.",
+    "contexts": [
+      "Tài liệu: SOP - Quy trình xác thực định danh khách hàng (eKYC) (SOP-002, SOP, module KYC, v2.1)\nMục: 5. Các trường hợp từ chối và xử lý\n\n# 5. Các trường hợp từ chối và xử lý\n\n- Giấy tờ tùy thân đã hết hạn: từ chối, yêu cầu khách hàng cập nhật giấy tờ mới.\n- Nghi ngờ giấy tờ giả mạo (phát hiện qua thuật toán chống giả mạo): tài khoản bị đánh dấu review, chuyển sang đội Compliance điều tra, tạm khóa chức năng nâng Tier trong thời gian chờ.\n- Khách hàng dưới 18 tuổi: từ chối xác thực, theo quy định NHNN về độ tuổi mở ví điện tử.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 6/6)\n\n# Câu hỏi thường gặp\n\n**Q8: Tài khoản của tôi bị khóa, vì sao?**\nA: Tài khoản có thể bị tạm khóa vì: (1) phát hiện dấu hiệu giao dịch bất thường theo chính sách AML, (2) khách hàng tự yêu cầu khóa để bảo mật, (3) chưa hoàn tất xác thực định kỳ theo quy định NHNN. Vui lòng liên hệ Hotline để được hỗ trợ mở khóa.",
+      "Tài liệu: SOP - Quy trình đối soát và bù trừ giao dịch (Reconciliation & Settlement) (SOP-005, SOP, module Doi_Soat, v2.0)\nMục: 6. Nguyên tắc xử lý ưu tiên khách hàng\n\n# 6. Nguyên tắc xử lý ưu tiên khách hàng\n\nTrong mọi trường hợp chênh lệch mà khách hàng đã bị trừ tiền nhưng chưa nhận được giá trị tương ứng, ManhPay thực hiện cộng tiền tạm ứng cho khách hàng trong vòng 24 giờ, sau đó tiếp tục làm việc với đối tác để thu hồi. Nguyên tắc này nhằm bảo vệ trải nghiệm và niềm tin của khách hàng, phù hợp cam kết nêu tại FAQ-001 câu 4.",
+      "Tài liệu: Đặc tả tích hợp nghiệp vụ - Kết nối Napas 247 (INT-001, IntegrationSpec, module Tich_Hop_Ngan_Hang, v1.3)\nMục: 3. Các trường dữ liệu nghiệp vụ quan trọng\n\n# 3. Các trường dữ liệu nghiệp vụ quan trọng\n\n| Trường | Ý nghĩa nghiệp vụ | Lưu ý |\n|---|---|---|\n| transaction_reference | Mã tham chiếu duy nhất của giao dịch | Dùng để đối soát với đối tác, độ dài có thể thay đổi theo đối tác (xem INC-001) |\n| idempotency_key | Khóa chống xử lý trùng lặp | Bắt buộc với mọi giao dịch ghi nợ/ghi có |\n| account_holder_name | Tên chủ tài khoản ngân hàng | Phải khớp với thông tin eKYC của khách hàng |\n| response_code | Mã kết quả giao dịch từ Napas | Quyết định trạng thái hiển thị cho khách hàng |\n| settlement_date | Ngày bù trừ thực tế | Dùng cho báo cáo đối soát tài chính |",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.5 Xử lý ngoại lệ\n\n## 3.5 Xử lý ngoại lệ\n\n- Tài khoản ngân hàng không khớp tên chủ tài khoản: từ chối giao dịch, hiển thị hướng dẫn liên kết đúng tài khoản chính chủ\n- Giao dịch bị treo quá 24 giờ: tự động chuyển sang quy trình đối soát (xem SOP-005), khách hàng được hoàn tiền vào ví nếu ngân hàng báo giao dịch thất bại\n- Tài khoản đang trong diện điều tra gian lận (AML flag): tạm khóa chức năng rút tiền, thông báo khách hàng liên hệ hỗ trợ"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9626224178111432,
+      "context_precision": 0.49999999995,
+      "context_recall": 0.75
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "BR-004",
+      "FAQ-001",
+      "SOP-002"
+    ],
+    "retrieved_doc_ids": [
+      "SOP-002",
+      "FAQ-001",
+      "SOP-005",
+      "INT-001",
+      "BRD-004"
+    ],
+    "cited_doc_ids": [
+      "FAQ-001",
+      "SOP-002",
+      "BRD-004"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3048,
+      "out": 389
+    },
+    "cost_usd": 0.009986
+  },
+  "Q024|rerank=False": {
+    "id": "Q024",
+    "group": "multi_source",
+    "rerank": false,
+    "question": "Nếu khách hàng Tier 1 muốn rút tiền thì cần làm gì?",
+    "ground_truth": "Phải nâng lên Tier 2 bằng cách xác thực eKYC cơ bản (chụp CCCD và selfie, xử lý tự động dưới 5 phút), vì chỉ tài khoản từ Tier 2 trở lên mới được rút tiền.",
+    "answer": "Theo BRD-004, tài khoản khách hàng phải đạt tối thiểu Tier 2 (đã hoàn tất eKYC cơ bản) mới được sử dụng tính năng rút tiền [BRD-004], quy định này bắt nguồn từ yêu cầu thay đổi CR-2026-019 (chỉ tài khoản từ Tier 2 trở lên mới được rút tiền, do Tier 1 chưa xác thực danh tính, rủi ro cao) [CR-LOG-001].\n\nDo đó, khách hàng Tier 1 không thể rút tiền cho đến khi nâng cấp lên Tier 2. Không tìm thấy thông tin phù hợp trong Knowledge Base về quy trình cụ thể để nâng từ Tier 1 lên Tier 2 — CONTEXT chỉ có quy trình nâng từ Tier 2 lên Tier 3 (SOP-002), không có nội dung về bước Tier 1 → Tier 2.",
+    "contexts": [
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.2 Điều kiện thực hiện\n\n## 3.2 Điều kiện thực hiện\n\n- Tài khoản ngân hàng đích phải trùng khớp thông tin chủ tài khoản với thông tin eKYC của khách hàng (kiểm tra tự động theo họ tên và số CCCD)\n- Tài khoản khách hàng phải đạt tối thiểu Tier 2 (đã hoàn tất eKYC cơ bản) mới được sử dụng tính năng rút tiền\n- Bắt buộc xác thực OTP hoặc sinh trắc học cho mọi giao dịch rút tiền, không phân biệt giá trị\n- Số dư khả dụng phải lớn hơn hoặc bằng số tiền rút cộng phí (nếu có)",
+      "Tài liệu: SOP - Quy trình xác thực định danh khách hàng (eKYC) (SOP-002, SOP, module KYC, v2.1)\nMục: 4. Quy trình xác thực Tier 2 lên Tier 3 (eKYC nâng cao)\n\n# 4. Quy trình xác thực Tier 2 lên Tier 3 (eKYC nâng cao)\n\n- Khách hàng yêu cầu nâng Tier 3 từ mục Tài khoản > Nâng cấp hạn mức.\n- Hệ thống gửi yêu cầu đối chiếu thông tin với Cơ sở dữ liệu quốc gia về dân cư qua kênh VNeID hoặc đối tác định danh được NHNN cấp phép.\n- Khách hàng xác nhận đồng ý chia sẻ thông tin qua ứng dụng VNeID (nếu dùng kênh này).\n- Kết quả đối chiếu trả về trong vòng tối đa 24 giờ làm việc.\n- Nếu khớp thông tin, tài khoản được nâng lên Tier 3; nếu không khớp, hệ thống thông báo lý do cụ thể (VD: thông tin CCCD đã thay đổi, cần cập nhật lại).",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 1/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q1: Tôi cần chuẩn bị gì để trở thành merchant của ManhPay?**\nA: Bạn cần có giấy phép kinh doanh hợp lệ (hộ kinh doanh cá thể hoặc doanh nghiệp), tài khoản ngân hàng doanh nghiệp chính chủ, và hoàn tất quy trình xác thực merchant (KYC merchant). Thời gian xét duyệt thông thường 3-5 ngày làm việc.",
+      "Tài liệu: Business Requirement Document - Tính năng Nạp tiền vào ví ManhPay (BRD-001, BRD, module Nap_Tien, v1.2)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.4 Xử lý lỗi và ngoại lệ\n\n## 3.4 Xử lý lỗi và ngoại lệ\n\n- Nếu giao dịch trừ tiền thành công ở ngân hàng nhưng không cộng tiền vào ví (do lỗi timeout/network): hệ thống phải tự động đối soát (reconciliation) trong vòng 24 giờ, hoàn tiền hoặc cộng tiền cho khách hàng\n- Nếu khách hàng nạp tiền vượt hạn mức: hệ thống từ chối giao dịch và hiển thị thông báo rõ ràng, gợi ý nâng cấp Tier tài khoản",
+      "Tài liệu: Nhật ký yêu cầu thay đổi - Chính sách phí và hạn mức (CR-LOG-001, ChangeRequest, module General, v1.0)\nMục: Nhật ký yêu cầu thay đổi (Change Request Log) > CR-2026-019: Yêu cầu Tier 2 mới được rút tiền\n\n## CR-2026-019: Yêu cầu Tier 2 mới được rút tiền\n\n- **Ngày đề xuất:** 25/02/2026 | **Ngày hiệu lực:** 20/03/2026\n- **Người đề xuất:** Risk & Compliance Team\n- **Nội dung:** Chỉ tài khoản từ Tier 2 trở lên mới được sử dụng chức năng rút tiền về ngân hàng\n- **Lý do:** Tài khoản Tier 1 chưa xác thực danh tính, rủi ro cao bị lợi dụng làm trung gian rửa tiền\n- **Tài liệu bị ảnh hưởng:** BRD-004 (từ v1.0 lên v1.1), BR-004\n- **Trạng thái:** Đã triển khai"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8769427784894778,
+      "context_precision": 0.699999999965,
+      "context_recall": 0.5
+    },
+    "refused": true,
+    "expected_source_docs": [
+      "BRD-004",
+      "SOP-002",
+      "BR-002"
+    ],
+    "retrieved_doc_ids": [
+      "BRD-004",
+      "SOP-002",
+      "FAQ-002",
+      "BRD-001",
+      "CR-LOG-001"
+    ],
+    "cited_doc_ids": [
+      "BRD-004",
+      "CR-LOG-001",
+      "SOP-002"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3191,
+      "out": 346
+    },
+    "cost_usd": 0.009842
+  },
+  "Q025|rerank=False": {
+    "id": "Q025",
+    "group": "multi_source",
+    "rerank": false,
+    "question": "Giao dịch thanh toán QR 6 triệu đồng của khách hàng Tier 2 có được chấp nhận không?",
+    "ground_truth": "Không. Hạn mức thanh toán QR của Tier 2 là tối đa 5.000.000 VNĐ mỗi giao dịch.",
+    "answer": "Không được chấp nhận, vì Tier 2 chỉ được thanh toán QR tối đa 5.000.000 VNĐ/giao dịch, giao dịch 6 triệu vượt quá hạn mức này [BRD-003].",
+    "contexts": [
+      "Tài liệu: Business Requirement Document - Tính năng Thanh toán qua mã QR (BRD-003, BRD, module Thanh_Toan_QR, v1.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.1 Hạn mức thanh toán QR\n\n## 3.1 Hạn mức thanh toán QR\n\nÁp dụng chung theo hạn mức Tier tài khoản, riêng với QR có thêm giới hạn theo giao dịch đơn lẻ:\n- Tier 1: tối đa 1.000.000 VNĐ/giao dịch\n- Tier 2: tối đa 5.000.000 VNĐ/giao dịch\n- Tier 3: tối đa 20.000.000 VNĐ/giao dịch",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 5/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q5: Mã QR của tôi có bị hết hạn không?**\nA: Mã QR tĩnh (in ra dán tại quầy) không hết hạn. Mã QR động sinh từ máy POS hoặc app chỉ có hiệu lực 5 phút, sau đó cần tạo lại.\n\n**Q6: Khách hàng khiếu nại đã thanh toán nhưng tôi chưa nhận được thông báo, xử lý thế nào?**\nA: Vui lòng kiểm tra mục \"Lịch sử giao dịch\" trong app Merchant trước. Nếu giao dịch đã ghi nhận thành công, tiền sẽ về theo lịch T+1. Nếu không thấy giao dịch, đề nghị khách hàng cung cấp mã giao dịch để đội hỗ trợ tra soát.",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 2/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q2: Phí nhận thanh toán qua QR là bao nhiêu?**\nA: Phí phụ thuộc hạng merchant dựa trên doanh thu tháng: hạng Đồng 1.2%, hạng Bạc 1.0%, hạng Vàng 0.8%, hạng Kim Cương 0.6%. Hạng được xét lại định kỳ hàng quý dựa trên doanh thu thực tế.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 1/6)\n\n# Câu hỏi thường gặp\n\n**Q1: Tại sao tôi không nạp được tiền vượt quá 5 triệu/ngày?**\nA: Tài khoản của bạn đang ở Tier 1 (chưa xác thực eKYC), hạn mức nạp tiền tối đa là 5.000.000 VNĐ/ngày. Bạn có thể nâng lên Tier 2 bằng cách xác thực eKYC trong mục \"Tài khoản > Xác thực danh tính\" để nâng hạn mức lên 20.000.000 VNĐ/ngày.",
+      "Tài liệu: Business Requirement Document - Tính năng Thanh toán qua mã QR (BRD-003, BRD, module Thanh_Toan_QR, v1.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.2 Phí giao dịch\n\n## 3.2 Phí giao dịch\n\n- Khách hàng thanh toán QR: miễn phí\n- Merchant nhận tiền qua QR: phí 0.8% - 1.2% tùy hạng merchant (xem Fee-Pricing-Table, sheet Merchant Fee)"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.93179249844312,
+      "context_precision": 0.9999999999,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "BR-002",
+      "BRD-003"
+    ],
+    "retrieved_doc_ids": [
+      "BRD-003",
+      "FAQ-002",
+      "FAQ-001"
+    ],
+    "cited_doc_ids": [
+      "BRD-003"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2822,
+      "out": 84
+    },
+    "cost_usd": 0.006484
+  },
+  "Q026|rerank=False": {
+    "id": "Q026",
+    "group": "version_conflict",
+    "rerank": false,
+    "question": "Hạn mức giao dịch mỗi ngày hiện tại của tài khoản Tier 3 là bao nhiêu?",
+    "ground_truth": "100.000.000 VNĐ mỗi ngày, theo BR-002 phiên bản 3.0 đang có hiệu lực.",
+    "answer": "Đối với tài khoản Tier 3, hạn mức mỗi ngày theo từng loại giao dịch như sau:\n\n- Nạp tiền: 100.000.000 VNĐ/ngày [BR-002][BRD-001]\n- Chuyển tiền P2P: 100.000.000 VNĐ/ngày [BR-002]\n- Thanh toán QR: 100.000.000 VNĐ/ngày [BR-002]\n- Rút tiền về ngân hàng: 100.000.000 VNĐ/ngày [BR-002][BRD-004]\n\nLưu ý: hạn mức \"/ngày\" là tổng cộng dồn của tất cả giao dịch cùng loại trong ngày, tính theo giờ Việt Nam (GMT+7), reset lúc 00:00 [BR-002].",
+    "contexts": [
+      "Tài liệu: Bảng quy tắc nghiệp vụ - Hạn mức giao dịch theo cấp độ tài khoản (Tier) (BR-002, BusinessRules, module Han_Muc_Giao_Dich, v3.0)\nMục: 3. Bảng hạn mức chi tiết (áp dụng từ 01/02/2026)\n\n# 3. Bảng hạn mức chi tiết (áp dụng từ 01/02/2026)\n\n| Loại giao dịch | Tier 1 (/giao dịch) | Tier 1 (/ngày) | Tier 2 (/giao dịch) | Tier 2 (/ngày) | Tier 3 (/giao dịch) | Tier 3 (/ngày) |\n|---|---|---|---|---|---|---|\n| Nạp tiền | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 | 100.000.000 |\n| Chuyển tiền P2P | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n| Thanh toán QR | 1.000.000 | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 |\n| Rút tiền về NH | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n\nLưu ý quan trọng: hạn mức \"/ngày\" là tổng cộng dồn của TẤT CẢ giao dịch cùng loại trong ngày, tính theo giờ Việt Nam (GMT+7), reset lúc 00:00.",
+      "Tài liệu: Business Requirement Document - Tính năng Nạp tiền vào ví ManhPay (BRD-001, BRD, module Nap_Tien, v1.2)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.1 Hạn mức nạp tiền\n\n## 3.1 Hạn mức nạp tiền\n\nHạn mức nạp tiền phụ thuộc vào cấp độ tài khoản (xem chi tiết đầy đủ tại BusinessRules-002 - Hạn mức giao dịch):\n- Tài khoản Tier 1 (chưa xác thực eKYC): tối đa 5.000.000 VNĐ/ngày\n- Tài khoản Tier 2 (đã xác thực eKYC cơ bản): tối đa 20.000.000 VNĐ/ngày\n- Tài khoản Tier 3 (đã xác thực eKYC nâng cao + định danh giấy tờ): tối đa 100.000.000 VNĐ/ngày",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 1/6)\n\n# Câu hỏi thường gặp\n\n**Q1: Tại sao tôi không nạp được tiền vượt quá 5 triệu/ngày?**\nA: Tài khoản của bạn đang ở Tier 1 (chưa xác thực eKYC), hạn mức nạp tiền tối đa là 5.000.000 VNĐ/ngày. Bạn có thể nâng lên Tier 2 bằng cách xác thực eKYC trong mục \"Tài khoản > Xác thực danh tính\" để nâng hạn mức lên 20.000.000 VNĐ/ngày.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 4/6)\n\n# Câu hỏi thường gặp\n\n**Q5: Làm sao để biết mình đang ở Tier nào?**\nA: Vào mục \"Tài khoản > Thông tin xác thực\" để xem Tier hiện tại và hạn mức tương ứng.\n\n**Q6: Thanh toán bằng thẻ quốc tế có mất phí không?**\nA: Có, phí nạp tiền qua thẻ quốc tế (Visa/Mastercard) là 1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ. Đây là phí thu hộ đối tác xử lý thẻ quốc tế, không phải phí của ManhPay.",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.1 Hạn mức rút tiền\n\n## 3.1 Hạn mức rút tiền\n\nÁp dụng theo hạn mức Tier tài khoản (nguồn tham chiếu: BR-002):\n- Tier 1: tối đa 2.000.000 VNĐ/giao dịch, 5.000.000 VNĐ/ngày\n- Tier 2: tối đa 10.000.000 VNĐ/giao dịch, 20.000.000 VNĐ/ngày\n- Tier 3: tối đa 50.000.000 VNĐ/giao dịch, 100.000.000 VNĐ/ngày"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9403704904099673,
+      "context_precision": 0.8666666666377778,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "BR-002"
+    ],
+    "retrieved_doc_ids": [
+      "BR-002",
+      "BRD-001",
+      "FAQ-001",
+      "BRD-004"
+    ],
+    "cited_doc_ids": [
+      "BR-002",
+      "BRD-001",
+      "BRD-004"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3257,
+      "out": 281
+    },
+    "cost_usd": 0.009324
+  },
+  "Q027|rerank=False": {
+    "id": "Q027",
+    "group": "version_conflict",
+    "rerank": false,
+    "question": "Hạn mức chuyển tiền P2P mỗi giao dịch của Tier 3 là bao nhiêu?",
+    "ground_truth": "50.000.000 VNĐ mỗi giao dịch theo quy định hiện hành.",
+    "answer": "Tier 3: tối đa 50.000.000 VNĐ/giao dịch cho Chuyển tiền P2P [BR-002][BRD-002][LIMIT-001].",
+    "contexts": [
+      "Tài liệu: Business Requirement Document - Tính năng Chuyển tiền P2P (Peer-to-Peer) (BRD-002, BRD, module Chuyen_Tien_P2P, v2.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.1 Hạn mức chuyển tiền P2P\n\n## 3.1 Hạn mức chuyển tiền P2P\n\nÁp dụng chung theo hạn mức Tier tài khoản (BusinessRules-002):\n- Tier 1: tối đa 2.000.000 VNĐ/giao dịch, 5.000.000 VNĐ/ngày\n- Tier 2: tối đa 10.000.000 VNĐ/giao dịch, 20.000.000 VNĐ/ngày\n- Tier 3: tối đa 50.000.000 VNĐ/giao dịch, 100.000.000 VNĐ/ngày",
+      "Tài liệu: Bảng quy tắc nghiệp vụ - Hạn mức giao dịch theo cấp độ tài khoản (Tier) (BR-002, BusinessRules, module Han_Muc_Giao_Dich, v3.0)\nMục: 3. Bảng hạn mức chi tiết (áp dụng từ 01/02/2026)\n\n# 3. Bảng hạn mức chi tiết (áp dụng từ 01/02/2026)\n\n| Loại giao dịch | Tier 1 (/giao dịch) | Tier 1 (/ngày) | Tier 2 (/giao dịch) | Tier 2 (/ngày) | Tier 3 (/giao dịch) | Tier 3 (/ngày) |\n|---|---|---|---|---|---|---|\n| Nạp tiền | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 | 100.000.000 |\n| Chuyển tiền P2P | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n| Thanh toán QR | 1.000.000 | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 |\n| Rút tiền về NH | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n\nLưu ý quan trọng: hạn mức \"/ngày\" là tổng cộng dồn của TẤT CẢ giao dịch cùng loại trong ngày, tính theo giờ Việt Nam (GMT+7), reset lúc 00:00.",
+      "Tài liệu: Business Requirement Document - Tính năng Chuyển tiền P2P (Peer-to-Peer) (BRD-002, BRD, module Chuyen_Tien_P2P, v2.0)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.3 Phí giao dịch\n\n## 3.3 Phí giao dịch\n\n- Chuyển tiền P2P trong hệ sinh thái ManhPay: **miễn phí hoàn toàn**, không giới hạn số lần\n- Đây là chính sách khác biệt cạnh tranh chính của sản phẩm (competitive positioning), Product team cần lưu ý khi trả lời câu hỏi liên quan đến pricing",
+      "Tài liệu: MA TRẬN HẠN MỨC GIAO DỊCH THEO TIER - MANHPAY (LIMIT-001, Limit_SLA_Matrix, module General, v1.2)\nMục: Sheet: HanMuc_Theo_Tier\n\n## Sheet: HanMuc_Theo_Tier\n\nMA TRẬN HẠN MỨC GIAO DỊCH THEO TIER - MANHPAY\n**Mã tài liệu:** LIMIT-001\n**Loại tài liệu:** Limit_SLA_Matrix\n**Phiên bản:** v1.2\n**Trạng thái:** Approved\n**Ngày hiệu lực:** 2026-02-01\n**Nguồn gốc số liệu:** BR-002 v3.0 (bản trích xuất để tra cứu nhanh)\n**Chủ sở hữu:** Compliance & Product Team\nLưu ý: đây là bản trích xuất từ BR-002. Khi có mâu thuẫn, lấy BR-002 làm chuẩn.\n\n| Loại giao dịch | Tier 1 (/giao dịch) | Tier 1 (/ngày) | Tier 2 (/giao dịch) | Tier 2 (/ngày) | Tier 3 (/giao dịch) | Tier 3 (/ngày) |\n|---|---|---|---|---|---|---|\n| Nạp tiền | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 | 100.000.000 |\n| Chuyển tiền P2P | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n| Thanh toán QR | 1.000.000 | 5.000.000 | 5.000.000 | 20.000.000 | 20.000.000 | 100.000.000 |\n| Rút tiền về ngân hàng | 2.000.000 | 5.000.000 | 10.000.000 | 20.000.000 | 50.000.000 | 100.000.000 |\n| TỔNG hạn mức/ngày (mọi loại GD) |  | 20.000.000 |  | 80.000.000 |  | 400.000.000 |",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.1 Hạn mức rút tiền\n\n## 3.1 Hạn mức rút tiền\n\nÁp dụng theo hạn mức Tier tài khoản (nguồn tham chiếu: BR-002):\n- Tier 1: tối đa 2.000.000 VNĐ/giao dịch, 5.000.000 VNĐ/ngày\n- Tier 2: tối đa 10.000.000 VNĐ/giao dịch, 20.000.000 VNĐ/ngày\n- Tier 3: tối đa 50.000.000 VNĐ/giao dịch, 100.000.000 VNĐ/ngày"
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9632041961586552,
+      "context_precision": 0.9166666666361111,
+      "context_recall": 1.0
+    },
+    "refused": false,
+    "expected_source_docs": [
+      "BR-002"
+    ],
+    "retrieved_doc_ids": [
+      "BRD-002",
+      "BR-002",
+      "LIMIT-001",
+      "BRD-004"
+    ],
+    "cited_doc_ids": [
+      "BR-002",
+      "BRD-002",
+      "LIMIT-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 3648,
+      "out": 63
+    },
+    "cost_usd": 0.007926
+  },
+  "Q029|rerank=False": {
+    "id": "Q029",
+    "group": "adversarial",
+    "rerank": false,
+    "question": "ManhPay có hỗ trợ rút tiền bằng ngoại tệ USD không?",
+    "ground_truth": "Không tìm thấy thông tin trong Knowledge Base. Hệ thống phải từ chối trả lời thay vì suy đoán.",
+    "answer": "Không tìm thấy thông tin phù hợp trong Knowledge Base. CONTEXT chỉ đề cập đến xử lý ngoại lệ khi rút tiền (tài khoản không khớp tên, giao dịch treo, tài khoản bị điều tra AML) [BRD-004], không có thông tin nào về hỗ trợ rút tiền bằng ngoại tệ USD.",
+    "contexts": [
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.5 Xử lý ngoại lệ\n\n## 3.5 Xử lý ngoại lệ\n\n- Tài khoản ngân hàng không khớp tên chủ tài khoản: từ chối giao dịch, hiển thị hướng dẫn liên kết đúng tài khoản chính chủ\n- Giao dịch bị treo quá 24 giờ: tự động chuyển sang quy trình đối soát (xem SOP-005), khách hàng được hoàn tiền vào ví nếu ngân hàng báo giao dịch thất bại\n- Tài khoản đang trong diện điều tra gian lận (AML flag): tạm khóa chức năng rút tiền, thông báo khách hàng liên hệ hỗ trợ",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 4/6)\n\n# Câu hỏi thường gặp\n\n**Q5: Làm sao để biết mình đang ở Tier nào?**\nA: Vào mục \"Tài khoản > Thông tin xác thực\" để xem Tier hiện tại và hạn mức tương ứng.\n\n**Q6: Thanh toán bằng thẻ quốc tế có mất phí không?**\nA: Có, phí nạp tiền qua thẻ quốc tế (Visa/Mastercard) là 1.5% giá trị giao dịch, tối thiểu 5.000 VNĐ. Đây là phí thu hộ đối tác xử lý thẻ quốc tế, không phải phí của ManhPay.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 1/6)\n\n# Câu hỏi thường gặp\n\n**Q1: Tại sao tôi không nạp được tiền vượt quá 5 triệu/ngày?**\nA: Tài khoản của bạn đang ở Tier 1 (chưa xác thực eKYC), hạn mức nạp tiền tối đa là 5.000.000 VNĐ/ngày. Bạn có thể nâng lên Tier 2 bằng cách xác thực eKYC trong mục \"Tài khoản > Xác thực danh tính\" để nâng hạn mức lên 20.000.000 VNĐ/ngày.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 3/6)\n\n# Câu hỏi thường gặp\n\n**Q4: Giao dịch bị trừ tiền nhưng chưa thấy cộng vào ví, tôi có mất tiền không?**\nA: Không, bạn sẽ không mất tiền. Nếu hệ thống ghi nhận trừ tiền thành công từ ngân hàng nhưng chưa cộng vào ví (do lỗi kết nối), hệ thống sẽ tự động đối soát và hoàn tất trong vòng 24 giờ. Nếu sau 24 giờ vẫn chưa nhận được, vui lòng liên hệ Hotline kèm mã giao dịch để được xử lý ưu tiên.",
+      "Tài liệu: Business Requirement Document - Tính năng Nạp tiền vào ví ManhPay (BRD-001, BRD, module Nap_Tien, v1.2)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.4 Xử lý lỗi và ngoại lệ\n\n## 3.4 Xử lý lỗi và ngoại lệ\n\n- Nếu giao dịch trừ tiền thành công ở ngân hàng nhưng không cộng tiền vào ví (do lỗi timeout/network): hệ thống phải tự động đối soát (reconciliation) trong vòng 24 giờ, hoàn tiền hoặc cộng tiền cho khách hàng\n- Nếu khách hàng nạp tiền vượt hạn mức: hệ thống từ chối giao dịch và hiển thị thông báo rõ ràng, gợi ý nâng cấp Tier tài khoản"
+    ],
+    "scores": {
+      "faithfulness": 0.8571428571428571,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    "refused": true,
+    "expected_source_docs": [],
+    "retrieved_doc_ids": [
+      "BRD-004",
+      "FAQ-001",
+      "BRD-001"
+    ],
+    "cited_doc_ids": [
+      "BRD-004"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2977,
+      "out": 139
+    },
+    "cost_usd": 0.007344
+  },
+  "Q030|rerank=False": {
+    "id": "Q030",
+    "group": "adversarial",
+    "rerank": false,
+    "question": "Lãi suất tiền gửi trong ví ManhPay là bao nhiêu phần trăm mỗi năm?",
+    "ground_truth": "Không tìm thấy thông tin trong Knowledge Base. ManhPay không có sản phẩm tiền gửi có lãi trong phạm vi tài liệu hiện có.",
+    "answer": "Không tìm thấy thông tin phù hợp trong Knowledge Base. CONTEXT hiện chỉ đề cập đến phí giao dịch rút tiền [BRD-004], phí nhận thanh toán QR của merchant [FAQ-002], hạn mức nạp tiền theo Tier [FAQ-001], và mục tiêu nghiệp vụ nạp/rút tiền [BRD-001][BRD-004] — không có nội dung nào về lãi suất tiền gửi trong ví.",
+    "contexts": [
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 2/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q2: Phí nhận thanh toán qua QR là bao nhiêu?**\nA: Phí phụ thuộc hạng merchant dựa trên doanh thu tháng: hạng Đồng 1.2%, hạng Bạc 1.0%, hạng Vàng 0.8%, hạng Kim Cương 0.6%. Hạng được xét lại định kỳ hàng quý dựa trên doanh thu thực tế.",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 1/6)\n\n# Câu hỏi thường gặp\n\n**Q1: Tại sao tôi không nạp được tiền vượt quá 5 triệu/ngày?**\nA: Tài khoản của bạn đang ở Tier 1 (chưa xác thực eKYC), hạn mức nạp tiền tối đa là 5.000.000 VNĐ/ngày. Bạn có thể nâng lên Tier 2 bằng cách xác thực eKYC trong mục \"Tài khoản > Xác thực danh tính\" để nâng hạn mức lên 20.000.000 VNĐ/ngày.",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 3. Yêu cầu nghiệp vụ chi tiết > 3.3 Phí giao dịch\n\n## 3.3 Phí giao dịch\n\n- Miễn phí tối đa 5 lần rút tiền mỗi ngày\n- Từ lần rút thứ 6 trở đi trong cùng ngày: phí 0.3% giá trị giao dịch (xem chi tiết tại FEE-001)",
+      "Tài liệu: Business Requirement Document - Tính năng Rút tiền từ ví về tài khoản ngân hàng (BRD-004, BRD, module Rut_Tien, v1.1)\nMục: 1. Mục tiêu nghiệp vụ\n\n# 1. Mục tiêu nghiệp vụ\n\nCho phép khách hàng rút tiền từ số dư ví ManhPay về tài khoản ngân hàng đã liên kết, đảm bảo khách hàng luôn có toàn quyền kiểm soát tiền của mình trong ví — đây là yêu cầu bắt buộc theo quy định của Ngân hàng Nhà nước đối với tổ chức cung ứng dịch vụ trung gian thanh toán.",
+      "Tài liệu: Business Requirement Document - Tính năng Nạp tiền vào ví ManhPay (BRD-001, BRD, module Nap_Tien, v1.2)\nMục: 1. Mục tiêu nghiệp vụ\n\n# 1. Mục tiêu nghiệp vụ\n\nCho phép khách hàng nạp tiền vào ví điện tử ManhPay từ tài khoản ngân hàng liên kết, thẻ ATM nội địa (Napas), hoặc thẻ quốc tế (Visa/Mastercard), nhằm tăng số dư khả dụng để thực hiện các giao dịch thanh toán, chuyển tiền trong hệ sinh thái ManhPay."
+    ],
+    "scores": {
+      "faithfulness": 1.0,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    "refused": true,
+    "expected_source_docs": [],
+    "retrieved_doc_ids": [
+      "FAQ-002",
+      "FAQ-001",
+      "BRD-004",
+      "BRD-001"
+    ],
+    "cited_doc_ids": [
+      "BRD-004",
+      "FAQ-002",
+      "FAQ-001",
+      "BRD-001"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2659,
+      "out": 178
+    },
+    "cost_usd": 0.007098
+  },
+  "Q032|rerank=False": {
+    "id": "Q032",
+    "group": "adversarial",
+    "rerank": false,
+    "question": "Quy trình mở tài khoản doanh nghiệp trên ManhPay gồm những bước nào?",
+    "ground_truth": "Không tìm thấy thông tin chi tiết. SOP-002 có nhắc tài khoản doanh nghiệp thuộc phạm vi SOP-007 riêng, nhưng tài liệu đó không có trong Knowledge Base hiện tại.",
+    "answer": "Không tìm thấy thông tin phù hợp trong Knowledge Base. CONTEXT chỉ nhắc tên tài liệu SOP-007 (quy trình riêng cho tài khoản doanh nghiệp) và BR-005 (hạn mức tài khoản doanh nghiệp) [SOP-002][BR-002], nhưng nội dung của các tài liệu này không có trong Knowledge Base hiện tại, nên không thể trình bày các bước cụ thể.",
+    "contexts": [
+      "Tài liệu: SOP - Quy trình xử lý khiếu nại giao dịch (Dispute Handling) (SOP-003, SOP, module Khieu_Nai, v1.5)\nMục: 3. Quy trình xử lý chi tiết > Bước 3: Điều tra chuyên sâu (nếu cần)\n\n## Bước 3: Điều tra chuyên sâu (nếu cần)\n\nVới các trường hợp nghi ngờ gian lận (Unrecognized transaction), case được chuyển sang đội Risk & Fraud để điều tra sâu, có thể bao gồm: kiểm tra thiết bị đăng nhập, lịch sử vị trí giao dịch (geolocation), và đối chiếu với các case tương tự trước đó.",
+      "Tài liệu: Câu hỏi thường gặp - Dành cho đối tác Merchant (FAQ-002, FAQ, module Merchant, v1.2)\nMục: Câu hỏi thường gặp dành cho Merchant (phần 1/6)\n\n# Câu hỏi thường gặp dành cho Merchant\n\n**Q1: Tôi cần chuẩn bị gì để trở thành merchant của ManhPay?**\nA: Bạn cần có giấy phép kinh doanh hợp lệ (hộ kinh doanh cá thể hoặc doanh nghiệp), tài khoản ngân hàng doanh nghiệp chính chủ, và hoàn tất quy trình xác thực merchant (KYC merchant). Thời gian xét duyệt thông thường 3-5 ngày làm việc.",
+      "Tài liệu: SOP - Quy trình xác thực định danh khách hàng (eKYC) (SOP-002, SOP, module KYC, v2.1)\nMục: 2. Phạm vi áp dụng\n\n# 2. Phạm vi áp dụng\n\n- Áp dụng cho toàn bộ khách hàng cá nhân đăng ký mới hoặc nâng Tier tài khoản.\n- Không áp dụng cho tài khoản doanh nghiệp (xem SOP-007 riêng).",
+      "Tài liệu: Bảng quy tắc nghiệp vụ - Hạn mức giao dịch theo cấp độ tài khoản (Tier) (BR-002, BusinessRules, module Han_Muc_Giao_Dich, v3.0)\nMục: 5. Ngoại lệ đặc biệt\n\n# 5. Ngoại lệ đặc biệt\n\n- Trong giai đoạn khuyến mãi (VD: Tết, Black Friday), Product team có thể đề xuất nâng tạm thời hạn mức Tier 1/Tier 2 lên tối đa 1.5 lần, phải có phê duyệt từ Compliance trước khi triển khai\n- Tài khoản doanh nghiệp (Business Account) áp dụng bảng hạn mức riêng, không thuộc phạm vi tài liệu này (xem BR-005 Hạn mức tài khoản doanh nghiệp)",
+      "Tài liệu: Câu hỏi thường gặp - Hỗ trợ khách hàng ManhPay (FAQ-001, FAQ, module General, v2.3)\nMục: Câu hỏi thường gặp (phần 6/6)\n\n# Câu hỏi thường gặp\n\n**Q8: Tài khoản của tôi bị khóa, vì sao?**\nA: Tài khoản có thể bị tạm khóa vì: (1) phát hiện dấu hiệu giao dịch bất thường theo chính sách AML, (2) khách hàng tự yêu cầu khóa để bảo mật, (3) chưa hoàn tất xác thực định kỳ theo quy định NHNN. Vui lòng liên hệ Hotline để được hỗ trợ mở khóa."
+    ],
+    "scores": {
+      "faithfulness": 0.875,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": null
+    },
+    "refused": true,
+    "expected_source_docs": [],
+    "retrieved_doc_ids": [
+      "SOP-003",
+      "FAQ-002",
+      "SOP-002",
+      "BR-002",
+      "FAQ-001"
+    ],
+    "cited_doc_ids": [
+      "SOP-002",
+      "BR-002"
+    ],
+    "gate_blocked": false,
+    "tokens": {
+      "in": 2688,
+      "out": 169
+    },
+    "cost_usd": 0.007066
+  }
+}
