@@ -186,6 +186,39 @@ def _extract_citations(answer: str, hits: list[dict[str, Any]]) -> list[str]:
 # --------------------------------------------------------------------------- #
 # Kết quả
 # --------------------------------------------------------------------------- #
+# Các trường metadata chunk cần cho UI/debug. Chỉ lấy giá trị vô hướng để còn
+# json.dump được cùng kết quả evaluation sau này.
+_META_FIELDS = (
+    "doc_id",
+    "doc_type",
+    "module",
+    "status",
+    "version",
+    "title",
+    "heading_path",
+    "has_table",
+    "part",
+    "n_parts",
+)
+
+
+def _context_meta(hit: dict[str, Any]) -> dict[str, Any]:
+    """Provenance and scores for one chunk, parallel to ``GenerationResult.contexts``.
+
+    Dùng ``.get`` cho mọi khóa điểm: ``rerank()`` trả dict đã bọc lại, còn test
+    dựng hit tối giản — thiếu một khóa không được làm nổ cả lượt trả lời.
+    """
+    meta = hit["metadata"]
+    out: dict[str, Any] = {key: meta.get(key) for key in _META_FIELDS}
+    out["chunk_id"] = hit.get("chunk_id")
+    out["score"] = hit.get("score", 0.0)
+    out["vector_score"] = hit.get("vector_score", 0.0)
+    out["bm25_score"] = hit.get("bm25_score", 0.0)
+    out["table_boost"] = hit.get("table_boost", 0.0)
+    out["rerank_score"] = hit.get("rerank_score")  # None khi rerank=False
+    return out
+
+
 @dataclass
 class GenerationResult:
     """One answered (or refused) question, with the cost of answering it."""
@@ -212,6 +245,12 @@ class GenerationResult:
     # GIỮA hybrid_search và rerank, dựng lại chuỗi đó từ ngoài rất dễ lệch thứ tự.
     # Rỗng khi bị gate chặn (chưa có gì được gửi đi).
     contexts: list[str] = field(default_factory=list)
+    # Song song 1-1 với `contexts` (cùng dựng từ một list `hits`, cùng thứ tự).
+    # Tách khỏi `contexts` chứ KHÔNG gộp thành list[dict]: RAGAS nhận thẳng
+    # `contexts` là list[str], và src/evaluation.py dùng `not result.contexts`
+    # làm cờ gate_blocked — đổi kiểu của nó là hỏng cả hai chỗ cùng lúc.
+    # Rỗng khi bị gate chặn, y như `contexts`.
+    context_meta: list[dict[str, Any]] = field(default_factory=list)
 
     @property
     def cost_usd(self) -> float:
@@ -284,6 +323,10 @@ def generate_answer(
     ứng viên — nên gate hoạt động y nguyên như Tuần 6 ở cả hai chế độ. Gate sau
     rerank thì hỏng: cross-encoder có thể đưa lên đầu một chunk có điểm hybrid
     thấp hơn, và ngưỡng 0.45 (hiệu chỉnh trên thang hybrid) sẽ chặn oan.
+
+    Bất biến: ``len(result.contexts) == len(result.context_meta)`` và hai list
+    cùng thứ tự — chúng dựng từ CÙNG một list ``hits``. Nhánh gate chặn để cả
+    hai rỗng, đó là tín hiệu "chưa gửi gì đi" mà :mod:`src.evaluation` đọc.
     """
     hits = hybrid_search(
         question,
@@ -357,6 +400,7 @@ def generate_answer(
         retrieved_doc_ids=retrieved,
         reranked=rerank,
         contexts=[hit["content"] for hit in hits],
+        context_meta=[_context_meta(hit) for hit in hits],
     )
 
 

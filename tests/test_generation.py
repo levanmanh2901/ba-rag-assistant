@@ -29,6 +29,7 @@ from src.generation import (
     PRICE_PER_MTOK_OUT,
     REFUSAL_MESSAGE,
     GenerationResult,
+    _context_meta,
     _extract_citations,
     generate_answer,
 )
@@ -215,6 +216,46 @@ def test_citations_reject_doc_ids_outside_the_context():
 
 def test_citations_empty_when_answer_cites_nothing():
     assert _extract_citations(REFUSAL_MESSAGE, fake_hits(0.9)) == []
+
+
+# --------------------------------------------------------------------------- #
+# context_meta — provenance đi kèm từng context, cho UI
+# --------------------------------------------------------------------------- #
+def test_gate_block_leaves_both_context_lists_empty(monkeypatch):
+    """Gate chặn -> CẢ contexts lẫn context_meta phải rỗng.
+
+    `src/evaluation.py` dùng `not result.contexts` làm cờ `gate_blocked` và bỏ
+    qua mọi chỉ số RAGAS khi cờ bật. Nếu có ai điền context_meta ở nhánh gate
+    (hoặc điền contexts) thì cờ đó lệch, và điểm 0.0 "chấm rồi, tệ" sẽ bị ghi
+    đè lên None "không chấm được" — sai im lặng trong bảng kết quả.
+    """
+    monkeypatch.setattr("src.generation.hybrid_search", lambda *a, **k: fake_hits(0.30))
+    monkeypatch.setattr("src.generation._get_client", stub_client([]))
+
+    result = generate_answer("câu hỏi vớ vẩn")
+
+    assert result.contexts == []
+    assert result.context_meta == []
+
+
+def test_context_meta_maps_hit_fields_without_requiring_every_key():
+    """Lấy đúng doc_id/chunk_id/điểm, và khóa thiếu thì về mặc định chứ không nổ.
+
+    `fake_hits` cố tình KHÔNG có `table_boost` — giống hệt hit do `rerank()` bọc
+    lại hay do test dựng tay. Một `KeyError` ở đây sẽ giết cả lượt trả lời SAU
+    khi đã trả tiền gọi API, nên phải dùng `.get` toàn bộ.
+    """
+    meta = _context_meta(fake_hits(0.8)[0])
+
+    assert meta["doc_id"] == "BR-002"
+    assert meta["chunk_id"] == "BR-002#000"
+    assert meta["status"] == "Approved"
+    assert meta["score"] == pytest.approx(0.8)
+    assert meta["bm25_score"] == pytest.approx(1.0)
+    assert meta["table_boost"] == 0.0  # khóa vắng mặt -> mặc định, không KeyError
+    assert meta["rerank_score"] is None  # rerank=False thì không có điểm rerank
+    # Trường front-matter chỉ một số tài liệu mới có: vắng thì None, không nổ.
+    assert meta["title"] is None
 
 
 def test_cost_formula():
