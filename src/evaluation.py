@@ -70,6 +70,9 @@ load_dotenv()
 
 EVAL_PATH = PROJECT_ROOT / "data" / "Evaluation" / "evaluation_questions.json"
 RESULTS_PATH = PROJECT_ROOT / "data" / "Evaluation" / "ragas_results.json"
+# Arm rerank=True ghi ra file RIÊNG: ragas_results.json là kết quả chính thức của
+# cấu hình rerank=False, tuyệt đối không được ghi đè.
+RESULTS_RERANK_PATH = PROJECT_ROOT / "data" / "Evaluation" / "ragas_results_rerank.json"
 # Cache để chạy lại không mất tiền hai lần cho câu đã xong. Xóa được an toàn.
 STORE_PATH = PROJECT_ROOT / "data" / "Evaluation" / "ragas_store.json"
 
@@ -83,11 +86,11 @@ JUDGE_MODEL = MODEL
 # Việt với tầng retrieval, và không phải tải thêm model nào.
 JUDGE_EMBEDDINGS = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
-# CHỈ đo cấu hình chính thức rerank=False. Nhánh rerank=True đã bỏ hẳn khỏi bước
-# đánh giá này: nó vẫn là tham số của generate_answer() và vẫn được
-# tests/test_reranking.py đo ở tầng retrieval (Recall@3), nhưng không tiêu tiền
-# RAGAS cho nó nữa — một arm subset n=10 chọn sẵn ở hai nhóm có lợi thế thì không
-# đủ sức kết luận gì, mà vẫn tốn gần một nửa ngân sách.
+# Cấu hình CHÍNH THỨC là rerank=False (mặc định mọi lệnh). Arm subset n=10 cũ của
+# rerank=True đã bị bỏ vì chọn sẵn ở hai nhóm có lợi thế, không đủ sức kết luận.
+# Arm rerank=True hiện tại (cờ --rerank) thay bằng ĐỦ 28 câu có tài liệu nguồn,
+# ghi ra RESULTS_RERANK_PATH, và so sánh với rerank=False tính lại trên đúng 28
+# câu đó từ per_question đã có (không gọi API lại) — xem compare_arms().
 
 # --------------------------------------------------------------------------- #
 # Điểm sửa tay sau khi đối chiếu thủ công
@@ -456,7 +459,9 @@ async def run_evaluation(
             rerank=rerank,
             include_deprecated=_uses_deprecated(item),
         )
+        before = meter.as_dict()
         scores = await score_one(metrics, item, result)
+        after = meter.as_dict()
 
         record = {
             "id": qid,
@@ -479,6 +484,16 @@ async def run_evaluation(
             "gate_blocked": not result.contexts,
             "tokens": {"in": result.input_tokens, "out": result.output_tokens},
             "cost_usd": round(result.cost_usd, 6),
+            # Chi phí judge THEO TỪNG CÂU. Meter chỉ sống trong một lần gọi lệnh,
+            # nên sau --pilot rồi --run nó mất phần pilot; lưu ở đây để cộng đủ.
+            "judge_calls": after["calls"] - before["calls"],
+            "judge_usd": round(
+                _usd(
+                    after["input_tokens"] - before["input_tokens"],
+                    after["output_tokens"] - before["output_tokens"],
+                ),
+                6,
+            ),
         }
         records.append(record)
         store[key] = record
@@ -560,6 +575,164 @@ def apply_overrides(records: list[dict]) -> list[dict]:
                 "ly_do": spec["ly_do"],
             }
     return records
+
+
+def override_would_fire(records: list[dict]) -> dict[str, dict[str, Any]]:
+    """Report, without applying, whether each manual override's guard would pass.
+
+    Dùng cho arm rerank=True: bản sửa tay gắn với điểm gốc của lần chạy
+    rerank=False nên KHÔNG áp dụng ở đây, nhưng vẫn ghi lại cơ chế chặn của
+    :func:`apply_overrides` có tự chặn hay không để người đọc đối chiếu.
+    """
+    by_id = {r["id"]: r for r in records}
+    report: dict[str, dict[str, Any]] = {}
+    for qid, override in MANUAL_OVERRIDES.items():
+        record = by_id.get(qid)
+        for metric, spec in override.items():
+            current = record["scores"].get(metric) if record else None
+            report[f"{qid}.{metric}"] = {
+                "diem_arm_nay": current,
+                "diem_luc_doi_chieu": spec["cu"],
+                "co_che_chan_se_cho_qua": record is not None and current == spec["cu"],
+            }
+    return report
+
+
+def load_baseline(question_ids: list[str]) -> list[dict]:
+    """rerank=False records from ragas_results.json, restricted to ``question_ids``.
+
+    Đọc từ file kết quả chính thức (đã áp MANUAL_OVERRIDES), không gọi API. Mỗi bản
+    ghi bị sửa tay vẫn mang ``_dieu_chinh_thu_cong`` chứa điểm máy chấm gốc.
+    """
+    payload = json.loads(RESULTS_PATH.read_text(encoding="utf-8"))
+    by_id = {r["id"]: r for r in payload["per_question"]}
+    return [by_id[qid] for qid in question_ids]
+
+
+def _raw_scores(records: list[dict]) -> list[dict]:
+    """Copies of ``records`` with manual overrides rolled back to machine scores."""
+    raw = []
+    for record in records:
+        copy = dict(record, scores=dict(record["scores"]))
+        for metric, spec in record.get("_dieu_chinh_thu_cong", {}).items():
+            copy["scores"][metric] = spec["diem_may_cham"]
+        raw.append(copy)
+    return raw
+
+
+def compare_arms(baseline: list[dict], rerank: list[dict]) -> dict[str, Any]:
+    """Per-group means of both arms on the SAME question set, plus the delta.
+
+    ``chenh_lech = rerank - baseline``; dương là rerank tốt hơn.
+    """
+    ids_b, ids_r = sorted(r["id"] for r in baseline), sorted(r["id"] for r in rerank)
+    if ids_b != ids_r:
+        raise ValueError(f"Hai arm khác tập câu hỏi: {set(ids_b) ^ set(ids_r)}")
+
+    sb = summarise(baseline)["scores_by_group"]
+    sr = summarise(rerank)["scores_by_group"]
+    out: dict[str, Any] = {"_note": "chenh_lech = rerank=True - rerank=False, cung tap cau"}
+    for group in (g for g in sb if not g.startswith("_")):
+        row = {"n": sb[group]["n"]}
+        for name in FULL_METRICS:
+            b, r = sb[group][name], sr[group][name]
+            row[name] = {
+                "rerank_false": b,
+                "rerank_true": r,
+                "chenh_lech": round(r - b, 4) if None not in (b, r) else None,
+            }
+        out[group] = row
+    return out
+
+
+def print_comparison(comparison: dict[str, Any], title: str) -> None:
+    """Print the two-arm table: for each metric, False | True | delta."""
+    short = {"faithfulness": "Faith", "answer_relevancy": "AnsRel",
+             "context_precision": "CtxPrec", "context_recall": "CtxRec"}
+    print(f"\n{'=' * 118}\n{title}\n{'=' * 118}")
+    head = f"{'nhóm':<17}{'n':>3}"
+    for name in FULL_METRICS:
+        head += f"  {short[name] + ' F':>8}{short[name] + ' T':>9}{'Δ':>7}"
+    print(head)
+    print("-" * 118)
+    fmt = lambda v, sign=False: "—" if v is None else (f"{v:+.3f}" if sign else f"{v:.3f}")
+    for group, row in comparison.items():
+        if group.startswith("_"):
+            continue
+        line = f"{group:<17}{row['n']:>3}"
+        for name in FULL_METRICS:
+            c = row[name]
+            line += (f"  {fmt(c['rerank_false']):>8}{fmt(c['rerank_true']):>9}"
+                     f"{fmt(c['chenh_lech'], True):>7}")
+        print(line)
+
+
+def export_rerank(records: list[dict], estimate: dict) -> dict[str, Any]:
+    """Write the rerank=True arm to RESULTS_RERANK_PATH — never to RESULTS_PATH.
+
+    KHÔNG gọi :func:`apply_overrides`: bản sửa tay Q012 gắn với điểm gốc của lần
+    chạy rerank=False, ở arm này hết căn cứ. Chỉ ghi lại cơ chế chặn có cho qua
+    hay không (:func:`override_would_fire`).
+    """
+    scope = rerank_scope()
+    in_scope = [r for r in records if r["id"] in scope]
+    baseline = load_baseline([r["id"] for r in in_scope])
+
+    gen_cost = sum(r["cost_usd"] for r in records)
+    judge_cost = sum(r.get("judge_usd", 0.0) for r in records)
+    payload = {
+        "metadata": {
+            "date": date.today().isoformat(),
+            "reproduce": "python -m src.evaluation --rerank --pilot, roi --rerank --run",
+            "judge_model": JUDGE_MODEL,
+            "judge_embeddings": JUDGE_EMBEDDINGS,
+            "prices_usd_per_mtok": {"in": PRICE_PER_MTOK_IN, "out": PRICE_PER_MTOK_OUT},
+        },
+        "cau_hinh": {
+            "rerank": True,
+            "_scope": "hybrid + TABLE_BOOST + cross-encoder rerank, 28 cau co tai lieu nguon",
+            "n": len(in_scope),
+            "ngoai_pham_vi": sorted(r["id"] for r in records if r["id"] not in scope),
+            "_note_ngoai_pham_vi": (
+                "Cau adversarial chi chay o pilot de kiem nhanh gate-truoc-rerank; "
+                "khong vao scores_by_group va bang so sanh."
+            ),
+        },
+        "dieu_chinh_thu_cong": {
+            "ap_dung": False,
+            "_note": (
+                "MANUAL_OVERRIDES (Q012) KHONG ap dung cho arm nay: ban sua tay gan "
+                "voi diem goc cua lan chay rerank=False."
+            ),
+            "co_che_chan": override_would_fire(in_scope),
+        },
+        "scores_by_group": summarise(in_scope)["scores_by_group"],
+        "phat_hien_precision_recall": _precision_recall_gap(in_scope),
+        "so_sanh_voi_rerank_false": {
+            "_note": (
+                "Baseline = per_question cua ragas_results.json (DA ap sua tay Q012), "
+                "tinh lai tren dung 28 cau, khong goi API."
+            ),
+            "baseline_chinh_thuc": compare_arms(baseline, in_scope),
+            "baseline_diem_may_cham_goc": compare_arms(_raw_scores(baseline), in_scope),
+        },
+        "adversarial_ngoai_pham_vi": summarise(
+            [r for r in records if r["id"] not in scope]
+        )["adversarial"],
+        "per_question": records,
+        "cost": {
+            "generation_usd": round(gen_cost, 4),
+            "judge_usd": round(judge_cost, 4),
+            "judge_calls": sum(r.get("judge_calls", 0) for r in records),
+            "_judge_note": "Do that, cong theo tung cau (judge_usd trong per_question).",
+            "total_usd": round(gen_cost + judge_cost, 4),
+            "du_toan_usd": estimate["total_usd"],
+        },
+    }
+    RESULTS_RERANK_PATH.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    return payload
 
 
 def _existing_ket_luan() -> list[str]:
@@ -656,21 +829,30 @@ def print_estimate(estimate: dict[str, Any], plan_label: str) -> None:
     print(f"  Trần an toàn (x1.5)        ${estimate['ceiling_usd']:.4f}")
 
 
-def build_plan(mode: str) -> list[tuple[str, bool]]:
+def build_plan(mode: str, rerank: bool = False) -> list[tuple[str, bool]]:
     """The (question_id, rerank) pairs a given mode will run.
 
-    Chỉ còn một cấu hình (``rerank=False``) nên phần tử thứ hai luôn là False —
-    giữ hình dạng cặp để :func:`estimate_cost` và store không phải đổi schema nếu
-    sau này có ai muốn đo lại một cấu hình khác.
+    ``rerank=False`` (mặc định): toàn bộ 32 câu, giữ nguyên như cấu hình chính thức.
+    ``rerank=True``: phạm vi là 28 câu CÓ tài liệu nguồn (xem
+    :func:`rerank_scope`). Pilot vẫn là đủ 5 câu ``PILOT_IDS`` — kể cả Q031
+    (adversarial, NGOÀI 28 câu) vì nó kiểm nhánh gate-trước-rerank; câu này chỉ
+    chạy ở pilot và không vào bảng so sánh.
     """
     questions = load_questions()
-    full = [(qid, False) for qid in questions]
+    scope = rerank_scope(questions) if rerank else list(questions)
+    full = [(qid, rerank) for qid in scope]
     if mode == "pilot":
-        return [(qid, False) for qid in PILOT_IDS]
+        return [(qid, rerank) for qid in PILOT_IDS]
     if mode == "run":
         # --run chạy phần CÒN LẠI: pilot đã làm 5 câu rồi.
         return [p for p in full if p[0] not in PILOT_IDS]
     return full  # all / dry-run
+
+
+def rerank_scope(questions: dict[str, dict] | None = None) -> list[str]:
+    """The 28 question ids with source documents — the rerank arm's scope."""
+    questions = questions or load_questions()
+    return [qid for qid, item in questions.items() if item["expected_source_docs"]]
 
 
 def export(
@@ -762,12 +944,62 @@ if __name__ == "__main__":
     mode.add_argument("--pilot", action="store_true", help=f"5 câu: {', '.join(PILOT_IDS)}")
     mode.add_argument("--run", action="store_true", help="phần còn lại của 32 câu")
     mode.add_argument("--all", action="store_true", help="chạy tất cả, bỏ cổng duyệt")
+    parser.add_argument(
+        "--rerank",
+        action="store_true",
+        help=f"arm rerank=True trên 28 câu có nguồn, ghi ra {RESULTS_RERANK_PATH.name}",
+    )
     args = parser.parse_args()
 
     selected = "pilot" if args.pilot else "run" if args.run else "all" if args.all else "dry"
-    plan = build_plan(selected if selected != "dry" else "all")
+    plan = build_plan(selected if selected != "dry" else "all", rerank=args.rerank)
     questions = load_questions()
     estimate = estimate_cost(plan, questions)
+
+    if args.rerank:
+        if selected == "dry":
+            print_estimate(estimate, "rerank=True — 28 câu có tài liệu nguồn")
+            for label in ("pilot", "run"):
+                print_estimate(
+                    estimate_cost(build_plan(label, rerank=True), questions),
+                    f"--rerank --{label}",
+                )
+            print("\nDRY RUN — chưa gọi API lần nào. Chạy --rerank --pilot để bắt đầu.")
+            sys.exit(0)
+
+        print_estimate(estimate, f"--rerank --{selected}")
+        meter = UsageMeter()
+        records, _ = asyncio.run(
+            run_evaluation([qid for qid, _rr in plan], rerank=True, meter=meter)
+        )
+        print(f"\nLượt này: judge {meter.calls} lượt, ${meter.usd:.4f}")
+        for r in records:
+            s = r["scores"]
+            empty = [n for n in _metrics_for(questions[r["id"]]) if s[n] is None]
+            cells = "  ".join(
+                f"{n[:9]}={'—' if s[n] is None else f'{s[n]:.3f}'}" for n in FULL_METRICS
+            )
+            print(f"  {r['id']} {r['group']:<16} {cells}  refused={r['refused']}"
+                  f"  RỖNG={empty or 'không'}")
+
+        all_rerank = sorted(
+            (r for r in _load_store().values() if r["rerank"]), key=lambda r: r["id"]
+        )
+        missing = set(rerank_scope(questions)) - {r["id"] for r in all_rerank}
+        if missing:
+            print(f"\nChưa đủ 28 câu (thiếu {len(missing)}) — chưa dựng bảng so sánh.")
+            sys.exit(0)
+
+        payload = export_rerank(all_rerank, estimate)
+        cmp_ = payload["so_sanh_voi_rerank_false"]
+        print_comparison(cmp_["baseline_chinh_thuc"],
+                         "So sánh 28 câu — baseline rerank=False CHÍNH THỨC (đã sửa tay Q012)")
+        print_comparison(cmp_["baseline_diem_may_cham_goc"],
+                         "So sánh 28 câu — baseline rerank=False ĐIỂM MÁY CHẤM GỐC")
+        print(f"\nCơ chế chặn override: {payload['dieu_chinh_thu_cong']['co_che_chan']}")
+        print(f"Chi phí thật (cả pilot + run): ${payload['cost']['total_usd']:.4f}")
+        print(f"Đã ghi: {RESULTS_RERANK_PATH}")
+        sys.exit(0)
 
     if selected == "dry":
         print_estimate(estimate, "TOÀN BỘ (32 câu + subset rerank 10 câu)")

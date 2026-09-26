@@ -1,13 +1,3 @@
-"""Data ingestion for the ManhPay RAG knowledge base.
-
-Reads every document listed in ``data/metadata_catalog.json`` (``.md``, ``.docx``
-and ``.xlsx``) and normalises them into a single shape::
-
-    {"doc_id": str, "content": str, "metadata": dict}
-
-``content`` is always Markdown, so the downstream structure-aware chunker only
-has to understand one syntax regardless of the original file format.
-"""
 
 from __future__ import annotations
 

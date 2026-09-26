@@ -1,0 +1,392 @@
+{
+ "metadata": {
+  "week": 5,
+  "date": "2026-09-25",
+  "reproduce": "python -m src.hybrid_search",
+  "machine": "Windows 11, CPU-only, torch 2.13.0+cpu, Python 3.14.4",
+  "note": "Ghi ra file muon. Moc 54% -> 89% duoc do tu Tuan 5 nhung ba tuan lien tiep chi ton tai trong commit message 724b85c, khong co trong file ket qua nao. File nay do lai bang lenh o truong 'reproduce' va bo sung nhanh hybrid_no_boost de dung lai chinh xac trang thai Tuan 5.",
+  "tat_dinh": "Chay 2 luot lien tiep cho ket qua TRUNG KHOP hoan toan o ca 5 nhom.",
+  "arms": {
+   "_thiet_ke": "Ablation cong don: moi arm = arm truoc + dung MOT ky thuat.",
+   "1_vector_only": {
+    "lenh": "vectorstore.query(top_k=3)",
+    "mo_ta": "Thuan cosine. KHONG BM25, KHONG metadata filter (filters=None), KHONG table boost.",
+    "thuoc_tuan": "Truoc Tuan 5 — trang thai ban dau cua he thong."
+   },
+   "2_vector_filter": {
+    "lenh": "vectorstore.query(filters=_resolve_filters(None, hist), top_k=3)",
+    "mo_ta": "Thuan cosine + loc status $nin [Deprecated]. Dung lai chinh _resolve_filters() cua hybrid_search nen luat loc giong TUYET DOI hai arm hybrid, ke ca ngoai le include_deprecated cho Q028.",
+    "thuoc_tuan": "KHONG PHAI mot trang thai lich su cua he thong. Arm ablation do ngay 2026-09-25 de tach dong gop cua metadata filter khoi dong gop cua BM25."
+   },
+   "3_hybrid_no_boost": {
+    "lenh": "hybrid_search(top_k=3, table_boost=0.0)",
+    "mo_ta": "Vector + BM25, alpha=0.5, cung bo loc nhu arm 2.",
+    "thuoc_tuan": "Cuoi Tuan 5 — commit 724b85c. TABLE_BOOST chua ton tai o thoi diem do."
+   },
+   "4_hybrid_boost": {
+    "lenh": "hybrid_search(top_k=3)",
+    "mo_ta": "Nhu arm 3, cong TABLE_BOOST=0.11 cho chunk co bang khi cau hoi tra so.",
+    "thuoc_tuan": "Tuan 7 — commit 00e6d00. Day la MAC DINH HIEN TAI va la cot hybrid ma khoi __main__ in ra."
+   },
+   "_include_deprecated": "Ca ba arm co loc deu bat include_deprecated cho cau version_conflict KHONG co must_not_use_docs (chi Q028 — cau hoi lich su, ban Deprecated LAI la nguon hop le)."
+  }
+ },
+ "recall_at_3_by_group": {
+  "_unit": "doc-level hit@3: bool(expected_docs & set(doc_ids(hits)[:3])), micro-average",
+  "_n_scored": 28,
+  "_note": "4 cau adversarial (Q029-Q032) bi loai: expected_source_docs rong nen recall khong dinh nghia duoc.",
+  "_thu_tu_arm": "Bon arm xep theo thu tu CONG DON: moi arm them dung mot ky thuat so voi arm truoc. Delta giua hai arm lien tiep la dong gop rieng cua ky thuat vua them.",
+  "single_source": {
+   "n": 12,
+   "vector_only": {
+    "n_hit": 8,
+    "recall": 0.67
+   },
+   "vector_filter": {
+    "n_hit": 8,
+    "recall": 0.67
+   },
+   "hybrid_no_boost": {
+    "n_hit": 12,
+    "recall": 1.0
+   },
+   "hybrid_boost": {
+    "n_hit": 12,
+    "recall": 1.0
+   },
+   "delta": {
+    "buoc_1_metadata_filter": {
+     "n_cau": 0,
+     "diem": 0.0
+    },
+    "buoc_2_bm25": {
+     "n_cau": 4,
+     "diem": 0.333
+    },
+    "buoc_3_table_boost": {
+     "n_cau": 0,
+     "diem": 0.0
+    }
+   }
+  },
+  "table_numeric": {
+   "n": 6,
+   "vector_only": {
+    "n_hit": 1,
+    "recall": 0.17
+   },
+   "vector_filter": {
+    "n_hit": 1,
+    "recall": 0.17
+   },
+   "hybrid_no_boost": {
+    "n_hit": 4,
+    "recall": 0.67
+   },
+   "hybrid_boost": {
+    "n_hit": 5,
+    "recall": 0.83
+   },
+   "delta": {
+    "buoc_1_metadata_filter": {
+     "n_cau": 0,
+     "diem": 0.0
+    },
+    "buoc_2_bm25": {
+     "n_cau": 3,
+     "diem": 0.5
+    },
+    "buoc_3_table_boost": {
+     "n_cau": 1,
+     "diem": 0.167
+    }
+   }
+  },
+  "multi_source": {
+   "n": 7,
+   "vector_only": {
+    "n_hit": 5,
+    "recall": 0.71
+   },
+   "vector_filter": {
+    "n_hit": 6,
+    "recall": 0.86
+   },
+   "hybrid_no_boost": {
+    "n_hit": 6,
+    "recall": 0.86
+   },
+   "hybrid_boost": {
+    "n_hit": 6,
+    "recall": 0.86
+   },
+   "delta": {
+    "buoc_1_metadata_filter": {
+     "n_cau": 1,
+     "diem": 0.143
+    },
+    "buoc_2_bm25": {
+     "n_cau": 0,
+     "diem": 0.0
+    },
+    "buoc_3_table_boost": {
+     "n_cau": 0,
+     "diem": 0.0
+    }
+   }
+  },
+  "version_conflict": {
+   "n": 3,
+   "vector_only": {
+    "n_hit": 1,
+    "recall": 0.33
+   },
+   "vector_filter": {
+    "n_hit": 1,
+    "recall": 0.33
+   },
+   "hybrid_no_boost": {
+    "n_hit": 3,
+    "recall": 1.0
+   },
+   "hybrid_boost": {
+    "n_hit": 3,
+    "recall": 1.0
+   },
+   "delta": {
+    "buoc_1_metadata_filter": {
+     "n_cau": 0,
+     "diem": 0.0
+    },
+    "buoc_2_bm25": {
+     "n_cau": 2,
+     "diem": 0.667
+    },
+    "buoc_3_table_boost": {
+     "n_cau": 0,
+     "diem": 0.0
+    }
+   }
+  },
+  "TONG": {
+   "n": 28,
+   "vector_only": {
+    "n_hit": 15,
+    "recall": 0.54
+   },
+   "vector_filter": {
+    "n_hit": 16,
+    "recall": 0.57
+   },
+   "hybrid_no_boost": {
+    "n_hit": 25,
+    "recall": 0.89
+   },
+   "hybrid_boost": {
+    "n_hit": 26,
+    "recall": 0.93
+   },
+   "delta": {
+    "buoc_1_metadata_filter": {
+     "n_cau": 1,
+     "diem": 0.036
+    },
+    "buoc_2_bm25": {
+     "n_cau": 9,
+     "diem": 0.321
+    },
+    "buoc_3_table_boost": {
+     "n_cau": 1,
+     "diem": 0.036
+    }
+   }
+  }
+ },
+ "cac_cau_truot": {
+  "_note": "Cau khong co nguon dung nao trong top-3 doc.",
+  "vector_only": [
+   "Q001",
+   "Q004",
+   "Q005",
+   "Q009",
+   "Q013",
+   "Q014",
+   "Q015",
+   "Q017",
+   "Q018",
+   "Q023",
+   "Q025",
+   "Q026",
+   "Q027"
+  ],
+  "vector_filter": [
+   "Q001",
+   "Q004",
+   "Q005",
+   "Q009",
+   "Q013",
+   "Q014",
+   "Q015",
+   "Q017",
+   "Q018",
+   "Q023",
+   "Q026",
+   "Q027"
+  ],
+  "hybrid_no_boost": [
+   "Q015",
+   "Q018",
+   "Q019"
+  ],
+  "hybrid_boost": [
+   "Q015",
+   "Q019"
+  ]
+ },
+ "canh_bao_dong_bien": {
+  "_trang_thai": "DA GIAI QUYET boi arm vector_filter. Muc nay giu lai de ghi nhan van de va cach xu ly.",
+  "van_de_cu": "Delta 54% -> 89% goi HAI thay doi (them BM25 va them metadata filter) vi arm vector_only goi query() voi filters=None.",
+  "cach_xu_ly": "Them arm trung gian vector_filter dung chung _resolve_filters(), nho do tach duoc: filter +1 cau, BM25 +9 cau.",
+  "ket_qua_bat_ngo": "Gia thuyet ban dau cho rang version_conflict 33% -> 100% chu yeu do metadata filter la SAI. Do thuc te: vector_filter van 1/3 y nhu vector_only; ca Q026 lan Q027 chi duoc cuu boi BM25. Bo BR-002-v1 ra khoi pool khong du de day BR-002 len top-3 — van con cac chunk van xuoi nhu BRD-002 chen tren."
+ },
+ "doi_chieu_results_tuan7": {
+  "_note": "Kiem tra cheo: cot hybrid_no_boost phai trung cot 'baseline' cua results_tuan7.json.",
+  "ket_qua": "TRUNG KHOP tuyet doi o ca 4 nhom va tong.",
+  "chi_tiet": {
+   "single_source": {
+    "tuan5_hybrid_no_boost": 1.0,
+    "tuan7_baseline": 1.0
+   },
+   "table_numeric": {
+    "tuan5_hybrid_no_boost": 0.67,
+    "tuan7_baseline": 0.67
+   },
+   "multi_source": {
+    "tuan5_hybrid_no_boost": 0.86,
+    "tuan7_baseline": 0.86
+   },
+   "version_conflict": {
+    "tuan5_hybrid_no_boost": 1.0,
+    "tuan7_baseline": 1.0
+   },
+   "TONG": {
+    "tuan5_hybrid_no_boost": 0.89,
+    "tuan7_baseline": 0.89
+   }
+  }
+ },
+ "target_question": {
+  "Q001": {
+   "question": "Han muc chuyen tien P2P moi ngay cua tai khoan Tier 2 la bao nhieu?",
+   "expected_doc": "BR-002",
+   "dap_an": "20.000.000 VND",
+   "_vi_sao_chon": "Cau da chung minh vector thuan that bai va la ly do ky thuat sinh ra hybrid search: BRD-002 NOI VE chuyen tien P2P nen gan query ve ngu nghia; BR-002 CHUA con so.",
+   "vector_only_top3": [
+    {
+     "rank": 1,
+     "doc_id": "BRD-002",
+     "score": 0.618
+    },
+    {
+     "rank": 2,
+     "doc_id": "FAQ-001",
+     "score": 0.571
+    },
+    {
+     "rank": 3,
+     "doc_id": "BRD-002",
+     "score": 0.57
+    }
+   ],
+   "hybrid_top3": [
+    {
+     "rank": 1,
+     "doc_id": "BRD-002",
+     "score": 0.809,
+     "vector_score": 0.618,
+     "bm25_score": 14.07
+    },
+    {
+     "rank": 2,
+     "doc_id": "BR-002",
+     "score": 0.727,
+     "vector_score": 0.387,
+     "bm25_score": 13.49
+    },
+    {
+     "rank": 3,
+     "doc_id": "FAQ-001",
+     "score": 0.679,
+     "vector_score": 0.571,
+     "bm25_score": 11.26
+    }
+   ],
+   "ket_qua": "BR-002 KHONG lot top-3 voi vector thuan (vector_score 0.387, thua ca ba chunk van xuoi). BM25 cham no 13.49 nho token hiem '20.000.000' va ma 'BR-002' trong context header, keo len hang 2."
+  }
+ },
+ "ket_luan": [
+  "Hybrid search nang Recall@3 tu 54% len 89% (+35 diem phan tram) tren 28 cau. Day la cai tien lon nhat cua ca du an.",
+  "PHAN RA DONG GOP (ablation cong don 4 arm): metadata filter +1 cau, BM25 +9 cau, table boost +1 cau. BM25 chiem 82% muc tang — no la ky thuat quyet dinh, khong phai metadata filter.",
+  "Nhom huong loi nhieu nhat la table_numeric: 17% -> 83%. Dung nhu chan doan — embedding phan biet duoc tai lieu NOI VE X nhung khong phan biet duoc tai lieu CHUA GIA TRI cua X; bang so toan token hiem nen BM25 an diem.",
+  "SUA MOT GIA THUYET SAI: version_conflict 33% -> 100% KHONG phai do metadata filter. Arm vector_filter van dung o 1/3; Q026 va Q027 chi duoc cuu khi co BM25.",
+  "Metadata filter dong gop it O THANG DO NAY, nhung do la HAN CHE CUA RECALL@3 chu khong phai cua filter: BR-002-v1 chiem suat top-3 o 5/28 cau khi khong loc, ma Recall@3 khong phat dieu do. Xem canh_bao_recall_khong_do_duoc_filter.",
+  "single_source va version_conflict ve 100% ngay tu Tuan 5 va giu nguyen qua Tuan 7, Tuan 8 — hai nhom nay het cho cai thien o tang truy xuat.",
+  "Cot hybrid_boost 93% KHONG phai ket qua Tuan 5; no la trang thai hien tai (TABLE_BOOST them o Tuan 7). Moc lich su Tuan 5 la 89%."
+ ],
+ "dong_gop_tung_ky_thuat": {
+  "_note": "Phan ra +11 cau (15 -> 26) theo tung buoc. Day la thu ma delta 54% -> 89% goi chung khong tach duoc.",
+  "buoc_1_metadata_filter": {
+   "tu": "vector_only",
+   "den": "vector_filter",
+   "n_cau": 1,
+   "recall": "0.54 -> 0.57",
+   "diem": 0.036,
+   "cau_duoc_cuu": [
+    "Q025"
+   ],
+   "_doc_hieu": "Dong gop NHO nhat o thang do nay — xem canh_bao_recall_khong_do_duoc_filter."
+  },
+  "buoc_2_bm25": {
+   "tu": "vector_filter",
+   "den": "hybrid_no_boost",
+   "n_cau": 9,
+   "recall": "0.57 -> 0.89",
+   "diem": 0.321,
+   "cau_duoc_cuu": [
+    "Q001",
+    "Q004",
+    "Q005",
+    "Q009",
+    "Q013",
+    "Q014",
+    "Q017",
+    "Q023",
+    "Q026",
+    "Q027"
+   ],
+   "cau_bi_mat": [
+    "Q019"
+   ],
+   "_doc_hieu": "9/11 cau cua toan bo muc tang la do BM25. Day la ky thuat co dong gop lon nhat trong ca du an."
+  },
+  "buoc_3_table_boost": {
+   "tu": "hybrid_no_boost",
+   "den": "hybrid_boost",
+   "n_cau": 1,
+   "recall": "0.89 -> 0.93",
+   "diem": 0.036,
+   "cau_duoc_cuu": [
+    "Q018"
+   ],
+   "_doc_hieu": "Chi doi dung 1 cau, nhung la cau ma Tuan 6 tung TU CHOI OAN vi LIMIT-001 khong lot top-5 context."
+  },
+  "_tong_ket": "BM25 chiem 9/11 cau (82%) cua muc tang; metadata filter 1/11; table boost 1/11."
+ },
+ "canh_bao_recall_khong_do_duoc_filter": {
+  "_canh_bao": "DUNG ket luan metadata filter it gia tri tu con so +1 cau. Recall@3 KHONG NHIN THAY duoc viec filter lam gi.",
+  "ly_do": "Recall@3 chi hoi tai lieu dung co xuat hien trong top-3 khong. No KHONG phat khi mot tai lieu Deprecated chua so lieu MAU THUAN cung xuat hien ben canh. Gia tri that cua filter nam o CAU TRA LOI, khong nam o thu hang.",
+  "bang_chung": "BR-002-v1 (Deprecated, Tier 3 = 50 trieu trong khi ban Approved ghi 100 trieu) chiem mot suat top-3 o 5/28 cau khi chay vector_only: Q017, Q018, Q025, Q026, Q028. Bat filter thi ca 5 suat do bien mat, nhung Recall@3 chi nhich +1 cau.",
+  "doi_chieu_tuan8": "Cung dang mu ma Tuan 8 phat hien o chieu khac: Recall@3 khong thay duoc nhieu, nen Context Precision 0.745 thap hon Context Recall 0.938 toi -0.192 ma ba tuan truoc do khong he biet.",
+  "de_do_dung": "Muon dinh luong filter thi phai do o tang cau tra loi (nhom version_conflict trong RAGAS), hoac dat mot chi so moi kieu ty le context chua so lieu mau thuan."
+ }
+}

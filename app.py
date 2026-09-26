@@ -15,6 +15,7 @@ build từ CLI: ``python -m src.vectorstore``.
 
 from __future__ import annotations
 
+import html
 import json
 import logging
 import os
@@ -36,11 +37,47 @@ logger = logging.getLogger(__name__)
 EVAL_PATH = PROJECT_ROOT / "data" / "Evaluation" / "evaluation_questions.json"
 CATALOG_PATH = PROJECT_ROOT / "data" / "metadata_catalog.json"
 
-# Câu hỏi nghiệp vụ dài nhất trong bộ đánh giá là 92 ký tự. 1.000 là trần chống
-# dán nhầm cả tài liệu vào ô nhập rồi trả tiền token cho nó.
 MAX_QUESTION_CHARS = 1000
 
-PLACEHOLDER = "Ví dụ: Hạn mức chuyển tiền P2P mỗi ngày của tài khoản Tier 2 là bao nhiêu?"
+# Chỉ áp dụng khi in / lưu PDF (Ctrl+P). Không có nó thì: sidebar chiếm 1/3 trang,
+# nhãn nút có thể gãy dòng, và nền tối của dark mode bị in ra (Streamlit bật
+# print-color-adjust: exact).
+PRINT_CSS = """
+<style>
+@media print {
+  html { font-size: 14px; }
+  [data-testid='stSidebar'], [data-testid='stHeader'] { display: none !important; }
+  [data-testid='stMain'], [data-testid='stMainBlockContainer'] {
+    margin: 0 !important; padding: 0 !important;
+    max-width: 100% !important; width: 100% !important;
+  }
+  html, body, .stApp, [data-testid='stAppViewContainer'], [data-testid='stMain'],
+  [data-testid='stMain'] * {
+    background: #fff !important; color: #111 !important;
+  }
+  [data-testid='stMain'] textarea, [data-testid='stButton'] button,
+  [data-testid='stAlert'] { border: 1px solid #999 !important; }
+  [data-testid='stButton'] button, [data-testid='stButton'] p { white-space: nowrap !important; }
+  [data-testid='stExpander'], [data-testid='stAlert'] { break-inside: avoid; }
+}
+</style>
+"""
+
+# Dòng chi phí nằm dưới khối trích dẫn, căn sát mép phải và trên MỘT dòng. Cột
+# [3, 2] cũ quá hẹp nên chuỗi gãy làm hai dòng và lệch khỏi mép phải.
+COST_CSS = """
+<style>
+.manhpay-cost {
+  text-align: right; white-space: nowrap;
+  font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem;
+}
+</style>
+"""
+
+PLACEHOLDER ="Ví dụ: Hạn mức chuyển tiền P2P mỗi ngày của tài khoản Tier 2 là bao nhiêu?"
+
+# Chiều rộng chung (px) của hai nút "Hỏi" và "Thử câu hỏi mẫu" để chúng bằng nhau.
+BUTTON_WIDTH = 240
 
 
 # --------------------------------------------------------------------------- #
@@ -488,6 +525,18 @@ def render_result(result: GenerationResult, filters_active: bool) -> None:
 def main() -> None:  # noqa: PLR0915 — một trang Streamlit, tách nhỏ sẽ rối hơn
     """Draw the whole page. Streamlit chạy lại hàm này sau mỗi tương tác."""
     st.set_page_config(page_title="ManhPay RAG Assistant", page_icon="💬", layout="wide")
+    # Tăng cỡ chữ bằng CSS thay vì [theme] baseFontSize trong config.toml: khai báo
+    # [theme] biến app thành "Custom Theme" và mất nút chuyển Light/Dark.
+    # Caption mặc định vừa nhỏ vừa nhạt mà app dùng cho nhiều ghi chú cần đọc
+    # (giải thích bộ lọc, trạng thái trả lời, chi phí) nên nới lên gần bằng chữ thường.
+    st.html(
+        "<style>"
+        "html { font-size: 20px; }"
+        "[data-testid='stCaptionContainer'] { font-size: 0.95rem; }"
+        "</style>"
+    )
+    st.html(PRINT_CSS)
+    st.html(COST_CSS)
     init_state()
 
     chunk_count, preflight_error = preflight()
@@ -520,15 +569,17 @@ def main() -> None:  # noqa: PLR0915 — một trang Streamlit, tách nhỏ sẽ
             value=False,
             disabled=st.session_state.running,
         )
-        st.caption(
-            "Mặc định hệ thống loại các bản Deprecated. Bật lên cho câu hỏi lịch "
-            'sử, ví dụ "trước đây hạn mức Tier 3 là bao nhiêu".'
+        use_rerank = st.toggle(
+            "Rerank bằng cross-encoder",
+            value=False,
+            disabled=st.session_state.running,
         )
 
         filters = build_filters(selected_modules, selected_doc_types)
         st.divider()
         st.caption(f"`filters` đang áp dụng: `{filters}`")
         st.caption(f"`include_deprecated`: `{include_deprecated}`")
+        st.caption(f"`rerank`: `{use_rerank}`")
         st.divider()
         st.caption(
             f"Phiên này: {st.session_state.n_queries} câu · "
@@ -559,19 +610,21 @@ def main() -> None:  # noqa: PLR0915 — một trang Streamlit, tách nhỏ sẽ
         disabled=st.session_state.running,
     )
 
-    ask_column, sample_column, _ = st.columns([1, 1, 4])
-    with ask_column:
+    # Container ngang + CÙNG một chiều rộng cố định (px) cho cả hai nút. Cột tỷ lệ
+    # [1, 1, 4] cũ quá hẹp ở màn hình laptop, "Thử câu hỏi mẫu" gãy 2 dòng và cao
+    # lệch nút "Hỏi"; width="content" thì hết gãy nhưng hai nút rộng khác nhau.
+    # BUTTON_WIDTH phải đủ cho nhãn dài nhất ("🎲 Thử câu hỏi mẫu" ~225px).
+    with st.container(horizontal=True):
         ask_clicked = st.button(
             "🔍 Hỏi",
             type="primary",
-            use_container_width=True,
+            width=BUTTON_WIDTH,
             disabled=st.session_state.running or not has_api_key,
         )
-    with sample_column:
         st.button(
             "🎲 Thử câu hỏi mẫu",
             on_click=on_sample_click,
-            use_container_width=True,
+            width=BUTTON_WIDTH,
             disabled=st.session_state.running,
         )
 
@@ -612,6 +665,7 @@ def main() -> None:  # noqa: PLR0915 — một trang Streamlit, tách nhỏ sẽ
                 question,
                 filters=filters,
                 include_deprecated=include_deprecated,
+                rerank=use_rerank,
             )
         st.session_state.result = result
         st.session_state.error = error
@@ -638,10 +692,12 @@ def main() -> None:  # noqa: PLR0915 — một trang Streamlit, tách nhỏ sẽ
                 with st.expander("Đáp án tham chiếu (bộ đánh giá)", expanded=False):
                     st.markdown(sample["ground_truth"])
 
-        # Chi phí: nhỏ, góc dưới bên phải, không làm rối phần chính.
-        _, cost_column = st.columns([3, 2])
-        with cost_column:
-            st.caption(format_cost(result))
+        # Chi phí: dưới khối trích dẫn, góc phải (COST_CSS). html.escape vì chuỗi
+        # đi qua unsafe_allow_html.
+        st.markdown(
+            f"<div class='manhpay-cost'>{html.escape(format_cost(result))}</div>",
+            unsafe_allow_html=True,
+        )
 
 
 if __name__ == "__main__":

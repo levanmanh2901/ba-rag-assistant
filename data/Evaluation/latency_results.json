@@ -1,0 +1,894 @@
+{
+  "metadata": {
+    "thoi_diem_bat_dau": "2026-09-26T11:11:27+07:00",
+    "thoi_diem_ket_thuc": "2026-09-26T11:14:52+07:00",
+    "reproduce": "venv\\Scripts\\python notebooks\\do_latency.py",
+    "duong_goi": "src.generation.generate_answer(question, filters=None, include_deprecated=..., rerank=...) - dung tham so app.run_query truyen vao",
+    "store": "KHONG dung ragas_store.json - moi luot deu goi API that",
+    "cau_hoi": {
+      "Q001": "single_source",
+      "Q006": "single_source",
+      "Q012": "single_source",
+      "Q020": "multi_source",
+      "Q023": "multi_source",
+      "Q024": "multi_source",
+      "Q015": "table_numeric",
+      "Q018": "table_numeric",
+      "Q028": "version_conflict",
+      "Q031": "adversarial"
+    },
+    "so_luot": 2,
+    "thong_ke_tren": "luot 2 cua moi cau (luot 1 coi la lam nong)",
+    "thu_tu": "xen ke F1, T1, F2, T2 cho tung cau",
+    "p95_note": "n=10 nen p95 (noi suy tuyen tinh) gan sat gia tri lon nhat",
+    "warmup_embedding_bm25_chroma_s": 8.477
+  },
+  "moi_truong": {
+    "machine": {
+      "os": "Windows-11-10.0.26200-SP0",
+      "cpu": "11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz",
+      "cpu_cores_physical": "4",
+      "cpu_threads": 8,
+      "ram_gb": 15.8,
+      "python": "3.14.4",
+      "torch": "2.13.0+cpu",
+      "torch_device": "cpu",
+      "sentence_transformers": "5.6.1",
+      "anthropic_sdk": "0.120.0",
+      "model": "claude-sonnet-5"
+    },
+    "network": {
+      "adapters_up": {
+        "Name": "Wi-Fi",
+        "InterfaceDescription": "Intel(R) Wireless-AC 9461",
+        "MediaType": "Native 802.11",
+        "LinkSpeed": "433.3 Mbps"
+      },
+      "wifi": {
+        "State": "connected",
+        "Band": "5 GHz",
+        "Channel": "36",
+        "Radio type": "802.11ac",
+        "Receive rate (Mbps)": "7.2",
+        "Transmit rate (Mbps)": "433.3",
+        "Signal": "96%"
+      },
+      "rtt_api_anthropic_com_ms": {
+        "tcp_connect_median": 56.4,
+        "tcp_tls_handshake_median": 141.8,
+        "samples_tcp": [
+          58.7,
+          59.7,
+          56.4,
+          30.3,
+          42.0
+        ]
+      },
+      "_note": "Toc do tai khong do bang dich vu speedtest ben ngoai; LinkSpeed/Receive rate la toc do lien ket vat ly, khong phai bang thong Internet thuc."
+    }
+  },
+  "thong_ke": {
+    "rerank_false": {
+      "retrieval_gate_s": {
+        "n": 10,
+        "mean": 0.048,
+        "median": 0.046,
+        "min": 0.038,
+        "max": 0.064,
+        "p95": 0.06
+      },
+      "api_s": {
+        "n": 10,
+        "mean": 2.874,
+        "median": 2.338,
+        "min": 1.438,
+        "max": 5.173,
+        "p95": 5.048
+      },
+      "other_s": {
+        "n": 10,
+        "mean": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "p95": 0.0
+      },
+      "total_s": {
+        "n": 10,
+        "mean": 2.922,
+        "median": 2.392,
+        "min": 1.482,
+        "max": 5.214,
+        "p95": 5.087
+      },
+      "api_share_pct": {
+        "tren_tong_thoi_gian": 98.4,
+        "trung_binh_tung_cau": 98.0
+      },
+      "gate_blocked": []
+    },
+    "rerank_true": {
+      "retrieval_gate_s": {
+        "n": 10,
+        "mean": 0.046,
+        "median": 0.045,
+        "min": 0.04,
+        "max": 0.055,
+        "p95": 0.053
+      },
+      "rerank_s": {
+        "n": 10,
+        "mean": 2.487,
+        "median": 2.899,
+        "min": 1.3,
+        "max": 3.051,
+        "p95": 3.045
+      },
+      "api_s": {
+        "n": 10,
+        "mean": 3.2,
+        "median": 3.416,
+        "min": 1.43,
+        "max": 5.275,
+        "p95": 4.973
+      },
+      "other_s": {
+        "n": 10,
+        "mean": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "p95": 0.0
+      },
+      "total_s": {
+        "n": 10,
+        "mean": 5.733,
+        "median": 5.537,
+        "min": 3.241,
+        "max": 8.282,
+        "p95": 7.736
+      },
+      "api_share_pct": {
+        "tren_tong_thoi_gian": 55.8,
+        "trung_binh_tung_cau": 54.1
+      },
+      "gate_blocked": []
+    }
+  },
+  "lan_dau_bat_rerank": {
+    "cross_encoder_load_s": 6.223,
+    "cau_dung_de_do": "Q001",
+    "tinh_toan__nap_cong_luot_2_s": 10.868,
+    "do_that__luot_rerank_dau_tien_s": 11.4252,
+    "_note": "tinh_toan = thoi gian nap + tong thoi gian luot 2 cua cung cau. do_that = lan goi rerank=True dau tien trong tien trinh (da gom ca nap model). App khong lam nong cross-encoder nen nguoi dung gap dung con so nay o lan bat dau."
+  },
+  "cau_dao_dong_tren_20pct": [
+    {
+      "qid": "Q001",
+      "cau_hinh": "rerank_false",
+      "luot_1_s": 1.9,
+      "luot_2_s": 1.5201,
+      "chenh_lech_pct": 25.0,
+      "api_luot_1_s": 1.8281,
+      "api_luot_2_s": 1.4657
+    },
+    {
+      "qid": "Q023",
+      "cau_hinh": "rerank_false",
+      "luot_1_s": 6.7715,
+      "luot_2_s": 5.2137,
+      "chenh_lech_pct": 29.9,
+      "api_luot_1_s": 6.724,
+      "api_luot_2_s": 5.1733
+    },
+    {
+      "qid": "Q028",
+      "cau_hinh": "rerank_false",
+      "luot_1_s": 3.2875,
+      "luot_2_s": 2.4031,
+      "chenh_lech_pct": 36.8,
+      "api_luot_1_s": 3.2372,
+      "api_luot_2_s": 2.3391
+    },
+    {
+      "qid": "Q001",
+      "cau_hinh": "rerank_true",
+      "luot_1_s": 11.4252,
+      "luot_2_s": 4.6453,
+      "chenh_lech_pct": 146.0,
+      "api_luot_1_s": 1.8238,
+      "api_luot_2_s": 1.5439
+    },
+    {
+      "qid": "Q024",
+      "cau_hinh": "rerank_true",
+      "luot_1_s": 8.9585,
+      "luot_2_s": 6.8944,
+      "chenh_lech_pct": 29.9,
+      "api_luot_1_s": 6.0803,
+      "api_luot_2_s": 3.928
+    }
+  ],
+  "per_question": {
+    "Q001": {
+      "group": "single_source",
+      "rerank_false": [
+        {
+          "retrieval_gate_s": 0.0714,
+          "rerank_s": 0.0,
+          "api_s": 1.8281,
+          "total_s": 1.9,
+          "other_s": 0.0005,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3114,
+            "out": 83
+          },
+          "cost_usd": 0.007058,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0543,
+          "rerank_s": 0.0,
+          "api_s": 1.4657,
+          "total_s": 1.5201,
+          "other_s": 0.0001,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3114,
+            "out": 63
+          },
+          "cost_usd": 0.006858,
+          "round": 2
+        }
+      ],
+      "rerank_true": [
+        {
+          "retrieval_gate_s": 0.0431,
+          "rerank_s": 9.5578,
+          "api_s": 1.8238,
+          "total_s": 11.4252,
+          "other_s": 0.0004,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3730,
+            "out": 67
+          },
+          "cost_usd": 0.00813,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0499,
+          "rerank_s": 3.0513,
+          "api_s": 1.5439,
+          "total_s": 4.6453,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3730,
+            "out": 67
+          },
+          "cost_usd": 0.00813,
+          "round": 2
+        }
+      ]
+    },
+    "Q006": {
+      "group": "single_source",
+      "rerank_false": [
+        {
+          "retrieval_gate_s": 0.0493,
+          "rerank_s": 0.0,
+          "api_s": 1.6407,
+          "total_s": 1.6903,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 2930,
+            "out": 58
+          },
+          "cost_usd": 0.00644,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0468,
+          "rerank_s": 0.0,
+          "api_s": 1.6717,
+          "total_s": 1.7189,
+          "other_s": 0.0004,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 2930,
+            "out": 69
+          },
+          "cost_usd": 0.00655,
+          "round": 2
+        }
+      ],
+      "rerank_true": [
+        {
+          "retrieval_gate_s": 0.0462,
+          "rerank_s": 2.8325,
+          "api_s": 1.8683,
+          "total_s": 4.7471,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 2791,
+            "out": 71
+          },
+          "cost_usd": 0.006292,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.051,
+          "rerank_s": 3.038,
+          "api_s": 1.9678,
+          "total_s": 5.0569,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 2791,
+            "out": 72
+          },
+          "cost_usd": 0.006302,
+          "round": 2
+        }
+      ]
+    },
+    "Q012": {
+      "group": "single_source",
+      "rerank_false": [
+        {
+          "retrieval_gate_s": 0.053,
+          "rerank_s": 0.0,
+          "api_s": 1.5054,
+          "total_s": 1.5589,
+          "other_s": 0.0005,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3889,
+            "out": 38
+          },
+          "cost_usd": 0.008158,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.044,
+          "rerank_s": 0.0,
+          "api_s": 1.4375,
+          "total_s": 1.4816,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3889,
+            "out": 41
+          },
+          "cost_usd": 0.008188,
+          "round": 2
+        }
+      ],
+      "rerank_true": [
+        {
+          "retrieval_gate_s": 0.0454,
+          "rerank_s": 1.7715,
+          "api_s": 1.3859,
+          "total_s": 3.2033,
+          "other_s": 0.0005,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3921,
+            "out": 38
+          },
+          "cost_usd": 0.008222,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0437,
+          "rerank_s": 1.7664,
+          "api_s": 1.4303,
+          "total_s": 3.2407,
+          "other_s": 0.0003,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3921,
+            "out": 37
+          },
+          "cost_usd": 0.008212,
+          "round": 2
+        }
+      ]
+    },
+    "Q020": {
+      "group": "multi_source",
+      "rerank_false": [
+        {
+          "retrieval_gate_s": 0.0487,
+          "rerank_s": 0.0,
+          "api_s": 3.6419,
+          "total_s": 3.6913,
+          "other_s": 0.0007,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 2780,
+            "out": 262
+          },
+          "cost_usd": 0.00818,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0489,
+          "rerank_s": 0.0,
+          "api_s": 3.8761,
+          "total_s": 3.9252,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": true,
+          "tokens": {
+            "in": 2780,
+            "out": 281
+          },
+          "cost_usd": 0.00837,
+          "round": 2
+        }
+      ],
+      "rerank_true": [
+        {
+          "retrieval_gate_s": 0.0475,
+          "rerank_s": 1.3509,
+          "api_s": 4.3023,
+          "total_s": 5.7012,
+          "other_s": 0.0005,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 2769,
+            "out": 303
+          },
+          "cost_usd": 0.008568,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0452,
+          "rerank_s": 1.333,
+          "api_s": 4.0448,
+          "total_s": 5.4232,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 2769,
+            "out": 335
+          },
+          "cost_usd": 0.008888,
+          "round": 2
+        }
+      ]
+    },
+    "Q023": {
+      "group": "multi_source",
+      "rerank_false": [
+        {
+          "retrieval_gate_s": 0.0473,
+          "rerank_s": 0.0,
+          "api_s": 6.724,
+          "total_s": 6.7715,
+          "other_s": 0.0003,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3048,
+            "out": 530
+          },
+          "cost_usd": 0.011396,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0402,
+          "rerank_s": 0.0,
+          "api_s": 5.1733,
+          "total_s": 5.2137,
+          "other_s": 0.0001,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3048,
+            "out": 352
+          },
+          "cost_usd": 0.009616,
+          "round": 2
+        }
+      ],
+      "rerank_true": [
+        {
+          "retrieval_gate_s": 0.0383,
+          "rerank_s": 1.427,
+          "api_s": 5.0086,
+          "total_s": 6.4742,
+          "other_s": 0.0003,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 2771,
+            "out": 418
+          },
+          "cost_usd": 0.009722,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0395,
+          "rerank_s": 1.3002,
+          "api_s": 4.6035,
+          "total_s": 5.9435,
+          "other_s": 0.0003,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 2771,
+            "out": 355
+          },
+          "cost_usd": 0.009092,
+          "round": 2
+        }
+      ]
+    },
+    "Q024": {
+      "group": "multi_source",
+      "rerank_false": [
+        {
+          "retrieval_gate_s": 0.0406,
+          "rerank_s": 0.0,
+          "api_s": 4.9618,
+          "total_s": 5.0024,
+          "other_s": 0.0001,
+          "gate_blocked": false,
+          "refused": true,
+          "tokens": {
+            "in": 3191,
+            "out": 328
+          },
+          "cost_usd": 0.009662,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0381,
+          "rerank_s": 0.0,
+          "api_s": 4.8939,
+          "total_s": 4.9321,
+          "other_s": 0.0001,
+          "gate_blocked": false,
+          "refused": true,
+          "tokens": {
+            "in": 3191,
+            "out": 360
+          },
+          "cost_usd": 0.009982,
+          "round": 2
+        }
+      ],
+      "rerank_true": [
+        {
+          "retrieval_gate_s": 0.0391,
+          "rerank_s": 2.8385,
+          "api_s": 6.0803,
+          "total_s": 8.9585,
+          "other_s": 0.0005,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3537,
+            "out": 376
+          },
+          "cost_usd": 0.010834,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0401,
+          "rerank_s": 2.9261,
+          "api_s": 3.928,
+          "total_s": 6.8944,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3537,
+            "out": 266
+          },
+          "cost_usd": 0.009734,
+          "round": 2
+        }
+      ]
+    },
+    "Q015": {
+      "group": "table_numeric",
+      "rerank_false": [
+        {
+          "retrieval_gate_s": 0.0503,
+          "rerank_s": 0.0,
+          "api_s": 2.2613,
+          "total_s": 2.3117,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3443,
+            "out": 154
+          },
+          "cost_usd": 0.008426,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0446,
+          "rerank_s": 0.0,
+          "api_s": 2.2423,
+          "total_s": 2.287,
+          "other_s": 0.0001,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3443,
+            "out": 131
+          },
+          "cost_usd": 0.008196,
+          "round": 2
+        }
+      ],
+      "rerank_true": [
+        {
+          "retrieval_gate_s": 0.0436,
+          "rerank_s": 2.7397,
+          "api_s": 2.2242,
+          "total_s": 5.0076,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3612,
+            "out": 113
+          },
+          "cost_usd": 0.008354,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0436,
+          "rerank_s": 2.7024,
+          "api_s": 2.9046,
+          "total_s": 5.6508,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3612,
+            "out": 130
+          },
+          "cost_usd": 0.008524,
+          "round": 2
+        }
+      ]
+    },
+    "Q018": {
+      "group": "table_numeric",
+      "rerank_false": [
+        {
+          "retrieval_gate_s": 0.0499,
+          "rerank_s": 0.0,
+          "api_s": 3.1507,
+          "total_s": 3.2008,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3766,
+            "out": 192
+          },
+          "cost_usd": 0.009452,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0507,
+          "rerank_s": 0.0,
+          "api_s": 3.3074,
+          "total_s": 3.3583,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3766,
+            "out": 218
+          },
+          "cost_usd": 0.009712,
+          "round": 2
+        }
+      ],
+      "rerank_true": [
+        {
+          "retrieval_gate_s": 0.0518,
+          "rerank_s": 2.8867,
+          "api_s": 4.6652,
+          "total_s": 7.6038,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": true,
+          "tokens": {
+            "in": 3394,
+            "out": 335
+          },
+          "cost_usd": 0.010138,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0549,
+          "rerank_s": 2.9517,
+          "api_s": 5.2754,
+          "total_s": 8.2822,
+          "other_s": 0.0003,
+          "gate_blocked": false,
+          "refused": true,
+          "tokens": {
+            "in": 3394,
+            "out": 424
+          },
+          "cost_usd": 0.011028,
+          "round": 2
+        }
+      ]
+    },
+    "Q028": {
+      "group": "version_conflict",
+      "rerank_false": [
+        {
+          "retrieval_gate_s": 0.0502,
+          "rerank_s": 0.0,
+          "api_s": 3.2372,
+          "total_s": 3.2875,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3074,
+            "out": 271
+          },
+          "cost_usd": 0.008858,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0639,
+          "rerank_s": 0.0,
+          "api_s": 2.3391,
+          "total_s": 2.4031,
+          "other_s": 0.0001,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3074,
+            "out": 213
+          },
+          "cost_usd": 0.008278,
+          "round": 2
+        }
+      ],
+      "rerank_true": [
+        {
+          "retrieval_gate_s": 0.0428,
+          "rerank_s": 2.8283,
+          "api_s": 4.054,
+          "total_s": 6.9252,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3310,
+            "out": 291
+          },
+          "cost_usd": 0.00953,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.0463,
+          "rerank_s": 2.8933,
+          "api_s": 4.1287,
+          "total_s": 7.0686,
+          "other_s": 0.0003,
+          "gate_blocked": false,
+          "refused": false,
+          "tokens": {
+            "in": 3310,
+            "out": 290
+          },
+          "cost_usd": 0.00952,
+          "round": 2
+        }
+      ]
+    },
+    "Q031": {
+      "group": "adversarial",
+      "rerank_false": [
+        {
+          "retrieval_gate_s": 0.0431,
+          "rerank_s": 0.0,
+          "api_s": 2.6524,
+          "total_s": 2.6956,
+          "other_s": 0.0001,
+          "gate_blocked": false,
+          "refused": true,
+          "tokens": {
+            "in": 3097,
+            "out": 122
+          },
+          "cost_usd": 0.007414,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.045,
+          "rerank_s": 0.0,
+          "api_s": 2.336,
+          "total_s": 2.3811,
+          "other_s": 0.0001,
+          "gate_blocked": false,
+          "refused": true,
+          "tokens": {
+            "in": 3097,
+            "out": 105
+          },
+          "cost_usd": 0.007244,
+          "round": 2
+        }
+      ],
+      "rerank_true": [
+        {
+          "retrieval_gate_s": 0.0448,
+          "rerank_s": 2.8832,
+          "api_s": 2.2167,
+          "total_s": 5.1449,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": true,
+          "tokens": {
+            "in": 3045,
+            "out": 123
+          },
+          "cost_usd": 0.00732,
+          "round": 1
+        },
+        {
+          "retrieval_gate_s": 0.045,
+          "rerank_s": 2.9052,
+          "api_s": 2.1741,
+          "total_s": 5.1245,
+          "other_s": 0.0002,
+          "gate_blocked": false,
+          "refused": true,
+          "tokens": {
+            "in": 3045,
+            "out": 120
+          },
+          "cost_usd": 0.00729,
+          "round": 2
+        }
+      ]
+    }
+  },
+  "chi_phi": {
+    "so_luot_goi_api": 40,
+    "usd": 0.3419,
+    "tokens_in": 130424,
+    "tokens_out": 8102,
+    "gia": {
+      "in": 2.0,
+      "out": 10.0
+    }
+  }
+}

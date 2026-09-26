@@ -325,3 +325,70 @@ def test_override_refuses_to_fire_when_the_score_changed(caplog):
 
     assert out[0]["scores"]["context_recall"] == 0.5
     assert "_dieu_chinh_thu_cong" not in out[0]
+
+
+# --------------------------------------------------------------------------- #
+# Arm rerank=True (cờ --rerank)
+# --------------------------------------------------------------------------- #
+def test_rerank_plan_covers_the_28_sourced_questions():
+    """--rerank --pilot then --run = 28 sourced questions + Q031 from the pilot.
+
+    Q031 là adversarial, NGOÀI 28 câu; nó chỉ chạy ở pilot để kiểm nhánh
+    gate-trước-rerank và không được vào bảng so sánh.
+    """
+    scope = set(evaluation.rerank_scope())
+    assert len(scope) == 28
+    assert all(rerank is True for _q, rerank in build_plan("all", rerank=True))
+    assert {q for q, _ in build_plan("all", rerank=True)} == scope
+
+    combined = build_plan("pilot", rerank=True) + build_plan("run", rerank=True)
+    assert len(combined) == len(set(combined))
+    assert {q for q, _ in combined} == scope | {"Q031"}
+
+
+def test_rerank_export_never_touches_the_official_results(monkeypatch, tmp_path):
+    """The rerank arm writes its own file and does not apply Q012's hand fix."""
+    official = tmp_path / "ragas_results.json"
+    monkeypatch.setattr(evaluation, "RESULTS_PATH", official)
+    monkeypatch.setattr(evaluation, "RESULTS_RERANK_PATH", tmp_path / "rerank.json")
+
+    questions = load_questions()
+    ids = evaluation.rerank_scope(questions)
+    # Q012 ở arm rerank ra đúng điểm 0.0 như lúc đối chiếu: vẫn KHÔNG được sửa.
+    make = lambda qid, rr, recall: dict(
+        _record(qid, questions[qid]["group"], questions[qid]["expected_source_docs"],
+                {n: recall if n == "context_recall" else 1.0 for n in FULL_METRICS}),
+        rerank=rr,
+    )
+    baseline = evaluation.apply_overrides(
+        [make(q, False, 0.0 if q == "Q012" else 1.0) for q in ids]
+    )
+    import json
+    official.write_text(json.dumps({"per_question": baseline}), encoding="utf-8")
+    before = official.read_text(encoding="utf-8")
+
+    rerank = [make(q, True, 0.0 if q == "Q012" else 1.0) for q in ids]
+    payload = evaluation.export_rerank(rerank, {"total_usd": 0.0})
+
+    assert official.read_text(encoding="utf-8") == before
+    q012 = next(r for r in payload["per_question"] if r["id"] == "Q012")
+    assert q012["scores"]["context_recall"] == 0.0
+    assert "_dieu_chinh_thu_cong" not in q012
+    assert payload["dieu_chinh_thu_cong"]["co_che_chan"]["Q012.context_recall"][
+        "co_che_chan_se_cho_qua"
+    ] is True
+
+    cmp_ = payload["so_sanh_voi_rerank_false"]
+    # Baseline chính thức đã sửa tay Q012 -> 1.0; điểm gốc máy chấm là 0.0.
+    official_row = cmp_["baseline_chinh_thuc"]["TONG"]["context_recall"]
+    raw_row = cmp_["baseline_diem_may_cham_goc"]["TONG"]["context_recall"]
+    assert official_row["rerank_false"] == 1.0
+    assert raw_row["rerank_false"] == raw_row["rerank_true"]
+    assert raw_row["chenh_lech"] == 0.0
+
+
+def test_compare_arms_refuses_mismatched_question_sets():
+    a = [_record("Q001", "single_source", ["BR-002"], {"faithfulness": 1.0})]
+    b = [_record("Q002", "single_source", ["BR-002"], {"faithfulness": 1.0})]
+    with pytest.raises(ValueError):
+        evaluation.compare_arms(a, b)
