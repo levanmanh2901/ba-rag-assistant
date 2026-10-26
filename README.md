@@ -1,4 +1,4 @@
-# ManhPay RAG Assistant — Trợ lý tra cứu tài liệu nghiệp vụ cho Business Analyst
+# ManhPay RAG Assistant - Trợ lý tra cứu tài liệu nghiệp vụ cho Business Analyst
 
 > Hệ thống hỏi đáp trên kho tài liệu nghiệp vụ của một sản phẩm ví điện tử, ứng dụng kỹ thuật Retrieval-Augmented Generation (RAG). Câu trả lời luôn kèm trích dẫn nguồn, và hệ thống chủ động từ chối khi không đủ căn cứ.
 
