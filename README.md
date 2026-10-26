@@ -10,6 +10,7 @@
 <p align="center">
   <img src="assets/kien-truc-he-thong.png" width="640" alt="Kiến trúc hệ thống">
 </p>
+<img width="1230" height="558" alt="image" src="https://github.com/user-attachments/assets/58dae8fc-7ba3-4d64-9d9c-40d4a65dfd0e" />
 
 ---
 
