@@ -168,12 +168,13 @@ pytest tests/ -v
 ## 12. Cấu trúc thư mục
 
 ```
-├── app.py                  # Giao diện Streamlit
-├── src/                    # Pipeline RAG theo thứ tự xử lý
-├── data/                   # Kho tri thức mô phỏng và bộ câu hỏi đánh giá
-├── tests/                  # Kiểm thử tự động, gồm kiểm thử nhất quán nghiệp vụ
-├── docs/                   # Tài liệu phân tích nghiệp vụ
-└── assets/                 # Sơ đồ và ảnh minh họa
+ba-rag-assistant/
+├── app.py              # Giao diện Streamlit
+├── src/                # Pipeline RAG theo thứ tự xử lý
+├── data/               # Kho tri thức mô phỏng và bộ câu hỏi đánh giá
+├── notebooks/          # Notebook thí nghiệm và đánh giá
+├── tests/              # Kiểm thử tự động, gồm kiểm thử nhất quán nghiệp vụ
+└── requirements.txt    # Danh sách thư viện
 ```
 
 ## 13. Lưu ý về dữ liệu
@@ -188,5 +189,3 @@ Toàn bộ tài liệu trong `data/` là **dữ liệu mô phỏng** cho một s
 - Tích hợp với hệ quản trị tài liệu để kho tri thức tự cập nhật
 
 ---
-
-**Tác giả:** [Tên của bạn] · [LinkedIn] · [Email]
