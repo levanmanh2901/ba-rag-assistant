@@ -1,20 +1,4 @@
-"""Structure-aware chunking for the ManhPay knowledge base.
 
-Splits the unified Markdown produced by :mod:`src.ingestion` along its H1/H2
-headings instead of at a fixed character count, so a chunk always corresponds to
-one meaningful section of a document::
-
-    {"chunk_id": str, "content": str, "doc_id": str, "metadata": dict}
-
-Two rules drive the whole design:
-
-1. **A table never becomes a chunk of its own.** It stays with the heading and
-   the prose of its section — the numbers in a fee/limit table are meaningless
-   without them, and a chunk of bare digits embeds terribly.
-2. **A section is only split when it would be truncated by the embedding model**
-   (see ``MAX_CHUNK_CHARS``), and even then only at safe boundaries: blank lines
-   between blocks, or whole table rows with the header repeated.
-"""
 
 from __future__ import annotations
 
