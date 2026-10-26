@@ -142,7 +142,7 @@ Câu hỏi → Lọc metadata → Truy xuất lai (Vector + BM25 + bù điểm b
 
 | Rủi ro | Mức độ | Biện pháp |
 |--------|--------|-----------|
-| Dữ liệu mô phỏng chưa đối chiếu với nghiệp vụ thật | Cao | Đang bổ sung bảng đối chiếu với nguồn công khai và thẩm định bởi người có chuyên môn |
+| Dữ liệu mô phỏng chưa đối chiếu với nghiệp vụ thật | Cao | Cần bổ sung bảng đối chiếu với nguồn công khai và thẩm định bởi người có chuyên môn |
 | Mô hình chấm điểm cùng loại với mô hình sinh câu trả lời | Trung bình | Ghi nhận trong báo cáo, đề xuất dùng mô hình giám khảo độc lập |
 | Kho tri thức nhỏ, tham số có thể không tổng quát | Trung bình | Các tham số đều truy ngược được về phép đo, cần đo lại khi mở rộng dữ liệu |
 
